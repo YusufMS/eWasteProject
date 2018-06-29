@@ -8,7 +8,10 @@
 
 
         <div class="card mb-3">
+            
             <div class="card-body">
+            
+                <hr>
                 <div class="card-header"><h4>{{ $post->title }}</h4>
                     <br>
                     <h6 class="card-subtitle mb-2 text-muted">
@@ -39,10 +42,16 @@
                     <br>
                     <br>
                 </div>
-                <div class="row">
-                {{--<a type="button" class="btn btn-info" href="/contactDetails/{{ $post->publisher_id }}"><i class="fa fa-address-book" style="font-size:30px;padding-right: 10px"></i>Contact Details</a>--}}
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-address-book" style="font-size:30px;padding-right: 10px"></i>Contact Details</button>
-                <button type="button" class="btn btn-secondary" ><i class="fa fa-question-circle" style="font-size:30px;padding-left: 10px;"></i>Send Message</button>
+                <div class="float-right">
+                    {{--<a type="button" class="btn btn-info" href="/contactDetails/{{ $post->publisher_id }}"><i class="fa fa-address-book" style="font-size:30px;padding-right: 10px"></i>Contact Details</a>--}}
+
+                    {{-- tooltip added buttons --}}
+                    <a href="/posts" class="btn btn-primary" data-toggle="tooltip" title="Go Back"><i class="fa fa-arrow-left"></i></a>
+                    <span data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-info" data-toggle="tooltip" title="Contact Details"><i class="fa fa-address-card"></i></button>
+                    </span>
+                    <button type="button" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i class="fa fa-envelope"></i></button>
+                    
                 </div>
 
             </div>
@@ -58,7 +67,7 @@
 
 
 
-    {{--<div class="modal fade" id="myModal" role="dialog">--}}
+    {{-- <div class="modal fade" id="myModal" role="dialog">--}}
         {{--<div class="modal-dialog">--}}
 
             {{--<!-- Modal content-->--}}
@@ -76,7 +85,7 @@
             {{--</div>--}}
 
         {{--</div>--}}
-    {{--</div>--}}
+    {{--</div> --}}
 
 
 

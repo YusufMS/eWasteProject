@@ -18,9 +18,9 @@
         <p>Register as a buyer or seller to start managing your e-waste and getting into e-waste transactions</p>
         <p>Login if you already have an account</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="{{ route('register') }}" role="button">Register as a Seller</a>
-            <a class="btn btn-primary btn-lg" href="{{ route('regBuyer') }}" role="button">Register as a Buyer</a>
-            <a class="btn btn-success btn-lg" href="{{ route('login') }}" role="button">Login</a>
+            {{-- <a class="btn btn-primary btn-lg" href="{{ route('register') }}" role="button">Register as a Seller</a> --}}
+            {{-- <a class="btn btn-primary btn-lg" href="{{ route('regBuyer') }}" role="button">Register as a Buyer</a> --}}
+            {{-- <a class="btn btn-success btn-lg" href="{{ route('login') }}" role="button">Login</a> --}}
         </p>
     </div>
     <div class="card ">

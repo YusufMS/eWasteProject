@@ -109,12 +109,14 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Posts::findOrFail($id);
+        // return($post);
         $seller = Seller::findOrFail($post->publisher_id);
+        return view('posts.view', ['post' => $post , 'seller' => $seller]);
         if ($post->publisher_id != auth()->user()->id){
             $post->increment('view_count');
         }
 
-        return view('posts.view', ['post' => $post , 'seller' => $seller]);
+        
     }
 
     /**

@@ -1,4 +1,8 @@
 @extends('layouts.main')
+@section('style')
+
+@endsection
+
 @section('title', 'Add Post')
 @section('body')
     @include('layouts.navbar')
@@ -50,10 +54,11 @@
 
                 <br>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" name="submit">
-                        submit
-                    </button>
+                <div class="form-group float-right">
+                    <a class="btn btn-primary" href="/home" data-toggle="tooltip" title="Go Back Home"><i class="fa fa-arrow-left"></i></a>
+                    <button type="reset" class="btn btn-warning" data-toggle="tooltip" title="Reset Fields"><i class="fa fa-undo"></i></button>
+                    <button type="submit" class="btn btn-success" name="submit" data-toggle="tooltip" title="Create Post"><i class="fa fa-pen"></i></button>
+                    
                 </div>
             </form>
         </div>

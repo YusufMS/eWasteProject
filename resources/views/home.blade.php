@@ -34,43 +34,52 @@
             </div>
         </div>
         <br>
-        <div class="card-deck">
-            <div class="row">
 
-                <div class="col-md-4">
-                    <div class="card text-white bg-dark h-200">
-                        <div class="card-header">WEEE Standards</div>
-                        <img class="card-img-top" src="{{URL::asset('/post_images/homeImage1.jpeg')}}">
-                        <div class="card-body">
-                            <h4 class="card-title">Light card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <footer>
+                <div class="card-deck">
+                        <div class="row">
+            
+                            <div class="col-md-4">
+                                <div class="card text-white bg-dark h-200">
+                                    <div class="card-header">WEEE Standards</div>
+                                    <img class="card-img-top" src="{{URL::asset('/post_images/homeImage1.jpeg')}}">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Light card title</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <button type="button" class="btn btn-success float-right">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-md-4">
+                                <div class="card text-white bg-dark h-200">
+                                    <div class="card-header">International E-Waste Day</div>
+                                    <img class="card-img-top" src="{{URL::asset('/post_images/homeImage2.jpg')}}">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Light card title</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <button type="button" class="btn btn-success float-right">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-md-4">
+                                <div class="card text-white bg-dark">
+                                    <div class="card-header">Header</div>
+                                    <img class="card-img-top" src="{{URL::asset('/post_images/homeImage3.jpg')}}">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Dark card title</h4>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <button type="button" class="btn btn-success float-right">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <br><br>
 
-                <div class="col-md-4">
-                    <div class="card text-white bg-dark h-200">
-                        <div class="card-header">International E-Waste Day</div>
-                        <img class="card-img-top" src="{{URL::asset('/post_images/homeImage2.jpg')}}">
-                        <div class="card-body">
-                            <h4 class="card-title">Light card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card text-white bg-dark">
-                        <div class="card-header">Header</div>
-                        <img class="card-img-top" src="{{URL::asset('/post_images/homeImage3.jpg')}}">
-                        <div class="card-body">
-                            <h4 class="card-title">Dark card title</h4>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </footer>
+        
 
 
     </div>
