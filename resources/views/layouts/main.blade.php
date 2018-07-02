@@ -5,7 +5,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="{{ asset('dropify/css/dropify.css' )}}"> -->
+    <!-- <link rel="stylesheet" href="{{ asset('dropify/css/dropify.css' )}}"> -->
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
     <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">

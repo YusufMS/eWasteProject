@@ -5,6 +5,7 @@
     <br>
     <br>
     <div class="container">
+            @include('partials.messages')
     <!--Panel-->
     <div class="card ">
         <div class="card-header black white-text">
@@ -80,7 +81,7 @@
             <br>
             <div class="float-right">
                 <a class="btn btn-primary" href="/home" data-toggle="tooltip" title="Go Back Home"><i class="fa fa-arrow-left"></i></a>
-                <a class="btn btn-info" href="" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-info" href="{{asset('profile/' . $userlog->id . '/edit')}}" data-toggle="tooltip" title="Edit Profile"><i class="fa fa-edit"></i></a>
             </div>
               
             </div>

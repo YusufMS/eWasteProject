@@ -71,7 +71,9 @@ Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsell
 
 
 
-Route::get('profile/{id}', 'userprofileController@profileInfo');
+Route::get('profile/{id}', ['uses' => 'userprofileController@profileInfo']);
+Route::get('profile/{id}/edit', ['uses' => 'userprofileController@profileEdit', 'as'=> 'profileEdit' ]);
+Route::put('profile/{id}', ['uses' => 'userProfileController@profileUpdate', 'as' => 'profileUpdate']);
 
 
 Route::get('search-categories/{id}', 'PostsController@category');
