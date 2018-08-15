@@ -54,7 +54,7 @@ class LoginController extends Controller
 
         if(Auth::attempt($data)){
             //    dd($data);
-            return redirect()->to('/posts/create')->with('success','Succe');
+            return redirect()->to('/posts/create')->with('success','Success');
 
 
         }else{

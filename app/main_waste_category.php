@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use waste;
 
 class main_waste_category extends Model
 {

@@ -20,8 +20,10 @@ class CreatePostTable extends Migration
             $table->text('content')->nullable();
             $table->string('attachment')->nullable();
             $table->unsignedBigInteger('view_count')->default(0);
-            $table->unsignedInteger('publisher_id'); 
+            $table->unsignedInteger('publisher_id');
             $table->unsignedInteger('waste_id');
+            $table->integer('like_dislike')->default(0);
+
 
             $table->timestamps();
             $table->rememberToken();

@@ -15,20 +15,15 @@ class CreateBuyerTable extends Migration
     {
         Schema::create('buyer', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address')->nullable();
-            $table->string('phone', 15);
-            $table->boolean('phone_privacy')->default(0);
             $table->string('type');
-
             $table->integer('rating')->nullable();
-            // $table->unsignedInteger('level')->default(0);
-            $table->text('description')->nullable();
+            $table->integer('subscribe')->nullable();
+
             $table->unsignedInteger('user_id');
 
-            $table->timestamps();
+
             $table->rememberToken();
-            
+            $table->timestamps();
             $table->softDeletes();
 
 

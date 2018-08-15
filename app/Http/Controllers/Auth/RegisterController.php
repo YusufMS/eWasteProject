@@ -7,7 +7,7 @@ use App\seller;
 use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -55,10 +55,11 @@ class RegisterController extends Controller
      * @param  array $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
 
-        $this->validate($data, [
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
@@ -66,6 +67,27 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+
+
+    protected function create(array $data)
+    {
+
+
+
+
+
+//        $data->validate([
+//            'name' => 'required|string|max:255',
+//            'address' => 'required|string|max:255',
+//            'phone' => 'required|string|max:15',
+//            'description' => 'text | max:1000',
+//            'email' => 'required|string|email|max:255|unique:users',
+//            'password' => 'required|string|min:6|confirmed',
+//        ]);
+
+
+
 
 
         $user = DB::table('user')->select('id')->where('email', $data['email'])->where('password', $data['password'])->get();
@@ -73,28 +95,24 @@ class RegisterController extends Controller
             $id = $user_id->id;
 
         if ($user) {
-            return seller::create([
-                'name' => $data['name'],
-                'address' => $data['address'],
-                'phone' => $data['tpno'],
-                'description' => $data['description'],
-                'user_id' => $id
-            ]);
+
+            return redirect()->to('/register')->with('error', 'You have already registered.');
+
+
 
         } else {
+
+
             return User::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
-                '_usertype' => "seller"
-            ]);
-
-            return seller::create([
+                '_usertype' => "seller",
                 'name' => $data['name'],
                 'address' => $data['address'],
                 'phone' => $data['tpno'],
                 'description' => $data['description'],
-                'user_id' => $id
             ]);
+
 
         }
 

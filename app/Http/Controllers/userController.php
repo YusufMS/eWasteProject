@@ -39,28 +39,35 @@ class userController extends Controller
 
             $table->email = $request->input('email');
             $table->password = bcrypt($request->input('password'));
-            $table->_usertype = 'seller';
+            $table->first_name = $request->input('fname');
+            $table->last_name = $request->input('lname');
+            $table->address = $request->input('address');
+            $table->phone = $request->input('tpno');
+            $table->description = $request->input('description');
+            $table->_usertype = $request->input('userType');
+
             $table->save();
 
 
-            $user = DB::table('user')->select('id')->where('email', $request->input('email'))->get();
+
+            $user = DB::table('user')->select('id', '_usertype')->where('email', $request->input('email'))->get();
+            foreach ($user as $usr)
+                $id = $usr->id;
+            $uType = $usr->_usertype;
+
+            if ($uType == "seller") {
+
+                return redirect()->to('/login')->with('success', 'Successfully registered');
 
 
-            $seller = new Seller();
-            $seller->name = $request->input('name');
-            $seller->address = $request->input('address');
-            $seller->phone = $request->input('tpno');
-            $seller->description = $request->input('description');
+            }else{
+                $buyerType = $request->input('buyerType');
+                DB::table('buyer')->insert(
+                    ['type' => $buyerType, 'user_id' => $id]
+                );
 
-
-            foreach ($user as $user_id)
-                $id = $user_id->id;
-
-            $seller->user_id = $id;
-
-            $seller->save();
-
-            return redirect()->to('/login')->with('success', 'Successfully registered');
+                return redirect()->to('/login')->with('success', 'Successfully registered');
+            }
         }
 
     }
@@ -68,7 +75,6 @@ class userController extends Controller
 
     public function login()
     {
-        return('123');
         return view('auth.login');
     }
 
@@ -93,7 +99,7 @@ class userController extends Controller
                 if ($type->_usertype == 'seller') {
 
 
-                    return redirect('/home')->with('success', 'You are successfully logged in.');
+                    return redirect('/sellerHome')->with('success', 'You are successfully logged in.');
 
                 }elseif($type->_usertype == 'admin'){
 
@@ -101,7 +107,7 @@ class userController extends Controller
 
                 }
                 else {
-                    return redirect('/home')->with('success', 'You are successfully logged in.');
+                    return redirect('/buyerHome')->with('success', 'You are successfully logged in.');
                 }
             }
         } else {

@@ -1,17 +1,61 @@
 @extends('layouts.main')
 
 @section('body')
+
+    <script>
+        function selectUser(that) {
+            if (that.value == "buyer" || that.value == "buyer/seller") {
+//                alert("check");
+                document.getElementById("buyertype").style.display = "block";
+            } else {
+                document.getElementById("buyertype").style.display = "none";
+            }
+        }
+
+
+        var check = function() {
+            if (document.getElementById("password").value ==
+                document.getElementById("password_confirmation").value) {
+                document.getElementById("message").style.color = 'green';
+                document.getElementById("message").innerHTML = 'Match with the Password';
+            } else {
+                document.getElementById("message").style.color = 'red';
+                document.getElementById("message").innerHTML = 'Not match with the Password Field';
+            }
+        }
+
+        var checkPhoneNo = function() {
+            var phone = document.getElementById("tpno");
+            var RE = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            if(!phone.value.match(RE))
+            {
+                document.getElementById("tpmessage").style.color = 'red';
+                document.getElementById("tpmessage").innerHTML = 'Invalid Phone Number';
+            }else {
+                document.getElementById("tpmessage").style.color = 'green';
+                document.getElementById("tpmessage").innerHTML = 'Valid Phone Number';
+            }
+        }
+    </script>
+
+
     @include('layouts.navbar')
     <br>
     <br>
     <div class="container">
 
+
         @include('partials.messages')
 
-        @foreach($errors->all() as $error)
-            {{ $error }}
-
-        @endforeach
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
 
         <div class="row justify-content-center">
@@ -23,115 +67,125 @@
                         <form method="POST" action="{{ route('signup') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                <label for="fname"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text"
-                                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="fname" type="text" class="form-control" name="fname" required>
 
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                    @endif
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email"
-                                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                           name="email" value="{{ old('email') }}" required>
+                                    <input id="lname" type="text" class="form-control" name="lname" required>
 
-                                    @if ($errors->has('email'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                           name="password" required>
+                                    <input id="email" type="email" class="form-control" name="email" required>
 
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                           name="password_confirmation" required>
+                                    <input id="password" type="password" class="form-control" name="password"  required>
+
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" onkeyup='check()' required>
+                                    <span id='message'></span>
+
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="tpno"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Telephone Number') }}</label>
+                                <label for="tpno" class="col-md-4 col-form-label text-md-right">{{ __('Telephone Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="tpno" type="text"
-                                           class="form-control{{ $errors->has('tpno') ? ' is-invalid' : '' }}"
-                                           name="tpno" value="{{ old('tpno') }}" required>
+                                    <input id="tpno" type="text" class="form-control" name="tpno" required onkeyup='checkPhoneNo()'>
+                                    <span id='tpmessage'></span>
 
-                                    @if ($errors->has('tpno'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('tpno') }}</strong>
-                                    </span>
-                                    @endif
+
+
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="address" type="textarea"
-                                           class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}"
-                                           name="address" value="{{ old('address') }}" required>
+                                           class="form-control"
+                                           name="address" required>
 
-                                    @if ($errors->has('address'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                    @endif
+
+
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="description"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+                                <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="description" type="textarea"
-                                           class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                                           name="description" value="{{ old('description') }}">
+                                           class="form-control"
+                                           name="description">
 
-                                    @if ($errors->has('description'))
-                                        <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
-                                    @endif
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="userType" class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
+
+                                <div class="col-md-6">
+                                    <select class="form-control" name="userType" id="userType"
+                                            onchange="selectUser(this);">
+                                        <option disabled selected>Select User</option>
+                                        <option value="buyer">Buyer</option>
+                                        <option value="seller">Seller</option>
+                                        <option value="buyer/seller">Buyer/Seller</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group " id="buyertype" style="display: none;">
+                                <div class="row">
+                                <label for="buyerType"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Buyer Type') }}</label>
+
+                                <div class="col-md-6">
+                                    <select class="form-control" name="buyerType" id="buyerType">
+                                        <option disabled selected>Select User</option>
+                                        <option>Exporter</option>
+                                        <option>Government Body</option>
+                                        <option>Collecting Agent</option>
+                                        <option>Local Company</option>
+
+                                    </select>
+                                </div>
                                 </div>
                             </div>
 

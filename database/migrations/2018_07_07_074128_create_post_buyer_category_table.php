@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentTable extends Migration
+class CreatePostBuyerCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateCommentTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment', function (Blueprint $table) {
+        Schema::create('post_buyer_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('comment_text');
-            $table->unsignedInteger('post_id');
+            $table->string('buyer_category');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('post_id');
+
             $table->timestamps();
 
 
@@ -25,10 +26,11 @@ class CreateCommentTable extends Migration
                 ->references('id')->on('user')
                 ->onDelete('cascade');
 
-
             $table->foreign('post_id')
-            ->references('id')->on('post')
-            ->onDelete('cascade');
+                ->references('id')->on('post')
+                ->onDelete('cascade');
+
+
         });
     }
 
@@ -39,6 +41,6 @@ class CreateCommentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment');
+        Schema::dropIfExists('post_buyer_category');
     }
 }

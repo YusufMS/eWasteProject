@@ -17,7 +17,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">
                         <div class="row">
                             <div class="col-sm-7">
-                                Published by : {{ $post->publisher_id }}
+                                Published by : {{ $post->user->email }}
                             </div>
                             <div class="col-sm-5">
                                 Created on: {{ date('F d, Y', strtotime($post->created_at)) }}
@@ -66,30 +66,6 @@
 
 
 
-
-    {{-- <div class="modal fade" id="myModal" role="dialog">--}}
-        {{--<div class="modal-dialog">--}}
-
-            {{--<!-- Modal content-->--}}
-            {{--<div class="modal-content">--}}
-                {{--<div class="modal-header">--}}
-                    {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-                    {{--<h4 class="modal-title">Modal Header</h4>--}}
-                {{--</div>--}}
-                {{--<div class="modal-body">--}}
-                    {{--<p>Some text in the modal.</p>--}}
-                {{--</div>--}}
-                {{--<div class="modal-footer">--}}
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-        {{--</div>--}}
-    {{--</div> --}}
-
-
-
-
     <div class="modal" id="myModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -102,14 +78,18 @@
                 <div class="modal-body">
 
 
-                    <form role="form">
-                        <div class="form-group">
-                            <label for="contactno"><i class="fa fa-phone" style="margin-right: 10px"></i>Contact Number</label>
-                            <input type="text" readonly class="form-control" id="contactno" value="{{ $seller->phone }}">
+                  <form role="form">
+                        <div class="form-group form-inline">
+                            <i class="fa fa-phone" style="margin-right: 10px"></i>
+                            <div id="contactno" style="margin-left: 40px; color: darkgreen" data-last={{substr($seller->phone,3,7)}}><b> {{substr($seller->phone,0,3)}}<span>XXXXXXX</span></b></div>
+                            {{--<input type="text" readonly class="form-control" id="contactno" data-last= substr($seller->phone,7) value= substr($seller->phone,3)><span>XXXXXXX</span>--}}
+                            <span class="show-number" style="margin-left: 20px; font-size: small">(Click to show phone number)</span>
                         </div>
-                        <div class="form-group">
-                            <label for="address"><i class="fa fa-location-arrow" style="margin-right: 10px"></i>Address</label>
-                            <input type="text" readonly class="form-control" id="address" value="{{ $seller->address }}" >
+
+                        <div class="form-group form-inline">
+                            <i class="fa fa-location-arrow" style="margin-right: 10px"></i>
+                            {{--<input type="text" readonly class="form-control" id="address" value="{{ $seller->address }}" >--}}
+                            <div id="address" style="margin-left: 40px; color: darkgreen"><b>{{ $seller->address }}</b> </div>
                         </div>
                         </form>
                 </div>
@@ -135,4 +115,14 @@
     </div>
 
     </div>
+
+
+    <script type="text/javascript">
+        $('#contactno').click(function() {
+            $(this).find('span').text( $(this).data('last') );
+        });
+
+    </script>
+
+
 @endsection

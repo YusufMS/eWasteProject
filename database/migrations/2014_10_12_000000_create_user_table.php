@@ -17,8 +17,12 @@ class CreateUserTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address');
+            $table->string('phone', 10)->nullable();
+            $table->text('description')->nullable();
             $table->string('_usertype');
-//            $table->usertype();
             $table->rememberToken();
             $table->timestamps();
         });
