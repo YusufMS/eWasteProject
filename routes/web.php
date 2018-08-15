@@ -18,7 +18,7 @@ Route::get('/', function () {
 // Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/buyerHome', 'HomeController@buyerIndex')->name('buyerHome')->middleware('auth');
+Route::get('/buyerHome', 'buyerController@index')->name('buyerHome')->middleware('auth');
 Route::get('/sellerHome', 'HomeController@sellerIndex')->name('sellerHome')->middleware('auth');
 Route::get('/register',['uses'=>'userController@index']);
 Route::get('/login',['uses'=>'userController@login']);

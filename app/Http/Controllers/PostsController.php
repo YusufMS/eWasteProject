@@ -32,7 +32,7 @@ class PostsController extends Controller
         }*/
         $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 //
-        return view('auth.buyer.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
+        return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
 //        return view('auth.buyer.index', compact('maincategories', $maincategories));
     }
 

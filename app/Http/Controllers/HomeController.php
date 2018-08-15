@@ -27,7 +27,7 @@ class HomeController extends Controller
     }
     public function buyerIndex()
     {
-        return view('auth.buyer.home');
+        return view('buyer.home');
     }
     public function sellerIndex()
     {

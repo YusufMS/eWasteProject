@@ -9,10 +9,6 @@
             <div class="col-sm-4">
 
 
-
-
-
-
             </div>
             <div class="col-sm-8">
 
@@ -26,13 +22,20 @@
                                 {{--<h4 class="card-header">{{ $post->title }}</h4>--}}
                                 <br>
                                 <div class="row">
-                                    <div class="col-sm-4"><img class="img-fluid" src="storage/attachment/{{ $post->attachment }}"  style="max-height: 100px">
+                                    <div class="col-sm-4"><img class="img-fluid"
+                                                               src="storage/attachment/{{ $post->attachment }}"
+                                                               style="max-height: 100px">
                                     </div>
                                     <div class="col-sm-8">
                                         <p class="card-text">
-                                            <h4 style="color: blue">{{ $post->title }}</h4>
-                                            {{ $post->content }}
+                                        <h4 style="color: blue">{{ $post->title }}</h4>
+                                        {{ $post->content }}
                                         </p>
+
+
+                                        <a href="/posts/{{ $post->id }}"
+                                           class="btn btn-info btn-sm float-right">View</a>
+
                                     </div>
                                     <br>
 
@@ -42,7 +45,7 @@
                                 <br>
                                 {{--<a href="/posts/{{ $post->id }}" style="margin-left: 630px;" class="btn btn-info btn-sm">View</a>--}}
 
-                                <a href="/posts/{{ $post->id }}" style="margin-left: 900px;" class="btn btn-info btn-sm">View</a>
+
                             </div>
                         </div>
 

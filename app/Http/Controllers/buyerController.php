@@ -20,7 +20,7 @@ class buyerController extends Controller
 {
 
 
-   // use RegistersUsers;
+    // use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -34,80 +34,82 @@ class buyerController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('guest');
+//    }
 
 
     public function index()
     {
-        return view('auth.buyer.register');
+        return view('buyer.index');
     }
 
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            // 'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:user',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    protected function create(Request $request)
-    {
-
-
-        $checkuser = DB::table('user')->where([
-            ['email', '=', $request->input('email')],
-            ['_usertype', '=', 'user'],
-        ])->exists();
-
-        if ($checkuser) {
-            return redirect()->to('/regBuyer')->with('error', 'There is a user already registered with this email.');
-        } else {
-
-            $user = new User;
-            $user->email = $request->input('email');
-            $user->password = bcrypt($request->input('password'));
-            $user->_usertype = 'buyer';
-            $user->save();
-
-            $user = DB::table('user')->select('id')->where('email', $request->input('email'))->get();
-
-
-            foreach ($user as $user_id)
-                $id = $user_id->id;
-
-            $buyer = new buyer;
-            $buyer->name = $request->input('name');
-            $buyer->address = $request->input('address');
-            $buyer->phone = $request->input('tpno');
-            $buyer->type = $request->input('type');
-            $buyer->description = $request->input('description');
-            $buyer->user_id = $id;
-
-            $buyer->save();
-
-
-            return redirect('login')->with('success', 'success');
-        }
-
-
-    }
-
-
-
-    public function sellerPosts()
-    {
-        $maincat = DB::table('main_waste_category')->get();
-        foreach ($maincat as $main)
-            $subcat = DB::table('waste')->where('main_category_id',$main->id)->get();
-        print_r($subcat);
-        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
+//    protected function validator(array $data)
+//    {
+//        return Validator::make($data, [
+//            // 'name' => 'required|string|max:255',
+//            'email' => 'required|string|email|max:255|unique:user',
+//            'password' => 'required|string|min:6|confirmed',
+//        ]);
+//    }
 //
-        return view('auth.buyer.index', ['posts'=>$posts ,'maincat'=>$maincat, 'subcat'=>$subcat]);
-
-    }
+//    protected function create(Request $request)
+//    {
+//
+//
+//        $checkuser = DB::table('user')->where([
+//            ['email', '=', $request->input('email')],
+//            ['_usertype', '=', 'user'],
+//        ])->exists();
+//
+//        if ($checkuser) {
+//            return redirect()->to('/regBuyer')->with('error', 'There is a user already registered with this email.');
+//        } else {
+//
+//            $user = new User;
+//            $user->email = $request->input('email');
+//            $user->password = bcrypt($request->input('password'));
+//            $user->_usertype = 'buyer';
+//            $user->save();
+//
+//            $user = DB::table('user')->select('id')->where('email', $request->input('email'))->get();
+//
+//
+//            foreach ($user as $user_id)
+//                $id = $user_id->id;
+//
+//            $buyer = new buyer;
+//            $buyer->name = $request->input('name');
+//            $buyer->address = $request->input('address');
+//            $buyer->phone = $request->input('tpno');
+//            $buyer->type = $request->input('type');
+//            $buyer->description = $request->input('description');
+//            $buyer->user_id = $id;
+//
+//            $buyer->save();
+//
+//
+//            return redirect('login')->with('success', 'success');
+//        }
+//
+//
+//    }
+//
+//
+//
+//    public function sellerPosts()
+//    {
+//        $maincat = DB::table('main_waste_category')->get();
+//        foreach ($maincat as $main)
+//            $subcat = DB::table('waste')->where('main_category_id',$main->id)->get();
+//        print_r($subcat);
+//        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
+////
+//        return view('auth.buyer.index', ['posts'=>$posts ,'maincat'=>$maincat, 'subcat'=>$subcat]);
+//
+//    }
+//
+//}
 
 }
