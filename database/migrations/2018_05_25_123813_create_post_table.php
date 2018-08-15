@@ -21,7 +21,7 @@ class CreatePostTable extends Migration
             $table->string('attachment')->nullable();
             $table->unsignedBigInteger('view_count')->default(0);
             $table->unsignedInteger('publisher_id');
-            $table->unsignedInteger('waste_id');
+            $table->unsignedInteger('sub_waste_category_id');
             $table->integer('like_dislike')->default(0);
 
 
@@ -39,8 +39,8 @@ class CreatePostTable extends Migration
                 ->onDelete('cascade');
 
 
-                $table->foreign('waste_id')
-                ->references('id')->on('waste')
+                $table->foreign('sub_waste_category_id')
+                ->references('id')->on('sub_waste_category')
                 ->onDelete('cascade');
 
         });

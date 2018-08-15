@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWasteTable extends Migration
+class CreateSubWasteCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWasteTable extends Migration
      */
     public function up()
     {
-        Schema::create('waste', function (Blueprint $table) {
+        Schema::create('sub_waste_category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('category')->unique;
             $table->string('description')->nullable();;
