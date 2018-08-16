@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcomeIndex');
-});
+Route::get('/', 'HomeController@guestIndex')->name('guestHome');
 
 // Auth::routes();
 

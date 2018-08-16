@@ -8,6 +8,7 @@ use App\User;
 use App\buyer;
 use App\posts;
 use App\subWasteCategory;
+use App\main_waste_category;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,8 @@ class buyerController extends Controller
 
     public function index()
     {
-        return view('buyer.index');
+        $main_categories = main_waste_category::take(6)->get();
+        return view('buyer.index', compact(['main_categories']));
     }
 
 //    protected function validator(array $data)

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\main_waste_category;
+
 class HomeController extends Controller
 {
     /**
@@ -11,10 +13,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -31,6 +29,14 @@ class HomeController extends Controller
     }
     public function sellerIndex()
     {
-        return view('seller.index');
+        $main_categories = main_waste_category::take(6)->get();
+        return view('seller.index', compact(['main_categories']));
+    }
+
+    public function guestIndex()
+    {
+        
+        $main_categories = main_waste_category::take(6)->get();
+        return view('welcomeIndex', compact(['main_categories']));
     }
 }
