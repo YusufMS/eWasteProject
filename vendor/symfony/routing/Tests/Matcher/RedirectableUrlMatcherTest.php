@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Routing\Tests\Matcher;
 
+use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\RequestContext;
 
 class RedirectableUrlMatcherTest extends UrlMatcherTest
 {
@@ -25,6 +25,16 @@ class RedirectableUrlMatcherTest extends UrlMatcherTest
         $matcher = $this->getUrlMatcher($coll);
         $matcher->expects($this->once())->method('redirect')->will($this->returnValue(array()));
         $matcher->match('/foo');
+    }
+
+    public function testExtraTrailingSlash()
+    {
+        $coll = new RouteCollection();
+        $coll->add('foo', new Route('/foo'));
+
+        $matcher = $this->getUrlMatcher($coll);
+        $matcher->expects($this->once())->method('redirect')->will($this->returnValue(array()));
+        $matcher->match('/foo/');
     }
 
     /**
@@ -115,6 +125,16 @@ class RedirectableUrlMatcherTest extends UrlMatcherTest
         $matcher = $this->getUrlMatcher($coll, new RequestContext());
         $matcher->expects($this->once())->method('redirect')->with('/foo', 'foo', 'https')->willReturn(array());
         $this->assertSame(array('_route' => 'foo'), $matcher->match('/foo'));
+    }
+
+    public function testMissingTrailingSlashAndScheme()
+    {
+        $coll = new RouteCollection();
+        $coll->add('foo', (new Route('/foo/'))->setSchemes(array('https')));
+
+        $matcher = $this->getUrlMatcher($coll);
+        $matcher->expects($this->once())->method('redirect')->with('/foo/', 'foo', 'https')->will($this->returnValue(array()));
+        $matcher->match('/foo');
     }
 
     protected function getUrlMatcher(RouteCollection $routes, RequestContext $context = null)

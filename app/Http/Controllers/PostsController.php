@@ -7,7 +7,7 @@ use DB;
 use View;
 use App\main_waste_category;
 use App\user;
-use App\waste;
+use App\sub_waste_category;
 use App\posts;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -23,17 +23,12 @@ class PostsController extends Controller
 
 
     public function index(){
-        $maincategories =  DB::table('main_waste_category')->get();
-//        $subcategories =  DB::table('waste')->get();
-        /*$newArray = [];
-        foreach ($maincategories as $mat){
-            $subcategories= waste::where('main_category_id',$mat->id)->get();
-            $newArray.appen
-        }*/
+        $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
+
         $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 //
         return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
-//        return view('auth.buyer.index', compact('maincategories', $maincategories));
+//
     }
 
 
@@ -41,7 +36,7 @@ class PostsController extends Controller
     {
         $maincategories =  main_waste_category::find($id);
         $subcategories= waste::where('main_category_id',$id)->get();
-        return view('auth.buyer.index')->with($maincategories)->with($subcategories);
+        return view('buyer.index')->with($maincategories)->with($subcategories);
             }
 
     /**
@@ -51,8 +46,8 @@ class PostsController extends Controller
      */
     public function create()
     {
-        // $waste = new Waste();
-        $cat = DB::table('waste')->select('category')->distinct()->get();
+        // $subWasteCategory = new Waste();
+        $cat = DB::table('sub_waste_category')->select('category')->distinct()->get();
 
         return view('posts.create', compact('cat'));
 
@@ -81,7 +76,7 @@ class PostsController extends Controller
 
         }
         $category = $request->input('category');
-        $wasteid = DB::table('waste')->select('id')->where('category', $category)->get();
+        $wasteid = DB::table('sub_waste_category')->select('id')->where('category', $category)->get();
 
         $post = new posts;
 
@@ -91,10 +86,28 @@ class PostsController extends Controller
         $post->attachment = $fileNameToStore;
         foreach ($wasteid as $id)
 
-            $post->waste_id = $id->id;
-        $post->publisher_id = auth()->user()->id;
+            $post->sub_waste_category_id = $id->id;
+            $post->publisher_id = auth()->user()->id;
 
         $post->save();
+
+
+
+
+        $postid = DB::table('post')->select('id')->where('title', $request->input('title'))->get();
+
+        foreach ($postid as $pid)
+
+             $post_id = $pid->id;
+
+
+        $buyerType = $request->input('buyerType');
+        $buyerType = implode(',', $buyerType);
+
+        DB::table('seller_post')->insert(
+            ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
+        );
+
         return redirect()->to('/posts/create')->with('success', 'Successfully posted.');
 
 
@@ -158,6 +171,15 @@ class PostsController extends Controller
     }
 
 
+
+    public function showMyPosts($id)
+    {
+        $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
+
+        $posts = DB::table('post')->where('publisher_id',$id)->orderby('updated_at', 'desc')->paginate(3);
+//
+        return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
+    }
 
 
 }

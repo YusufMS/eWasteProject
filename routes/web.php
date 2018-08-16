@@ -33,6 +33,7 @@ Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('profile/{id}', 'userprofileController@profileInfo');
 Route::get('search-categories/{id}', 'PostsController@category');
+Route::get('showMyPosts/{id}', 'PostsController@showMyPosts');
 
 
 
@@ -47,7 +48,7 @@ Route::post('createBuyer', ['uses'=>'buyerController@create','as'=>'createBuyer'
 
 Route::resource('/chat', 'chatsController')->middleware('auth');
 Route::resource('/posts', 'PostsController')->middleware('auth');
-Route::resource('/wastes', 'WasteController');
+Route::resource('/wastes', 'subCatController');
 Route::resource('/maincat', 'mainCatController');
 Auth ::routes();
 

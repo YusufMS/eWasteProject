@@ -10,6 +10,10 @@ class User extends Authenticatable
     use Notifiable;
 
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
     protected $table = 'user';
 
     /**

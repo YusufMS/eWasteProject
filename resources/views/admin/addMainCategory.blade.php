@@ -22,7 +22,7 @@
 
          <div class="form-group">
              {{ Form::label('Category', 'Waste Type', ['class' => 'form-label'] )}}
-             {{ Form::text('category', null , ['class' => 'form-control', 'placeholder' => 'Enter waste type', 'id' => 'type']) }}
+             {{ Form::text('category', null , ['class' => 'form-control', 'placeholder' => 'subWasteCategory', 'id' => 'type']) }}
          </div>
          
        <div class="row" style="margin-left: -5px;">

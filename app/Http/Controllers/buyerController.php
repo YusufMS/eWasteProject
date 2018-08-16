@@ -7,7 +7,7 @@ use DB;
 use App\User;
 use App\buyer;
 use App\posts;
-use App\waste;
+use App\subWasteCategory;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -102,7 +102,7 @@ class buyerController extends Controller
 //    {
 //        $maincat = DB::table('main_waste_category')->get();
 //        foreach ($maincat as $main)
-//            $subcat = DB::table('waste')->where('main_category_id',$main->id)->get();
+//            $subcat = DB::table('subWasteCategory')->where('main_category_id',$main->id)->get();
 //        print_r($subcat);
 //        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 ////

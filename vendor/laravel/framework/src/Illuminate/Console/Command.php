@@ -2,6 +2,7 @@
 
 namespace Illuminate\Console;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
 use Symfony\Component\Console\Helper\Table;
@@ -245,7 +246,7 @@ class Command extends SymfonyCommand
      * Get the value of a command argument.
      *
      * @param  string|null  $key
-     * @return string|array
+     * @return string|array|null
      */
     public function argument($key = null)
     {
@@ -281,7 +282,7 @@ class Command extends SymfonyCommand
      * Get the value of a command option.
      *
      * @param  string|null  $key
-     * @return string|array
+     * @return string|array|null
      */
     public function option($key = null)
     {
@@ -506,9 +507,11 @@ class Command extends SymfonyCommand
      */
     public function alert($string)
     {
-        $this->comment(str_repeat('*', strlen($string) + 12));
+        $length = Str::length(strip_tags($string)) + 12;
+
+        $this->comment(str_repeat('*', $length));
         $this->comment('*     '.$string.'     *');
-        $this->comment(str_repeat('*', strlen($string) + 12));
+        $this->comment(str_repeat('*', $length));
 
         $this->output->newLine();
     }

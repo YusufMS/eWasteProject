@@ -62,8 +62,11 @@ class userController extends Controller
 
             }else{
                 $buyerType = $request->input('buyerType');
+                $buyerType = implode(',', $buyerType);
+                $webAddress = $request->input('webAddress');
+
                 DB::table('buyer')->insert(
-                    ['type' => $buyerType, 'user_id' => $id]
+                    ['type' => $buyerType, 'user_id' => $id, 'website' => $webAddress]
                 );
 
                 return redirect()->to('/login')->with('success', 'Successfully registered');

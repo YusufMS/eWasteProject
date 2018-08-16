@@ -37,7 +37,7 @@ class CreateSubWasteCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waste');
+        Schema::dropIfExists('subWasteCategory');
     }
 }
 

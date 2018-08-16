@@ -65,6 +65,21 @@ class TestResponse
     }
 
     /**
+     * Assert that the response has a 200 status code.
+     *
+     * @return $this
+     */
+    public function assertOk()
+    {
+        PHPUnit::assertTrue(
+            $this->isOk(),
+            'Response status code ['.$this->getStatusCode().'] does not match expected 200 status code.'
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the response has a not found status code.
      *
      * @return $this
@@ -125,9 +140,7 @@ class TestResponse
         );
 
         if (! is_null($uri)) {
-            PHPUnit::assertEquals(
-                app('url')->to($uri), app('url')->to($this->headers->get('Location'))
-            );
+            $this->assertLocation($uri);
         }
 
         return $this;
@@ -174,6 +187,21 @@ class TestResponse
     }
 
     /**
+     * Assert that the current location header matches the given URI.
+     *
+     * @param  string  $uri
+     * @return $this
+     */
+    public function assertLocation($uri)
+    {
+        PHPUnit::assertEquals(
+            app('url')->to($uri), app('url')->to($this->headers->get('Location'))
+        );
+
+        return $this;
+    }
+
+    /**
      * Asserts that the response contains the given cookie and equals the optional value.
      *
      * @param  string  $cookieName
@@ -193,9 +221,10 @@ class TestResponse
      * @param  string  $cookieName
      * @param  mixed  $value
      * @param  bool  $encrypted
+     * @param  bool  $unserialize
      * @return $this
      */
-    public function assertCookie($cookieName, $value = null, $encrypted = true)
+    public function assertCookie($cookieName, $value = null, $encrypted = true, $unserialize = false)
     {
         PHPUnit::assertNotNull(
             $cookie = $this->getCookie($cookieName),
@@ -209,7 +238,7 @@ class TestResponse
         $cookieValue = $cookie->getValue();
 
         $actual = $encrypted
-            ? app('encrypter')->decrypt($cookieValue) : $cookieValue;
+            ? app('encrypter')->decrypt($cookieValue, $unserialize) : $cookieValue;
 
         PHPUnit::assertEquals(
             $value, $actual,
@@ -438,12 +467,12 @@ class TestResponse
         ));
 
         foreach (Arr::sortRecursive($data) as $key => $value) {
-            $expected = substr(json_encode([$key => $value]), 1, -1);
+            $expected = $this->jsonSearchStrings($key, $value);
 
             PHPUnit::assertTrue(
                 Str::contains($actual, $expected),
                 'Unable to find JSON fragment: '.PHP_EOL.PHP_EOL.
-                "[{$expected}]".PHP_EOL.PHP_EOL.
+                '['.json_encode([$key => $value]).']'.PHP_EOL.PHP_EOL.
                 'within'.PHP_EOL.PHP_EOL.
                 "[{$actual}]."
             );
@@ -470,12 +499,12 @@ class TestResponse
         ));
 
         foreach (Arr::sortRecursive($data) as $key => $value) {
-            $unexpected = substr(json_encode([$key => $value]), 1, -1);
+            $unexpected = $this->jsonSearchStrings($key, $value);
 
             PHPUnit::assertFalse(
                 Str::contains($actual, $unexpected),
                 'Found unexpected JSON fragment: '.PHP_EOL.PHP_EOL.
-                "[{$unexpected}]".PHP_EOL.PHP_EOL.
+                '['.json_encode([$key => $value]).']'.PHP_EOL.PHP_EOL.
                 'within'.PHP_EOL.PHP_EOL.
                 "[{$actual}]."
             );
@@ -497,7 +526,7 @@ class TestResponse
         ));
 
         foreach (Arr::sortRecursive($data) as $key => $value) {
-            $unexpected = substr(json_encode([$key => $value]), 1, -1);
+            $unexpected = $this->jsonSearchStrings($key, $value);
 
             if (! Str::contains($actual, $unexpected)) {
                 return $this;
@@ -513,6 +542,24 @@ class TestResponse
     }
 
     /**
+     * Get the strings we need to search for when examining the JSON.
+     *
+     * @param  string  $key
+     * @param  string  $value
+     * @return array
+     */
+    protected function jsonSearchStrings($key, $value)
+    {
+        $needle = substr(json_encode([$key => $value]), 1, -1);
+
+        return [
+            $needle.']',
+            $needle.'}',
+            $needle.',',
+        ];
+    }
+
+    /**
      * Assert that the response has a given JSON structure.
      *
      * @param  array|null  $structure
@@ -522,7 +569,7 @@ class TestResponse
     public function assertJsonStructure(array $structure = null, $responseData = null)
     {
         if (is_null($structure)) {
-            return $this->assertJson($this->json());
+            return $this->assertExactJson($this->json());
         }
 
         if (is_null($responseData)) {
@@ -588,6 +635,34 @@ class TestResponse
             PHPUnit::assertTrue(
                 isset($errors[$key]),
                 "Failed to find a validation error in the response for key: '{$key}'"
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Assert that the response has no JSON validation errors for the given keys.
+     *
+     * @param  string|array  $keys
+     * @return $this
+     */
+    public function assertJsonMissingValidationErrors($keys)
+    {
+        $json = $this->json();
+
+        if (! array_key_exists('errors', $json)) {
+            PHPUnit::assertArrayNotHasKey('errors', $json);
+
+            return $this;
+        }
+
+        $errors = $json['errors'];
+
+        foreach (Arr::wrap($keys) as $key) {
+            PHPUnit::assertFalse(
+                isset($errors[$key]),
+                "Found unexpected validation error for key: '{$key}'"
             );
         }
 
@@ -782,6 +857,18 @@ class TestResponse
                 PHPUnit::assertContains($value, $errors->get($key, $format));
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Assert that the session has no errors.
+     *
+     * @return $this
+     */
+    public function assertSessionHasNoErrors()
+    {
+        $this->assertSessionMissing('errors');
 
         return $this;
     }

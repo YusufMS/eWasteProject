@@ -16,7 +16,7 @@
 
     <div class="card">
      <div class="card-body">
-         {!! Form::open(['action' => ['WasteController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+         {!! Form::open(['action' => ['subCatController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 
 
 
@@ -43,13 +43,13 @@
 
          <div class="form-group">
              {{ Form::label('subcategory', 'Sub Category:', ['class' => 'form-label'] )}}
-             {{ Form::text('subcategory', null , ['class' => 'form-control', 'placeholder' => 'Enter waste type', 'id' => 'type']) }}
+             {{ Form::text('subcategory', null , ['class' => 'form-control', 'placeholder' => 'subWasteCategory', 'id' => 'type']) }}
          </div>
 
 
             <div class="form-group">
              {{ Form::label('description', 'Description:', ['class' => 'form-label'] )}}
-             {{ Form::textarea('description', null , ['class' => 'form-control', 'placeholder' => 'Description about the waste', 'id' => 'type']) }}
+             {{ Form::textarea('description', null , ['class' => 'form-control', 'placeholder' => 'subWasteCategory', 'id' => 'type']) }}
          </div>
 
 

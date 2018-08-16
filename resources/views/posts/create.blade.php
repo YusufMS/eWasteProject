@@ -25,7 +25,7 @@
                 {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="category">Category</label>
+                    <label for="category">E waste Category</label>
                     <select class="form-control" name="category">
                         <option placeholder="<select>" disabled selected>select</option>
 
@@ -35,10 +35,35 @@
                         @endforeach
                     </select>
                 </div>
-                {{-- topic--}}
+
                 <div class="form-group">
-                    <label for="topic">Title</label>
-                    <input id="topic" class="form-control" type="text" name="title" required>
+                    <label for="buyerType">Buyer Category</label>
+                <div class="form-check" style="margin-left:20px">
+
+
+                        <input class="form-check-input" name="buyerType[]" id="buyerType"
+                               type="checkbox" value="Exporter">
+                        Exporter
+                        <br>
+                        <input class="form-check-input" name="buyerType[]" id="buyerType"
+                               type="checkbox" value="Government">
+                        Government
+                        <br>
+                        <input class="form-check-input" name="buyerType[]" id="buyerType"
+                               type="checkbox" value="Collecting Agent">
+                        Collecting Agent
+                        <br>
+                        <input class="form-check-input" name="buyerType[]" id="buyerType"
+                               type="checkbox" value="Local Company">
+                        Local Company
+
+                </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="topic">E waste Name</label>
+                    <input id="topic" class="form-control" type="text" name="title" required placeholder="nokia 7 mobile phone">
                 </div>
                 {{-- desc --}}
                 <div class="form-group ">

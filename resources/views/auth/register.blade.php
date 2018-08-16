@@ -13,7 +13,7 @@
         }
 
 
-        var check = function() {
+        var check = function () {
             if (document.getElementById("password").value ==
                 document.getElementById("password_confirmation").value) {
                 document.getElementById("message").style.color = 'green';
@@ -24,14 +24,13 @@
             }
         }
 
-        var checkPhoneNo = function() {
+        var checkPhoneNo = function () {
             var phone = document.getElementById("tpno");
             var RE = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-            if(!phone.value.match(RE))
-            {
+            if (!phone.value.match(RE)) {
                 document.getElementById("tpmessage").style.color = 'red';
                 document.getElementById("tpmessage").innerHTML = 'Invalid Phone Number';
-            }else {
+            } else {
                 document.getElementById("tpmessage").style.color = 'green';
                 document.getElementById("tpmessage").innerHTML = 'Valid Phone Number';
             }
@@ -77,7 +76,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
+                                <label for="lname"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="lname" type="text" class="form-control" name="lname" required>
@@ -87,7 +87,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                <label for="email"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email" required>
@@ -97,22 +98,23 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <label for="password"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password"  required>
-
-
+                                    <input id="password" type="password" class="form-control" name="password" required>
 
 
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" onkeyup='check()' required>
+                                    <input type="password" class="form-control" name="password_confirmation"
+                                           id="password_confirmation" onkeyup='check()' required>
                                     <span id='message'></span>
 
                                 </div>
@@ -120,19 +122,21 @@
 
 
                             <div class="form-group row">
-                                <label for="tpno" class="col-md-4 col-form-label text-md-right">{{ __('Telephone Number') }}</label>
+                                <label for="tpno"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Telephone Number') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="tpno" type="text" class="form-control" name="tpno" required onkeyup='checkPhoneNo()'>
+                                    <input id="tpno" type="text" class="form-control" name="tpno" required
+                                           onkeyup='checkPhoneNo()'>
                                     <span id='tpmessage'></span>
-
 
 
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                                <label for="address"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="address" type="textarea"
@@ -140,13 +144,13 @@
                                            name="address" required>
 
 
-
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
+                                <label for="description"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="description" type="textarea"
@@ -158,7 +162,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="userType" class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
+                                <label for="userType"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('User Type') }}</label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="userType" id="userType"
@@ -173,31 +178,70 @@
                             </div>
                             <div class="form-group " id="buyertype" style="display: none;">
                                 <div class="row">
-                                <label for="buyerType"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Buyer Type') }}</label>
+                                    <label for="buyerType"
+                                           class="col-md-4 col-form-label text-md-right">{{ __('Buyer Type') }}</label>
 
-                                <div class="col-md-6">
-                                    <select class="form-control" name="buyerType" id="buyerType">
-                                        <option disabled selected>Select User</option>
-                                        <option>Exporter</option>
-                                        <option>Government Body</option>
-                                        <option>Collecting Agent</option>
-                                        <option>Local Company</option>
+                                    <div class="col-md-6">
 
-                                    </select>
+
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                       type="checkbox" value="Exporter">
+                                                Exporter
+                                                <br>
+                                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                       type="checkbox" value="Government">
+                                                Government
+                                                <br>
+                                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                       type="checkbox" value="Collecting Agent">
+                                                Collecting Agent
+                                                <br>
+                                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                       type="checkbox" value="Local Company">
+                                                Local Company
+                                            </label>
+                                        </div>
+
+
+                                        {{--<select class="form-control" name="buyerType" id="buyerType">--}}
+                                        {{--<option disabled selected>Select User</option>--}}
+                                        {{--<option>Exporter</option>--}}
+                                        {{--<option>Government Body</option>--}}
+                                        {{--<option>Collecting Agent</option>--}}
+                                        {{--<option>Local Company</option>--}}
+
+                                        {{--</select>--}}
+                                    </div>
                                 </div>
+
+<br>
+                                <div class="row">
+                                    <label for="buyerType"
+                                           class="col-md-4 col-form-label text-md-right">{{ __('Web Address(if have)') }}</label>
+
+                                    <div class="col-md-6">
+
+                                        <input class="form-control" name="webAddress" id="webAddress" type="url">
+
+
+                                    </div>
                                 </div>
+                                <br>
+                                <br>
+                                <br>
                             </div>
 
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Register') }}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+
                         </form>
                     </div>
                 </div>

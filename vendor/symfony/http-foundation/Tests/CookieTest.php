@@ -154,6 +154,18 @@ class CookieTest extends TestCase
         $cookie = new Cookie('foo', 'bar', time() - 20);
 
         $this->assertTrue($cookie->isCleared(), '->isCleared() returns true if the cookie has expired');
+
+        $cookie = new Cookie('foo', 'bar');
+
+        $this->assertFalse($cookie->isCleared());
+
+        $cookie = new Cookie('foo', 'bar', 0);
+
+        $this->assertFalse($cookie->isCleared());
+
+        $cookie = new Cookie('foo', 'bar', -1);
+
+        $this->assertFalse($cookie->isCleared());
     }
 
     public function testToString()
@@ -201,6 +213,9 @@ class CookieTest extends TestCase
 
         $cookie = Cookie::fromString('foo=bar', true);
         $this->assertEquals(new Cookie('foo', 'bar', 0, '/', null, false, false), $cookie);
+
+        $cookie = Cookie::fromString('foo', true);
+        $this->assertEquals(new Cookie('foo', null, 0, '/', null, false, false), $cookie);
     }
 
     public function testFromStringWithHttpOnly()
