@@ -11,14 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcomeIndex');
-});
+Route::get('/', 'HomeController@guestIndex')->name('guestHome');
 
 // Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/buyerHome', 'buyerController@index')->name('buyerHome')->middleware('auth');
+Route::get('/buyerHome', 'HomeController@buyerIndex')->name('buyerHome')->middleware('auth');
 Route::get('/sellerHome', 'HomeController@sellerIndex')->name('sellerHome')->middleware('auth');
 Route::get('/register',['uses'=>'userController@index']);
 Route::get('/login',['uses'=>'userController@login']);
@@ -32,6 +30,9 @@ Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers'])
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('profile/{id}', 'userprofileController@profileInfo');
+Route::get('profile/{id}/edit', 'userprofileController@profileEdit');
+Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate');
+
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
 
