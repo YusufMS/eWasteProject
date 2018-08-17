@@ -26,7 +26,7 @@ class HomeController extends Controller
         if (Session::get('user_role') == 'seller'){
             return view('welcomeSeller', compact(['main_categories']));
         } elseif(Session::get('user_role') == 'buyer'){
-            return view('buyer.index', compact(['main_categories']));            
+            return view('welcomeBuyer', compact(['main_categories']));            
         }
         
     }
@@ -40,9 +40,6 @@ class HomeController extends Controller
     {
         Session::put('user_role', 'seller');
         return redirect('/home');
-
-        $main_categories = main_waste_category::take(6)->get();
-        return view('seller.index', compact(['main_categories']));
     }
 
     public function guestIndex()

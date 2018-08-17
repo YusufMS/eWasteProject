@@ -5,23 +5,28 @@
     <br>
     <br>
     <div class="container">
+            @include('partials.messages')
     <!--Panel-->
     <div class="card ">
         <div class="card-header black white-text">
-            <h5>
+            <h3 class="text-center font-weight-bold">
                 Personal Profile
-            </h5>
+            </h3>
         </div>
         <div class="card-body">
-                <form class="form-horizontal" method="POST" action="{{ route('profileUpdate', $userlog->id) }}"
+                <form class="form-horizontal" method="POST" action="{{ route('profileUpdate', $common_user_info->id) }}"
                 enctype="multipart/form-data">
               {{ csrf_field() }}
                 {{form::hidden('_method', 'PUT')}}
 
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" class="form-control" type="text" value="{{$user->name}}" name="name" required>
+                    <label for="name">First Name</label>
+                    <input id="name" class="form-control" type="text" value="{{$common_user_info->first_name}}" name="firstName" required>
                 </div>
+                <div class="form-group">
+                        <label for="name">Last Name</label>
+                        <input id="name" class="form-control" type="text" value="{{$common_user_info->last_name}}" name="lastName" required>
+                    </div>
 
                 {{-- Should Enable after fixing the login --}}
                 {{-- <div class="form-group">
@@ -29,25 +34,30 @@
                     <input id="email" class="form-control" type="text" value="{{$userlog->email}}" name="email" required>
                 </div> --}}
 
-                {{-- should be added after fixing login
                 <div class="form-group">
                     <label for="profileType">Profile Type</label>
                     <select class="form-control" name="profileType" required>
-                        @if($userlog->_usertype == 'seller')
+                        @if($common_user_info->_usertype == 'seller')
                             <option value="buyer" name="category">Buyer</option>
                             <option value="seller" name="category" selected>Seller</option>
-                        @elseif($userlog->_usertype == 'buyer')
+                            <option value="buyer/seller" name="category">Buyer / Seller</option>
+                        @elseif($common_user_info->_usertype == 'buyer')
                             <option value="buyer" name="category" selected>Buyer</option>
                             <option value="seller" name="category">Seller</option>
+                            <option value="buyer/seller" name="category">Buyer / Seller</option>
+                        @elseif($common_user_info->_usertype == 'buyer/seller')
+                            <option value="buyer" name="category">Buyer</option>
+                            <option value="seller" name="category">Seller</option>
+                            <option value="buyer/seller" name="category" selected>Buyer / Seller</option>
                         @endif
                     </select>
-                </div> --}}
+                </div>
 
                 
                 <div class="form-group">
                     <label for="address">Address</label>
-                    @if (isset($user->address))
-                    <input id="address" class="form-control" type="text" value="{{$user->address}}" name="address" required>
+                    @if (isset($common_user_info->address))
+                    <input id="address" class="form-control" type="text" value="{{$common_user_info->address}}" name="address" required>
                     @else
                     <input id="address" class="form-control" type="text" value="" name="address" required>
                     @endif
@@ -57,8 +67,8 @@
                 
                 <div class="form-group">
                     <label for="telephone">Contact Number</label>
-                    @if (isset($user->phone))
-                    <input id="telephone" class="form-control" type="text" value="{{$user->phone}}" name="telephone" required>
+                    @if (isset($common_user_info->phone))
+                    <input id="telephone" class="form-control" type="text" value="{{$common_user_info->phone}}" name="telephone" required>
                     @else
                     <input id="telephone" class="form-control" type="text" value="" name="telephone" required>
                     @endif
@@ -75,8 +85,8 @@
                 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    @if (isset($user->description))
-                    <textarea id="description" class="form-control" name="description">{{$user->description}}</textarea>
+                    @if (isset($common_user_info->description))
+                    <textarea id="description" class="form-control" name="description">{{$common_user_info->description}}</textarea>
                     @else
                     <textarea id="description" class="form-control" name="description"></textarea>
                     @endif
