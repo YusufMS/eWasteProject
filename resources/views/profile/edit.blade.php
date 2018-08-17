@@ -13,15 +13,19 @@
             </h5>
         </div>
         <div class="card-body">
-                <form class="form-horizontal" method="POST" action="{{ route('profileUpdate', $userlog->id) }}"
+                <form class="form-horizontal" method="POST" action="{{ route('profileUpdate', $common_user_info->id) }}"
                 enctype="multipart/form-data">
               {{ csrf_field() }}
                 {{form::hidden('_method', 'PUT')}}
 
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name" class="form-control" type="text" value="{{$user->name}}" name="name" required>
+                    <label for="name">First Name</label>
+                    <input id="name" class="form-control" type="text" value="{{$common_user_info->first_name}}" name="firstName" required>
                 </div>
+                <div class="form-group">
+                        <label for="name">Last Name</label>
+                        <input id="name" class="form-control" type="text" value="{{$common_user_info->last_name}}" name="lastName" required>
+                    </div>
 
                 {{-- Should Enable after fixing the login --}}
                 {{-- <div class="form-group">
@@ -46,8 +50,8 @@
                 
                 <div class="form-group">
                     <label for="address">Address</label>
-                    @if (isset($user->address))
-                    <input id="address" class="form-control" type="text" value="{{$user->address}}" name="address" required>
+                    @if (isset($common_user_info->address))
+                    <input id="address" class="form-control" type="text" value="{{$common_user_info->address}}" name="address" required>
                     @else
                     <input id="address" class="form-control" type="text" value="" name="address" required>
                     @endif
@@ -57,8 +61,8 @@
                 
                 <div class="form-group">
                     <label for="telephone">Contact Number</label>
-                    @if (isset($user->phone))
-                    <input id="telephone" class="form-control" type="text" value="{{$user->phone}}" name="telephone" required>
+                    @if (isset($common_user_info->phone))
+                    <input id="telephone" class="form-control" type="text" value="{{$common_user_info->phone}}" name="telephone" required>
                     @else
                     <input id="telephone" class="form-control" type="text" value="" name="telephone" required>
                     @endif
@@ -75,8 +79,8 @@
                 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    @if (isset($user->description))
-                    <textarea id="description" class="form-control" name="description">{{$user->description}}</textarea>
+                    @if (isset($common_user_info->description))
+                    <textarea id="description" class="form-control" name="description">{{$common_user_info->description}}</textarea>
                     @else
                     <textarea id="description" class="form-control" name="description"></textarea>
                     @endif
