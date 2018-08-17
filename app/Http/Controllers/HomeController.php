@@ -49,6 +49,6 @@ class HomeController extends Controller
     {
         
         $main_categories = main_waste_category::take(6)->get();
-        return view('welcomeIndex', compact(['main_categories']));
+        return view('welcomeGuest', compact(['main_categories']));
     }
 }
