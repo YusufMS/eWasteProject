@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\user;
 use App\seller;
 use DB;
 use App\Http\Controllers\Controller;
@@ -53,7 +53,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
-     * @return \App\User
+     * @return \App\user
      */
 
 
@@ -103,7 +103,7 @@ class RegisterController extends Controller
         } else {
 
 
-            return User::create([
+            return user::create([
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 '_usertype' => "seller",

@@ -46,7 +46,7 @@
 
                 @if(count($posts) > 0)
 
-                    @foreach($posts as $post)
+                    @foreach($posts as $postDetails)
 
                         <div class="card mb-3">
 
@@ -59,19 +59,21 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-sm-4"><img class="img-fluid"
-                                                               src="/storage/attachment/{{ $post->attachment }}"
+                                                               src="/storage/attachment/{{ $postDetails->attachment }}"
                                                                style="max-height: 100px">
                                     </div>
                                     <div class="col-sm-8">
                                         <p class="card-text">
-                                        <h4 style="color: blue">{{ $post->title }}</h4>
-                                        {{ $post->sub_waste_category->category }}
+                                        <h4 style="color: blue">{{ $postDetails->title }}</h4>
+{{--                                        {{category add krnna oni}}--}}
+{{--                                        {{ $posts->sub_waste_category->category }}--}}
                                         </p>
 
 
-                                        <a href="/posts/{{ $post->id }}"
+                                        <a href="/posts/{{ $postDetails->id }}"
                                            class="btn btn-info btn-sm float-right">View</a>
 
+                                        {{--{{ dd($postDetails)}}--}}
                                     </div>
                                     <br>
 

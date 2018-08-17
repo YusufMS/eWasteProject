@@ -33,7 +33,7 @@ Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('profile/{id}', 'userprofileController@profileInfo');
 Route::get('search-categories/{id}', 'PostsController@category');
-Route::get('showMyPosts/{id}', 'PostsController@showMyPosts');
+Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
 
 
 

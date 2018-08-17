@@ -40,7 +40,7 @@
                                  style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
                                 <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
                                 <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
-                                <a class="dropdown-item" href="showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
+                                <a class="dropdown-item" href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
                             </div>
                         </li>
 
@@ -50,8 +50,8 @@
                         <li class="nav-item dropdown shown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Posts</a>
                             <div class="dropdown-menu shown">
-                                <a class="dropdown-item " href="#">{{ __('Add Posts') }}</a>
-                                <a class="dropdown-item" href="#">{{ __('View posts') }}</a>
+                                <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
+                                <a class="dropdown-item" href="/posts">{{ __('View posts') }}</a>
                             </div>
                         </li>
 
@@ -63,7 +63,7 @@
                                 <div class="dropdown-menu shown" x-placement="bottom-start"
                                      style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
                                     <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('View All posts') }}</a>
+                                    <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
                                     <a class="dropdown-item" href="#">{{ __('View Your posts') }}</a>
                                 </div>
                             </li>
@@ -74,8 +74,8 @@
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
                                    role="button">Posts</a>
                                 <div class="dropdown-menu shown">
-                                    <a class="dropdown-item " href="#">{{ __('Add Posts') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('View posts') }}</a>
+                                    <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
+                                    <a class="dropdown-item" href="/posts">{{ __('View posts') }}</a>
                                 </div>
                             </li>
                         @endif

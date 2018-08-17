@@ -3,17 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use User;
+use user;
 use seller;
 use sub_waste_category;
 
-class posts extends Model
+class post extends Model
 {
     public $table = "post";
 
-    public function User()
+    public function user()
     {
-        return $this->belongsTo('App\User','publisher_id');
+        return $this->belongsTo('App\user','publisher_id');
     }
 
     public function seller()

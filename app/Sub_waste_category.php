@@ -12,7 +12,7 @@ class sub_waste_category extends Model
 
 
     public function posts(){
-        return $this->hasMany('App\posts');
+        return $this->hasMany('App\post');
     }
 
 

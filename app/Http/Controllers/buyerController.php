@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\User;
+use App\user;
 use App\buyer;
-use App\posts;
+use App\post;
 use App\subWasteCategory;
 
 use Illuminate\Support\Facades\Storage;

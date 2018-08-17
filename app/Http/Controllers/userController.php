@@ -35,7 +35,7 @@ class userController extends Controller
         } else {
 
 
-            $table = new User();
+            $table = new user();
 
             $table->email = $request->input('email');
             $table->password = bcrypt($request->input('password'));

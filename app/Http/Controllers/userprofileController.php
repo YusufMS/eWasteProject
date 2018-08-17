@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-use App\User;
+use App\user;
 use App\Buyer;
 use App\Seller;
 
@@ -17,7 +17,7 @@ class userprofileController extends Controller
 {
     public function profileInfo($id)
     {
-        $userlog = User::find($id);
+        $userlog = user::find($id);
         if ($userlog->_usertype == 'buyer'){
             $user = Buyer::where('user_id', $userlog->id)->first();
         }elseif ($userlog->_usertype == 'seller'){
@@ -27,7 +27,7 @@ class userprofileController extends Controller
     }
 
     public function profileEdit($id){
-        $userlog = User::find($id);
+        $userlog = user::find($id);
         if ($userlog->_usertype == 'buyer'){
             $user = Buyer::where('user_id', $userlog->id)->first();
         }elseif ($userlog->_usertype == 'seller'){
@@ -37,7 +37,7 @@ class userprofileController extends Controller
     }
 
     public function profileUpdate(Request $request, $id){
-            $table = User::find($id);
+            $table = user::find($id);
 
             if ($table->_usertype == 'seller'){
                 $userId = Seller::select('id')->where('user_id', $id)->first();

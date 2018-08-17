@@ -8,9 +8,9 @@ class seller extends Model
 {
     protected $table = 'seller';
 
-    public function posts()
+    public function post()
     {
-        return $this->belongsTo('App\posts');
+        return $this->belongsTo('App\post');
     }
 
 }

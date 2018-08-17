@@ -4,7 +4,7 @@
 
     <script>
         function selectUser(that) {
-            if (that.value == "buyer" || that.value == "buyer/seller") {
+            if (that.value == "buyer" || that.value == "buyer/seller" ) {
 //                alert("check");
                 document.getElementById("buyertype").style.display = "block";
             } else {

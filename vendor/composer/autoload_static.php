@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcd1f989676ece389f3ec09ad9a896368
+class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -14,9 +14,9 @@ class ComposerStaticInitcd1f989676ece389f3ec09ad9a896368
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
@@ -118,8 +118,8 @@ class ComposerStaticInitcd1f989676ece389f3ec09ad9a896368
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -362,12 +362,12 @@ class ComposerStaticInitcd1f989676ece389f3ec09ad9a896368
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\buyer' => __DIR__ . '/../..' . '/app/buyer.php',
         'App\\main_waste_category' => __DIR__ . '/../..' . '/app/main_waste_category.php',
-        'App\\posts' => __DIR__ . '/../..' . '/app/posts.php',
+        'App\\post' => __DIR__ . '/../..' . '/app/post.php',
         'App\\seller' => __DIR__ . '/../..' . '/app/seller.php',
         'App\\sub_waste_category' => __DIR__ . '/../..' . '/app/sub_waste_category.php',
+        'App\\user' => __DIR__ . '/../..' . '/app/user.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -3748,10 +3748,10 @@ class ComposerStaticInitcd1f989676ece389f3ec09ad9a896368
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcd1f989676ece389f3ec09ad9a896368::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcd1f989676ece389f3ec09ad9a896368::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitcd1f989676ece389f3ec09ad9a896368::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitcd1f989676ece389f3ec09ad9a896368::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f::$classMap;
 
         }, null, ClassLoader::class);
     }

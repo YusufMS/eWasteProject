@@ -8,7 +8,7 @@ use View;
 use App\main_waste_category;
 use App\user;
 use App\sub_waste_category;
-use App\posts;
+use App\post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,25 @@ class PostsController extends Controller
     public function index(){
         $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
 
-        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
+        if(auth()->user()->_usertype === "buyer") {
+            $posts = DB::table('post')
+                ->join('user', 'user.id', '=', 'post.publisher_id')
+
+                        ->where('user._usertype', '=', "seller")
+                ->paginate(3);
+
+
+
+        }else{
+            $posts = DB::table('post')
+                ->join('user', 'user.id', '=', 'post.publisher_id')
+
+                ->where('_usertype', '=', "buyer")
+                ->paginate(3);
+
+        }
+
+//        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 //
         return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
 //
@@ -78,7 +96,7 @@ class PostsController extends Controller
         $category = $request->input('category');
         $wasteid = DB::table('sub_waste_category')->select('id')->where('category', $category)->get();
 
-        $post = new posts;
+        $post = new post;
 
 
         $post->title = $request->input('title');
@@ -101,12 +119,24 @@ class PostsController extends Controller
              $post_id = $pid->id;
 
 
-        $buyerType = $request->input('buyerType');
-        $buyerType = implode(',', $buyerType);
+        if(auth()->user()->_usertype === "seller") {
+            $buyerType = $request->input('buyerType');
+            $buyerType = implode(',', $buyerType);
 
-        DB::table('seller_post')->insert(
-            ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
-        );
+            DB::table('seller_post')->insert(
+                ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
+            );
+        }
+
+        if(auth()->user()->_usertype === "buyer"){
+            $noOfItems = $request->input('noOfItems');
+            $modelNo = $request->input('modelNo');
+
+            DB::table('buyer_post')->insert(
+                ['no_of_items' => $noOfItems, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
+            );
+        }
+
 
         return redirect()->to('/posts/create')->with('success', 'Successfully posted.');
 
@@ -121,8 +151,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Posts::findOrFail($id);
-        $seller = User::findOrFail($post->publisher_id);
+        $post = post::findOrFail($id);
+        $seller = user::findOrFail($post->publisher_id);
         if ($post->publisher_id != auth()->user()->id){
             $post->increment('view_count');
         }

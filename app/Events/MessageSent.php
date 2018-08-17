@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-use App\User;
+use App\user;
 use App\Message;
 
 
@@ -21,7 +21,7 @@ class MessageSent implements ShouldBroadcast
     /**
      * User that sent the message
      *
-     * @var User
+     * @var user
      */
     public $user;
 
@@ -37,7 +37,7 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(User $user, Message $message)
+    public function __construct(user $user, Message $message)
     {
         $this->user = $user;
         $this->message = $message;

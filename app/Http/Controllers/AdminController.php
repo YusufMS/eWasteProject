@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\user;
 use App\buyer;
 use App\seller;
 
@@ -52,7 +52,7 @@ public function viewBuyers(){
 
 public function viewUsers(){
 
-	$users = User::all();
+	$users = user::all();
   
 	return view('admin.viewUsers')->with('users',$users)->withTitle('User Details');
 
