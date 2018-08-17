@@ -48,39 +48,50 @@ class userprofileController extends Controller
     }
 
     public function profileUpdate(Request $request, $id){
-            $table = User::find($id);
+    // validation has to be done
+        $request->validate([
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'profileType' => 'required',
+            'address' => 'required',
+            'telephone' => 'digits:10',
+            'description' => 'nullable',
+        ]);
+
+        $table = User::find($id);
+        
+        // No seller table. So no need of if statement
+        // if ($table->_usertype == 'seller'){
+        //     // $userId = Seller::select('id')->where('user_id', $id)->first();
             
-            // No seller table. So no need of if statement
-            // if ($table->_usertype == 'seller'){
-            //     // $userId = Seller::select('id')->where('user_id', $id)->first();
-                
-            //     $user = User::find($id);
-                
-            // } elseif ($table->_usertype == 'buyer') {
-            //     // $userId = Buyer::select('id')->where('user_id', $id)->first();
-            //     $user = User::find($id);
-            // }
+        //     $user = User::find($id);
+            
+        // } elseif ($table->_usertype == 'buyer') {
+        //     // $userId = Buyer::select('id')->where('user_id', $id)->first();
+        //     $user = User::find($id);
+        // }
 
-            $user = User::find($id);
+        $user = User::find($id);
 
 
-            // $table->email = $request->input('email');
-            // $table->password = bcrypt($request->input('password'));
+        // $table->email = $request->input('email');
+        // $table->password = bcrypt($request->input('password'));
 
-            // should be added after fixing login
-            // $table->_usertype = $request->input('profileType');
-            // $table->save();
+        // should be added after fixing login
+        // $table->_usertype = $request->input('profileType');
+        // $table->save();
 
-            // $user = user::find($userId);
-            $user->first_name = $request->input('firstName');
-            $user->last_name = $request->input('lastName');
-            $user->address = $request->input('address');
-            $user->phone = $request->input('telephone');
-            $user->description = $request->input('description');
+        // $user = user::find($userId);
+        $user->first_name = $request->input('firstName');
+        $user->last_name = $request->input('lastName');
+        $user->_usertype = $request->input('profileType');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('telephone');
+        $user->description = $request->input('description');
 
-            $user->save();
+        $user->save();
 
-            return redirect()->to('/profile/' . $id)->with('success', 'Successfully updated profile information');
+        return redirect()->to('/profile/' . $id)->with('success', 'Successfully updated profile information');
     }
 }
 

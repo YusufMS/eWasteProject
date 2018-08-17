@@ -9,9 +9,9 @@
     <!--Panel-->
     <div class="card ">
         <div class="card-header black white-text">
-            <h5>
+            <h3 class="text-center font-weight-bold">
                 Personal Profile
-            </h5>
+            </h3>
         </div>
         <div class="card-body">
             <table class="table">

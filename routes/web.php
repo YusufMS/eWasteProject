@@ -30,8 +30,8 @@ Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers'])
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('profile/{id}', 'userprofileController@profileInfo');
-Route::get('profile/{id}/edit', 'userprofileController@profileEdit');
-Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate');
+Route::get('profile/{id}/edit', 'userprofileController@profileEdit')->middleware('auth');
+Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate')->middleware('auth');
 
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('showMyPosts/{id}', 'PostsController@showMyPosts');

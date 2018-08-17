@@ -5,12 +5,13 @@
     <br>
     <br>
     <div class="container">
+            @include('partials.messages')
     <!--Panel-->
     <div class="card ">
         <div class="card-header black white-text">
-            <h5>
+            <h3 class="text-center font-weight-bold">
                 Personal Profile
-            </h5>
+            </h3>
         </div>
         <div class="card-body">
                 <form class="form-horizontal" method="POST" action="{{ route('profileUpdate', $common_user_info->id) }}"
@@ -33,19 +34,24 @@
                     <input id="email" class="form-control" type="text" value="{{$userlog->email}}" name="email" required>
                 </div> --}}
 
-                {{-- should be added after fixing login
                 <div class="form-group">
                     <label for="profileType">Profile Type</label>
                     <select class="form-control" name="profileType" required>
-                        @if($userlog->_usertype == 'seller')
+                        @if($common_user_info->_usertype == 'seller')
                             <option value="buyer" name="category">Buyer</option>
                             <option value="seller" name="category" selected>Seller</option>
-                        @elseif($userlog->_usertype == 'buyer')
+                            <option value="buyer/seller" name="category">Buyer / Seller</option>
+                        @elseif($common_user_info->_usertype == 'buyer')
                             <option value="buyer" name="category" selected>Buyer</option>
                             <option value="seller" name="category">Seller</option>
+                            <option value="buyer/seller" name="category">Buyer / Seller</option>
+                        @elseif($common_user_info->_usertype == 'buyer/seller')
+                            <option value="buyer" name="category">Buyer</option>
+                            <option value="seller" name="category">Seller</option>
+                            <option value="buyer/seller" name="category" selected>Buyer / Seller</option>
                         @endif
                     </select>
-                </div> --}}
+                </div>
 
                 
                 <div class="form-group">
