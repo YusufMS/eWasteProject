@@ -10,7 +10,7 @@ class seller extends Model
 
     public function post()
     {
-        return $this->belongsTo('App\post');
+        return $this->hasMany('App\post');
     }
 
 }

@@ -67,7 +67,7 @@
                                      style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
                                     <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
                                     <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('View Your posts') }}</a>
+                                    <a class="dropdown-item" href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
                                 </div>
                             </li>
 
