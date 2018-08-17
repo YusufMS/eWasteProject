@@ -30,6 +30,7 @@ class userprofileController extends Controller
         $userlog = User::find($id);
         if ($userlog->_usertype == 'buyer'){
             $user = Buyer::where('user_id', $userlog->id)->first();
+            return $user;
         }elseif ($userlog->_usertype == 'seller'){
             $user = Seller::where('user_id', $userlog->id)->first();
         }

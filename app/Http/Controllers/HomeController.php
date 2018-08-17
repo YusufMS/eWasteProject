@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\main_waste_category;
+use Session;
 
 class HomeController extends Controller
 {
@@ -21,14 +22,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $main_categories = main_waste_category::take(6)->get();
+        if (Session::get('user_role') == 'seller'){
+            return view('welcomeSeller', compact(['main_categories']));
+        } elseif(Session::get('user_role') == 'buyer'){
+            return view('buyer.index', compact(['main_categories']));            
+        }
+        
     }
     public function buyerIndex()
     {
-        return view('buyer.home');
+        Session::put('user_role', 'buyer');
+        return redirect('/home');
+
     }
     public function sellerIndex()
     {
+        Session::put('user_role', 'seller');
+        return redirect('/home');
+
         $main_categories = main_waste_category::take(6)->get();
         return view('seller.index', compact(['main_categories']));
     }

@@ -9,6 +9,7 @@ use App\buyer;
 use App\posts;
 use App\subWasteCategory;
 use App\main_waste_category;
+use Session;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
@@ -41,11 +42,14 @@ class buyerController extends Controller
 //    }
 
 
-    public function index()
-    {
-        $main_categories = main_waste_category::take(6)->get();
-        return view('buyer.index', compact(['main_categories']));
-    }
+    // public function index()
+    // {
+    //     Session::put('user_role', 'buyer');
+    //     return redirect('/home');
+
+    //     $main_categories = main_waste_category::take(6)->get();
+    //     return view('buyer.index', compact(['main_categories']));
+    // }
 
 //    protected function validator(array $data)
 //    {

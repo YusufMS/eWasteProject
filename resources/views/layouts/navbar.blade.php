@@ -56,10 +56,13 @@
                         </li>
 
                     @else
-                        @if(Request::url() === 'http://localhost:8000/sellerHome' || Request::url() === 'http://localhost:8000/posts/create')
+                    @if(Session::has('user_role'))
+                        {{-- @if(Request::url() === 'http://localhost:8000/sellerHome' || Request::url() === 'http://localhost:8000/posts/create') --}}
+                        @if(Session::get('user_role') == 'buyer')
+                        
                             <li class="nav-item dropdown shown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="true" aria-expanded="true">Posts</a>
+                                   aria-haspopup="true" aria-expanded="true">Post</a>
                                 <div class="dropdown-menu shown" x-placement="bottom-start"
                                      style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
                                     <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
@@ -68,7 +71,7 @@
                                 </div>
                             </li>
 
-                        @else
+                        @elseif(Session::get('user_role') == 'seller')
 
                             <li class="nav-item dropdown shown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
@@ -78,6 +81,7 @@
                                     <a class="dropdown-item" href="#">{{ __('View posts') }}</a>
                                 </div>
                             </li>
+                        @endif
                         @endif
                     @endif
 
@@ -97,10 +101,17 @@
                             @if( Auth::user()->_usertype == "buyer/seller")
                                 <hr>
                                 <a class="dropdown-item" href="/sellerHome">
+                                    
                                     {{ __('Seller Portal') }}
+                                    @if(Session::get('user_role') == 'seller')
+                                    <kbd class="bg-success mx-1">active</kbd>
+                                    @endif
                                 </a>
                                 <a class="dropdown-item" href="/buyerHome">
                                     {{ __('Buyer Portal') }}
+                                    @if(Session::get('user_role') == 'buyer')
+                                    <kbd class="bg-success mx-1">active</kbd>
+                                    @endif
                                 </a>
                             @endif
                             <hr>
