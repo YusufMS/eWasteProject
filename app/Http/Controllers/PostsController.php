@@ -153,11 +153,15 @@ class PostsController extends Controller
     {
         $post = post::findOrFail($id);
         $seller = user::findOrFail($post->publisher_id);
+
+        $comments = $post->comments;
+        $commentors = User::all();
+
         if ($post->publisher_id != auth()->user()->id){
             $post->increment('view_count');
         }
 
-        return view('posts.view', ['post' => $post , 'seller' => $seller]);
+        return view('posts.view', ['post' => $post , 'seller' => $seller, 'comments' => $comments, 'commentors' => $commentors]);
     }
 
     /**
