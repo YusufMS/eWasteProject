@@ -25,6 +25,12 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
+                        <label for="topic">E waste Name</label>
+                        <input id="title" class="form-control" type="text" name="title" required
+                               placeholder="nokia 7 mobile phone">
+                    </div>
+
+                    <div class="form-group">
                         <label for="category">E waste Category</label>
                         <select class="form-control" name="category">
                             <option placeholder="<select>" disabled selected>select</option>
@@ -65,11 +71,7 @@
 
 
 
-                        <div class="form-group">
-                            <label for="topic">E waste Name</label>
-                            <input id="topic" class="form-control" type="text" name="title" required
-                                   placeholder="nokia 7 mobile phone">
-                        </div>
+
 
 
                     @elseif( Auth::user()->_usertype === "buyer")
@@ -134,30 +136,30 @@
                         @endif
                     @endif
 
-                        <div class="form-group ">
-                            <label for="description">Description</label>
-                            <textarea id="description" class="form-control" name="description" rows="3"
-                                      required></textarea>
+                    <div class="form-group ">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control" name="description" rows="3"
+                                  required></textarea>
+                    </div>
+                    <div class="form-group ">
+                        <label for="attachment">Attachment</label>
+                        <div class="dropify">
+                            <input id="dropify" class="form-control " type="file" name="attachment">
                         </div>
-                        <div class="form-group ">
-                            <label for="attachment">Attachment</label>
-                            <div class="dropify">
-                                <input id="dropify" class="form-control " type="file" name="attachment">
-                            </div>
-                        </div>
+                    </div>
 
-                        <br>
+                    <br>
 
 
-                        <div class="form-group float-right">
-                            <a class="btn btn-primary" href="/home" data-toggle="tooltip" title="Go Back Home"><i
-                                        class="fa fa-arrow-left"></i></a>
-                            <button type="reset" class="btn btn-warning" data-toggle="tooltip" title="Reset Fields"><i
-                                        class="fa fa-undo"></i></button>
-                            <button type="submit" class="btn btn-success" name="submit" data-toggle="tooltip"
-                                    title="Create Post"><i class="fa fa-pen"></i></button>
+                    <div class="form-group float-right">
+                        <a class="btn btn-primary" href="/home" data-toggle="tooltip" title="Go Back Home"><i
+                                    class="fa fa-arrow-left"></i></a>
+                        <button type="reset" class="btn btn-warning" data-toggle="tooltip" title="Reset Fields"><i
+                                    class="fa fa-undo"></i></button>
+                        <button type="submit" class="btn btn-success" name="submit" data-toggle="tooltip"
+                                title="Create Post"><i class="fa fa-pen"></i></button>
 
-                        </div>
+                    </div>
                 </form>
             </div>
         </div>

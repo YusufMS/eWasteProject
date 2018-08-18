@@ -40,7 +40,8 @@
                                  style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
                                 <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
                                 <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
-                                <a class="dropdown-item" href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
+                                <a class="dropdown-item"
+                                   href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
                             </div>
                         </li>
 
@@ -56,32 +57,35 @@
                         </li>
 
                     @else
-                    @if(Session::has('user_role'))
-                        {{-- @if(Request::url() === 'http://localhost:8000/sellerHome' || Request::url() === 'http://localhost:8000/posts/create') --}}
-                        @if(Session::get('user_role') == 'buyer')
-                        
-                            <li class="nav-item dropdown shown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="true" aria-expanded="true">Post</a>
-                                <div class="dropdown-menu shown" x-placement="bottom-start"
-                                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
-                                    <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
-                                    <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
-                                    <a class="dropdown-item" href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
-                                </div>
-                            </li>
+                        @if(Session::has('user_role'))
+                            {{-- @if(Request::url() === 'http://localhost:8000/sellerHome' || Request::url() === 'http://localhost:8000/posts/create') --}}
+                            @if(Session::get('user_role') == 'seller')
 
-                        @elseif(Session::get('user_role') == 'seller')
+                                <li class="nav-item dropdown shown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                       aria-haspopup="true" aria-expanded="true">Post</a>
+                                    <div class="dropdown-menu shown" x-placement="bottom-start"
+                                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 40px, 0px);">
+                                        <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
+                                        <a class="dropdown-item" href="/posts">{{ __('View All posts') }}</a>
+                                        <a class="dropdown-item"
+                                           href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
+                                    </div>
+                                </li>
 
-                            <li class="nav-item dropdown shown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
-                                   role="button">Posts</a>
-                                <div class="dropdown-menu shown">
-                                    <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
-                                    <a class="dropdown-item" href="/posts">{{ __('View posts') }}</a>
-                                </div>
-                            </li>
-                        @endif
+                            @elseif(Session::get('user_role') == 'buyer')
+
+                                <li class="nav-item dropdown shown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+                                       role="button">Posts</a>
+                                    <div class="dropdown-menu shown">
+                                        <a class="dropdown-item " href="/posts/create">{{ __('Add Posts') }}</a>
+                                        <a class="dropdown-item" href="/posts">{{ __('View posts') }}</a>
+                                        <a class="dropdown-item"
+                                           href="/showMyPosts/{{Auth::user()->id}}">{{ __('View Your posts') }}</a>
+                                    </div>
+                                </li>
+                            @endif
                         @endif
                     @endif
 
@@ -101,16 +105,16 @@
                             @if( Auth::user()->_usertype == "buyer/seller")
                                 <hr>
                                 <a class="dropdown-item" href="/sellerHome">
-                                    
+
                                     {{ __('Seller Portal') }}
                                     @if(Session::get('user_role') == 'seller')
-                                    <kbd class="bg-success mx-1">active</kbd>
+                                        <kbd class="bg-success mx-1">active</kbd>
                                     @endif
                                 </a>
                                 <a class="dropdown-item" href="/buyerHome">
                                     {{ __('Buyer Portal') }}
                                     @if(Session::get('user_role') == 'buyer')
-                                    <kbd class="bg-success mx-1">active</kbd>
+                                        <kbd class="bg-success mx-1">active</kbd>
                                     @endif
                                 </a>
                             @endif

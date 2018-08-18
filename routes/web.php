@@ -36,7 +36,7 @@ Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profile
 
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
-
+Route::get('/postByCategory/{id}', 'PostsController@postByCategory');
 Route::resource('comments', 'CommentController')->middleware('auth');
 
 
