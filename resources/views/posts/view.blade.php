@@ -59,7 +59,6 @@
             <br>
 
         </div>
-        <br>
 
 {{--  --}}
 <div class="card my-4">
@@ -87,7 +86,7 @@
                     {{-- <img class="rounded-circle mr-3" src="{{asset('storage/images/profilePhoto/' . $commentors->find($comment->user_id)->profileImage)}}" alt="" style="width:50px;"> --}}
                     
                     <div>
-                        <h5 class="font-weight-bold m-0 text-primary">{{$commentors->find($comment->user_id)->full_name}}</h5>
+                        <h6 class="font-weight-bold m-0 text-primary">{{$commentors->find($comment->user_id)->full_name}}</h6>
                         <hr class="p-0 m-0">
                         <div>
                             <div>{{$comment->comment_text}}</div>

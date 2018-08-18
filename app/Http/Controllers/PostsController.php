@@ -26,21 +26,56 @@ class PostsController extends Controller
         $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
 
         if(auth()->user()->_usertype === "buyer") {
+
             $posts = DB::table('post')
                 ->join('user', 'user.id', '=', 'post.publisher_id')
+                ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                ->where('user._usertype', "seller")
 
-                        ->where('user._usertype', '=', "seller")
+                ->orderby('post.updated_at', 'desc')
                 ->paginate(3);
+//return $posts;
 
 
+        }elseif(auth()->user()->_usertype === "seller"){
+
+            $posts = DB::table('post')
+
+                ->join('user', 'user.id', '=', 'post.publisher_id')
+                ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                ->where('user._usertype', "buyer")
+
+                ->orderby('post.updated_at', 'desc')
+                ->paginate(3);
+//            dd($posts);
 
         }else{
-            $posts = DB::table('post')
-                ->join('user', 'user.id', '=', 'post.publisher_id')
+            if (Session::has('user_role')){
+                if (Session::get('user_role') == 'seller'){
+                    $posts = DB::table('post')
 
-                ->where('_usertype', '=', "buyer")
-                ->paginate(3);
+                        ->join('user', 'user.id', '=', 'post.publisher_id')
+                        ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                        ->where('user._usertype', "buyer")
 
+                        ->orderby('post.updated_at', 'desc')
+                        ->paginate(3);
+//                    return $posts;
+
+                } elseif(Session::get('user_role') == 'buyer'){
+                    $posts = DB::table('post')
+
+                        ->join('user', 'user.id', '=', 'post.publisher_id')
+                        ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                        ->where('user._usertype', "seller")
+
+                        ->orderby('post.updated_at', 'desc')
+                        ->paginate(3);
+
+//                    return $posts;
+                }
+
+            }
         }
 
 //        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
@@ -48,6 +83,7 @@ class PostsController extends Controller
         return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
 //
     }
+
 
 
     public function category($id)
