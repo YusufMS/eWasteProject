@@ -65,7 +65,6 @@ class PostsController extends Controller
 
                 } elseif(Session::get('user_role') == 'buyer'){
                     $posts = DB::table('post')
-<<<<<<< HEAD
 
                         ->join('user', 'user.id', '=', 'post.publisher_id')
                         ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
@@ -74,16 +73,6 @@ class PostsController extends Controller
                         ->orderby('post.updated_at', 'desc')
                         ->paginate(3);
 
-=======
-
-                        ->join('user', 'user.id', '=', 'post.publisher_id')
-                        ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
-                        ->where('user._usertype', "seller")
-
-                        ->orderby('post.updated_at', 'desc')
-                        ->paginate(3);
-
->>>>>>> Yusuf
 //                    return $posts;
                 }
 
@@ -230,12 +219,7 @@ class PostsController extends Controller
             $post->increment('view_count');
         }
 
-<<<<<<< HEAD
-
-        return view('posts.view', ['post' => $post , 'seller' => $seller]);
-=======
         return view('posts.view', ['post' => $post , 'seller' => $seller, 'comments' => $comments, 'commentors' => $commentors]);
->>>>>>> Yusuf
     }
 
     /**
