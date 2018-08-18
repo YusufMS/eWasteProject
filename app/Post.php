@@ -27,4 +27,8 @@ class post extends Model
         return $this->belongsTo('App\sub_waste_category','sub_waste_category_id');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
 }

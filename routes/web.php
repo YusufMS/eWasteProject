@@ -33,8 +33,11 @@ Route::get('profile/{id}', 'userprofileController@profileInfo');
 Route::get('profile/{id}/edit', 'userprofileController@profileEdit')->middleware('auth');
 Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate')->middleware('auth');
 
+
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
+
+Route::resource('comments', 'CommentController')->middleware('auth');
 
 
 
