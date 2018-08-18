@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
           <ul class="nav navbar-nav">
-           <li class="active"><a href="{{route('addnews')}}">Add News</a></li>
+           <li class="active"><a href="{{route('addnews')}}">Site Informations</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -41,55 +41,97 @@
 
   <br>
   <br>
-  <a href="{{route('adminpage')}}">Home</a>
-  <a href="/maincat/create">Add Main Category</a>
-  <a href="/wastes/create">Add Sub Category</a>
-  <a href="{{route('addnews')}}">Add News</a>
-  <a href="{{route('viewusers')}}">View Users</a>
-  <a href="{{route('viewbuyers')}}">View Buyers</a>
-  <a href="{{route('viewsellers')}}">View Sellers</a>
+    <a href="{{route('adminpage')}}">Home</a>
+    <a href="{{route('addcategory')}}">Add Category</a>
+    <a href="{{route('addnews')}}">Add News</a>
+    <a href="{{route('viewbuyers')}}">View Buyers</a>
+    <a href="{{route('viewsellers')}}">View Sellers</a>
+    <a href="{{route('configurations')}}">Configurations</a>
 </div>
 
 
 <div class="main">
 
+
   <br>
   <br>
   <br>
 
-<form>
-  <div class="form-group">
-    <label for="title">News Title</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="news_title" placeholder="News Tiltle">
+<div class="container">
+    <div class="row">
+    <div class="col-md-12">
+
+      <div class="tabbable-panel">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs ">
+            <li class="active">
+              <a href="#addinfo" data-toggle="tab">
+              Add Info </a>
+            </li>
+            <li>
+              <a href="#deleteinfo" data-toggle="tab">
+              Delete Info </a>
+            </li>
+            <li>
+              <a href="#updateinfo" data-toggle="tab">
+              Update Info </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="addinfo">
+            
+            <div class="container">
+        <h1 style="margin-top: 20px; font-size: 25px; ">Add Site Informations</h1><br>
+        <br><br>
+
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                @include('partials.messages')
+                {!! Form::open(['action' => 'AdminController@addSiteInformations', 'method' => 'POST']) !!}
+                <div class="form-group">
+                    {{ Form::label('title', 'Title', ['class' => 'form-label'] )}}
+                    {{ Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Give a Title', 'id' => 'title']) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::label('body', 'Description ', ['class' => 'form-label'] )}}
+                    {{ Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Give a Description', 'id' => 'body']) }}
+                </div>   
+                <br>
+                <div class="form-group">
+                    {{ Form::label('select', 'select guest or author ', ['class' => 'form-label'] )}}
+                    {{Form::select('type', ['1' => 'guest', '0' => 'author'])}}
+                </div> 
+                
+                {{ Form::submit('Post', ['class' => 'btn btn-primary']) }}     
+                {!! Form::close() !!}
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>  
+
+            </div>
+
+            <div class="tab-pane" id="deleteinfo">
+              
+            </div>
+
+            <div class="tab-pane" id="updateinfo">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="ategory">Select Category</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>option1</option>
-      <option>option2</option>
-      <option>option3</option>
-      <option>option4</option>
-      <option>option5</option>
-    </select>
-  </div>
-  
-  <div class="form-group">
-    <label for="description">Description Here</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
-  </div>
+</div>
 
-  <div class="form-group">
-    <label for="image">Insert Image</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
+    
 
-  <button type="submit" class="btn btn-primary">Publish</button>
-</form>
+</div>
 
-</div>    
-
-
-
+<br>
+<br>
 <footer class="footer font-small blue pt-4 mt-4">
  <!-- Copyright -->
   <div class="footer-copyright text-right py-3">© 2018 Copyright:

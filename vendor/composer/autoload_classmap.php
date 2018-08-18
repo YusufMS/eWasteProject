@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Admin' => $baseDir . '/app/Admin.php',
+    'App\\Buyer' => $baseDir . '/app/Buyer.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Events\\ChatMessageWasReceived' => $baseDir . '/app/Events/ChatMessageWasReceived.php',
     'App\\Events\\MessageSent' => $baseDir . '/app/Events/MessageSent.php',
@@ -37,12 +38,11 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
-    'App\\buyer' => $baseDir . '/app/Buyer.php',
+    'App\\Seller' => $baseDir . '/app/Seller.php',
+    'App\\User' => $baseDir . '/app/User.php',
     'App\\main_waste_category' => $baseDir . '/app/Main_waste_category.php',
     'App\\post' => $baseDir . '/app/Post.php',
-    'App\\seller' => $baseDir . '/app/Seller.php',
     'App\\sub_waste_category' => $baseDir . '/app/Sub_waste_category.php',
-    'App\\user' => $baseDir . '/app/User.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',

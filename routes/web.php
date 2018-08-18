@@ -23,12 +23,26 @@ Route::get('/login',['uses'=>'userController@login']);
 Route::get('/messages', 'ChatsController@fetchMessages');
 Route::get('/contactDetails/{id}', 'PostsController@getPublisher')->middleware('auth');
 Route::get('regBuyer', ['uses'=>'buyerController@index', 'as'=>'regBuyer']);
+
+
+
+//admin's routes,
+
 Route::get('admin', ['uses'=>'AdminController@index','as'=>'adminpage']);
 Route::get('adminProfile', ['uses'=>'AdminController@adminProfile','as'=>'adminProfile']);
 Route::get('addnews', ['uses'=>'AdminController@addNews','as'=>'addnews']);
 Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers']);
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
+Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcategory']);
+Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
+Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
+
+
+
+
+
+
 Route::get('profile/{id}', 'userprofileController@profileInfo');
 Route::get('profile/{id}/edit', 'userprofileController@profileEdit');
 Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate');

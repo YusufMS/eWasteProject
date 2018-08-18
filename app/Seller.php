@@ -4,13 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class seller extends Model
+use User;
+use Post;
+
+class Seller extends Model
 {
-    protected $table = 'seller';
+    public $table = 'seller';
 
     public function post()
     {
         return $this->belongsTo('App\post');
+    }
+
+
+    public function User()
+    {
+        return $this->belongsTo('App\User');
     }
 
 }

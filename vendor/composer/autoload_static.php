@@ -332,6 +332,7 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
 
     public static $classMap = array (
         'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
+        'App\\Buyer' => __DIR__ . '/../..' . '/app/Buyer.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Events\\ChatMessageWasReceived' => __DIR__ . '/../..' . '/app/Events/ChatMessageWasReceived.php',
         'App\\Events\\MessageSent' => __DIR__ . '/../..' . '/app/Events/MessageSent.php',
@@ -362,12 +363,11 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\buyer' => __DIR__ . '/../..' . '/app/Buyer.php',
+        'App\\Seller' => __DIR__ . '/../..' . '/app/Seller.php',
+        'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\main_waste_category' => __DIR__ . '/../..' . '/app/Main_waste_category.php',
         'App\\post' => __DIR__ . '/../..' . '/app/Post.php',
-        'App\\seller' => __DIR__ . '/../..' . '/app/Seller.php',
         'App\\sub_waste_category' => __DIR__ . '/../..' . '/app/Sub_waste_category.php',
-        'App\\user' => __DIR__ . '/../..' . '/app/User.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',

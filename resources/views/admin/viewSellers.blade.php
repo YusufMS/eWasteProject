@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="{{route('viewbuyers')}}">View Buyers</a></li>
+            <li class="active"><a href="{{route('viewbuyers')}}">View Sellers</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -49,12 +49,11 @@
     <br>
     <br>
     <a href="{{route('adminpage')}}">Home</a>
-    <a href="/maincat/create">Add Main Category</a>
-    <a href="/wastes/create">Add Sub Category</a>
+    <a href="{{route('addcategory')}}">Add Category</a>
     <a href="{{route('addnews')}}">Add News</a>
-    <a href="{{route('viewusers')}}">View Users</a>
     <a href="{{route('viewbuyers')}}">View Buyers</a>
     <a href="{{route('viewsellers')}}">View Sellers</a>
+    <a href="{{route('configurations')}}">Configurations</a>
 </div>
 
 
@@ -84,7 +83,8 @@
                 <table class="table">
 
                     <tr>
-                        <th>Buyer Name</th>
+                        <th>Seller Name</th>
+                        <th>Seller Email</th>
                         <th>Address</th>
                         <th>Phone Number</th>
                         <th>Joined On</th>
@@ -96,8 +96,11 @@
 
                         @foreach($users as $user)
 
+                      
+
                             <tr>
-                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->first_name}}</td>
+                                <td>{{ $user->email}}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($user->created_at) )}}</td>

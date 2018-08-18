@@ -48,13 +48,12 @@
 
   <br>
   <br>
-  <a href="{{route('adminpage')}}">Home</a>
-    <a href="/maincat/create">Add Main Category</a>
-    <a href="/wastes/create">Add Sub Category</a>
-  <a href="{{route('addnews')}}">Add News</a>
-  <a href="{{route('viewusers')}}">View Users</a>
-  <a href="{{route('viewbuyers')}}">View Buyers</a>
+    <a href="{{route('adminpage')}}">Home</a>
+    <a href="{{route('addcategory')}}">Add Category</a>
+    <a href="{{route('addnews')}}">Add News</a>
+    <a href="{{route('viewbuyers')}}">View Buyers</a>
     <a href="{{route('viewsellers')}}">View Sellers</a>
+    <a href="{{route('configurations')}}">Configurations</a>
 </div>
 
 
@@ -87,7 +86,7 @@
                     <th>Buyer Name</th>
                     <th>Address</th>
                     <th>Phone Number</th>
-                    <th>Buyer Category</th>
+                    <th>Buyer Type</th>
                     <th>Ratings</th>
                     <th>Joined On</th>
                     <th>Remove</th>
@@ -99,9 +98,9 @@
                   @foreach($users as $user)
 
                     <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->address }}</td>
-                        <td>{{ $user->phone }}</td>
+                        <td>{{ $user->User->first_name }}</td>
+                        <td>{{ $user->User->address }}</td>
+                        <td>{{ $user->User->phone }}</td>
                         <td>{{ $user->type }}</td>
                         <td>{{ $user->rating }}</td>
                         <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($user->created_at) )}}</td>

@@ -3,19 +3,22 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\user as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class user extends Authenticatable
+use Buyer;
+use Seller;
+
+class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'user';
 
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
     }
-    protected $table = 'user';
-
+  
     /**
      * The attributes that are mass assignable.
      *
@@ -37,17 +40,22 @@ class user extends Authenticatable
 
     public function seller()
     {
-        return $this->belongsTo('App\seller');
+        return $this->belongsTo('App\Seller');
+    }
+
+     public function buyer()
+    {
+        return $this->belongsTo('App\Buyer');
     }
 
     public function messages()
-{
+    {
         return $this->hasMany(Message::class);
-}
+    }
 
     public function post()
     {
-        return $this->hasMany('App\post');
+        return $this->hasMany('App\Post');
     }
 
 

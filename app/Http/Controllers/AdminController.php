@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
-use App\buyer;
-use App\seller;
+use App\User;
+use App\Buyer;
+use App\Seller;
+use App\Site_information;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,7 @@ public function index(){
  
 	return view('admin.adminPage');
 }
+
 
 public function adminProfile(){
   
@@ -30,6 +32,14 @@ public function addNews(){
 
 }
 
+
+public function addCategory(){
+  
+	return view('admin.addCategory');
+
+
+}
+
 public function viewBuyers(){
 
 	$buyers = buyer::all();
@@ -39,16 +49,23 @@ public function viewBuyers(){
 
 }
 
-    public function viewSellers(){
+public function viewSellers(){
 
-        $sellers = seller::all();
+    $users = user::all()->where('_usertype',"seller");
 
-        return view('admin.viewBuyers')->with('users',$sellers)->withTitle('Seller Details');
-
-
-    }
+    return view('admin.viewSellers')->with('users',$users)->withTitle('Seller Details');
 
 
+}
+
+
+
+public function configurations(){
+  
+	return view('admin.addCategory');
+
+
+}
 
 public function viewUsers(){
 
@@ -59,7 +76,27 @@ public function viewUsers(){
 }
 
 
+public function addSiteInformations(Request $request){
 
+ // input validations
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+
+
+        $info = new Site_information();
+
+        $info->title = $request->input('title');
+        $info->description = $request->input('description');
+        $info->type = $request->input('type');
+        $info->save();
+
+       return redirect()->back()->with('success','Successfully added.');
+
+       
+    }
 
 
 
