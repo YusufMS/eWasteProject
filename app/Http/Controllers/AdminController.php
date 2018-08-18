@@ -7,6 +7,7 @@ use App\User;
 use App\Buyer;
 use App\Seller;
 use App\Site_information;
+use App\Main_waste_category;
 
 class AdminController extends Controller
 {
@@ -78,7 +79,7 @@ public function viewUsers(){
 
 public function addSiteInformations(Request $request){
 
- // input validations
+ 		// input validations
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required'
@@ -98,7 +99,26 @@ public function addSiteInformations(Request $request){
        
     }
 
+public function addMainCategory(Request $request){
 
+
+		 // input validations
+        $this->validate($request, [
+            'maincategory' => 'required'
+            
+        ]);
+
+
+        $maincategory = new Main_waste_category();
+
+        $maincategory->main_category = $request->input('maincategory');
+        $maincategory->save();
+
+        return redirect()->back()->with('success','Successfully added.');
+
+
+
+	}
 
 
 
