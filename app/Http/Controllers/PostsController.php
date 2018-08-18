@@ -23,55 +23,54 @@ class PostsController extends Controller
      */
 
 
-    public function index(){
-        $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
+    public function index()
+    {
+        $maincategories = main_waste_category::with(['sub_waste_category'])->get();
 
-        if(auth()->user()->_usertype === "buyer") {
+        if (auth()->user()->_usertype === "buyer") {
 
             $posts = DB::table('post')
+                ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                 ->join('user', 'user.id', '=', 'post.publisher_id')
-                ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                 ->where('user._usertype', "seller")
-
-                ->orderby('post.updated_at', 'desc')
+                ->orderby('post.created_at', 'desc')
                 ->paginate(3);
 //return $posts;
 
 
-        }elseif(auth()->user()->_usertype === "seller"){
+        } elseif (auth()->user()->_usertype === "seller") {
 
             $posts = DB::table('post')
-
+                ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                 ->join('user', 'user.id', '=', 'post.publisher_id')
-                ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                 ->where('user._usertype', "buyer")
-
-                ->orderby('post.updated_at', 'desc')
+                ->orderby('post.created_at', 'desc')
                 ->paginate(3);
 //            dd($posts);
 
-        }else{
-            if (Session::has('user_role')){
-                if (Session::get('user_role') == 'seller'){
+        } else {
+            if (Session::has('user_role')) {
+                if (Session::get('user_role') == 'seller') {
                     $posts = DB::table('post')
-
+                        ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                         ->join('user', 'user.id', '=', 'post.publisher_id')
-                        ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                        ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                         ->where('user._usertype', "buyer")
-
-                        ->orderby('post.updated_at', 'desc')
+                        ->orderby('post.created_at', 'desc')
                         ->paginate(3);
 //                    return $posts;
 
-                } elseif(Session::get('user_role') == 'buyer'){
+                } elseif (Session::get('user_role') == 'buyer') {
                     $posts = DB::table('post')
-
+                        ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                         ->join('user', 'user.id', '=', 'post.publisher_id')
-                        ->select('post.id as id' ,'post.title as title','post.content','post.attachment')
+                        ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                         ->where('user._usertype', "seller")
-
-                        ->orderby('post.updated_at', 'desc')
+                        ->orderby('post.created_at', 'desc')
                         ->paginate(3);
+// dd($posts[0]->category);
 
 //                    return $posts;
                 }
@@ -81,18 +80,17 @@ class PostsController extends Controller
 
 //        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 //
-        return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
 //
     }
 
 
-
     public function category($id)
     {
-        $maincategories =  main_waste_category::find($id);
-        $subcategories= waste::where('main_category_id',$id)->get();
+        $maincategories = main_waste_category::find($id);
+        $subcategories = waste::where('main_category_id', $id)->get();
         return view('buyer.index')->with($maincategories)->with($subcategories);
-            }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -142,37 +140,33 @@ class PostsController extends Controller
         foreach ($wasteid as $id)
 
             $post->sub_waste_category_id = $id->id;
-            $post->publisher_id = auth()->user()->id;
+        $post->publisher_id = auth()->user()->id;
 
         $post->save();
-
-
 
 
         $postid = DB::table('post')->select('id')->where('title', $request->input('title'))->get();
 
         foreach ($postid as $pid)
 
-             $post_id = $pid->id;
+            $post_id = $pid->id;
 
 
-        if(auth()->user()->_usertype === "seller") {
+        if (auth()->user()->_usertype === "seller") {
             $buyerType = $request->input('buyerType');
             $buyerType = implode(',', $buyerType);
 
             DB::table('seller_post')->insert(
                 ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
-        }
-
-        elseif(auth()->user()->_usertype === "buyer"){
+        } elseif (auth()->user()->_usertype === "buyer") {
             $noOfItems = $request->input('noOfItems');
             $modelNo = $request->input('modelNo');
 
             DB::table('buyer_post')->insert(
                 ['no_of_items' => $noOfItems, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
-        }else {
+        } else {
             if (Session::has('user_role')) {
                 if (Session::get('user_role') == 'seller') {
                     $buyerType = $request->input('buyerType');
@@ -215,11 +209,11 @@ class PostsController extends Controller
         $comments = $post->comments;
         $commentors = User::all();
 
-        if ($post->publisher_id != auth()->user()->id){
+        if ($post->publisher_id != auth()->user()->id) {
             $post->increment('view_count');
         }
 
-        return view('posts.view', ['post' => $post , 'seller' => $seller, 'comments' => $comments, 'commentors' => $commentors]);
+        return view('posts.view', ['post' => $post, 'seller' => $seller, 'comments' => $comments, 'commentors' => $commentors]);
     }
 
     /**
@@ -263,14 +257,34 @@ class PostsController extends Controller
     }
 
 
-
     public function showMyPosts($id)
     {
-        $maincategories =  main_waste_category::with(['sub_waste_category'])->get();
+        $maincategories = main_waste_category::with(['sub_waste_category'])->get();
 
-        $posts = DB::table('post')->where('publisher_id',$id)->orderby('updated_at', 'desc')->paginate(3);
+        $posts = DB::table('post')
+            ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
+            ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
+            ->where('publisher_id', $id)
+            ->orderby('post.created_at', 'desc')
+            ->paginate(3);
 //
-        return view('posts.index', ['posts'=>$posts ,'maincategories'=>$maincategories]);
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
+    }
+
+
+    public function postByCategory($id)
+    {
+        $maincategories = main_waste_category::with(['sub_waste_category'])->get();
+
+        $posts = DB::table('post')
+            ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
+            ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
+            ->where('sub_waste_category_id', '=', $id)
+            ->where('publisher_id', '!=', auth()->user()->id)
+            ->orderby('post.created_at', 'desc')
+            ->paginate(3);
+//
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
     }
 
 

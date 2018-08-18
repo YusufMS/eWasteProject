@@ -48,6 +48,8 @@ class user extends Authenticatable
     public function post()
     {
         return $this->hasMany('App\post');
+
+        
     }
 
     public function comments(){
