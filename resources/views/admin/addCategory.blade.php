@@ -56,9 +56,12 @@
   <br>
   <br>
   
+
 <div class="container">
     <div class="row">
     <div class="col-md-12">
+      
+
       <div class="tabbable-panel">
         <div class="tabbable-line">
           <ul class="nav nav-tabs ">
@@ -78,9 +81,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="addmain">
 
-                 
-
-                  <div class="col-lg-12">
+              <div class="col-lg-12">
                     <div class="row">
                        <div class="col-lg-3"></div>
                           <div class="col-lg-6">
@@ -115,11 +116,16 @@
   
                  </div>
               </div>
-
             
+
+
+
+
+
             </div>
 
             <div class="tab-pane" id="addsub">
+
               <div class="col-lg-12">
                     <div class="row">
                        <div class="col-lg-3"></div>
@@ -174,7 +180,7 @@
                                   {!! Form::close() !!} -->
                                   <button type="submit" class="btn btn-primary">Add</button>
 
-            </form>
+                                 </form>
 
 
 
@@ -187,18 +193,83 @@
 
                      </div>
                    </div>
+
                    </div>
-  
+
                  </div>
-              </div>
+               </div>
+              
+
+
+
 
             </div>
+
+            <div class="tab-pane" id="delete">
+
+              <br>
+
+
+
+              <!-- Inline Bar -->
+              <form class="form-inline" role="form">
+                  <div class="form-group">
+                     {{ Form::label('delMainCat', 'Delete Main E-waste Category : ', ['class' => 'form-label'] )}}
+                     <select class="form-control" id="maincategoryselect" name ="maintype" >
+                                  <option value="">Select a Category</option>
+                                  @if(count($maincategories) > 0)
+                                  @foreach ($maincategories as $maincategory)
+                                  <option name = "maintypes" id = "maintypes" value= '{{ $maincategory->id }}'>{{ $maincategory->main_category }}</option>
+                                  @endforeach
+                                  @endif
+                    </select>
+                  </div>
+                      <button type="submit" class="btn btn-danger submit">Delete</button>
+              </form>
+
+              <br>
+
+
+
+                  <hr>
+                  <br>
+
+                  
+
+                  <label style="font-size: 16px;">Delete Sub E-waste Category : </label>
+
+<div class="container">
+                              <div class="row">
+                                 <div class="col-lg-12">
+                                      <div class="table-responsive table-bordered ">
+                                          <table class="table" style="font-size: 16px;">
+
+                                                <tr>
+                                                    <th>Sub Category Name</th>
+                                                    <th>Description</th>
+                                                    <th>Delete</th>
+                        
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><a href="#">
+                                                     <button type='submit' class='btn btn-danger' onclick="">Delete</button>
+                                                     </a></td>
+                                                </tr>
+
+
+                                          </table>
+                                        </div>
+                                         <br>
+
+                                      </div>
+                                   </div>
+</div>
 
               
-            <div class="tab-pane active" id="delete">
-              ///////////////
             </div>
-       
+
 
 
 
@@ -207,6 +278,8 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>
 
 
