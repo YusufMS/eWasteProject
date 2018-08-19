@@ -40,13 +40,70 @@
         </div>
     </div>
     <br>
-    <br>
-    <br>
 
+
+
+      
+    
     {{-- Add footer with laws, methods, standards and other information --}}
               
     </div>
     <!--/.Panel-->
-    </div>
+    <hr>
+    <footer class="footer">
+            
+        <div class="container">
+                <h3 class="text-info">Site Information</h3>
+            <div class="row">
+                <div class="col">
+                    <h4 class="pt-2 text-dark">Info Topic</h4>
+                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                            $ git checkout Yusuf
+                            Switched to branch 'Yusuf'
+                            Your branch is up to date with 'origin/Yusuf'.</div>
+                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                    <br>
+                </div>
+                <div class="col">
+                        <h4 class="pt-2 text-dark">Info Topic</h4>
+                        <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                $ git checkout Yusuf
+                                Switched to branch 'Yusuf'
+                                Your branch is up to date with 'origin/Yusuf'.</div>
+                        <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                        <br>
+                    </div>
+                    <div class="col">
+                            <h4 class="pt-2 text-dark">Info Topic</h4>
+                            <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                    $ git checkout Yusuf
+                                    Switched to branch 'Yusuf'
+                                    Your branch is up to date with 'origin/Yusuf'.</div>
+                            <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                            <br>
+                        </div>
+                        <div class="col">
+                                <h4 class="pt-2 text-dark">Info Topic</h4>
+                                <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                        $ git checkout Yusuf
+                                        Switched to branch 'Yusuf'
+                                        Your branch is up to date with 'origin/Yusuf'.</div>
+                                <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                                <br>
+                            </div>
+                            <div class="col">
+                                    <h4 class="pt-2 text-dark">Info Topic</h4>
+                                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                            $ git checkout Yusuf
+                                            Switched to branch 'Yusuf'
+                                            Your branch is up to date with 'origin/Yusuf'.</div>
+                                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                                    <br>
+                                </div>
+            </div>
+            <br>
+        </div>
+    </footer>
+    
 @endsection
        

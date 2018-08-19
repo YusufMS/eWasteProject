@@ -11,10 +11,8 @@
     <div class="container">
         <!--Panel-->
         <div class="card ">
-            <div class="card-header black white-text">
-                <h5>
-                    Add a Posts
-                </h5>
+            <div class="card-header text-center">
+                <h3 class="font-weight-bold">Create Post</h3>
             </div>
             <div class="card-body">
 
@@ -25,114 +23,97 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label for="topic">E waste Name</label>
-                        <input id="title" class="form-control" type="text" name="title" required
-                               placeholder="nokia 7 mobile phone">
+                        <label for="topic">Post Title</label>
+                        <input id="title" class="form-control" type="text" name="title" required placeholder="Ex: Mother Boards of Dell Computers in Bulk">
+                        <small class="text-muted">* Providing a clear title can make your post stand out and easy to understand.</small>
                     </div>
 
                     <div class="form-group">
                         <label for="category">E waste Category</label>
                         <select class="form-control" name="category">
-                            <option placeholder="<select>" disabled selected>select</option>
+                            <option placeholder="Select" disabled selected>Select Category</option>
 
                             @foreach($cat as $category)
                                 <option value="{{ $category->category}}"
                                         name="category">{{ $category->category }}</option>
-
                             @endforeach
                         </select>
+                        <small class="text-muted">* Select a suitable category from the options. Your post will be found by users using Categories</small>
                     </div>
 
                     @if(Auth::user()->_usertype === "seller")
                         <div class="form-group">
                             <label for="buyerType">Buyer Category</label>
                             <div class="form-check" style="margin-left:20px">
-
-
-                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                <label><input class="form-check-input" name="buyerType[]" id="buyerType"
                                        type="checkbox" value="Exporter">
-                                Exporter
-                                <br>
-                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                Exporter</label><br>
+                                <label><input class="form-check-input" name="buyerType[]" id="buyerType"
                                        type="checkbox" value="Government">
-                                Government
-                                <br>
-                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                Government</label><br>
+                                <label><input class="form-check-input" name="buyerType[]" id="buyerType"
                                        type="checkbox" value="Collecting Agent">
-                                Collecting Agent
-                                <br>
-                                <input class="form-check-input" name="buyerType[]" id="buyerType"
+                                Collecting Agent</label><br>
+                                <label><input class="form-check-input" name="buyerType[]" id="buyerType"
                                        type="checkbox" value="Local Company">
-                                Local Company
-
+                                Local Company</label>
                             </div>
+                            <small class="text-muted">The category of buyers that you are willing to sell your waste.</small>
+                            
+                            
 
                         </div>
-
-
-
-
-
 
                     @elseif( Auth::user()->_usertype === "buyer")
 
                         <div class="form-group">
-                            <label for="topic">No of Items</label>
-                            <input id="noOfItems" class="form-control" type="text" name="noOfItems">
+                            <label for="topic">Number of Items</label>
+                            <input id="noOfItems" class="form-control" type="text" name="noOfItems" placeholder="Ex: 10">
+                            <small class="text-muted">Amount of E-Waste that you have in pocession (in Kilograms). An approximate value is acceptable. </small>
                         </div>
 
                         <div class="form-group">
                             <label for="topic">Model Number</label>
-                            <input id="modelNo" class="form-control" type="text" name="modelNo">
+                            <input id="modelNo" class="form-control" type="text" name="modelNo" placeholder="Ex: AT-23UE">
+                            <small class="text-muted">Model Number will help users in searching your post easily</small>
                         </div>
 
                     @else
-
-
                         @if (Session::has('user_role'))
                             @if (Session::get('user_role') == 'seller')
                                 <div class="form-group">
-                                    <label for="buyerType">Buyer Category</label>
-                                    <div class="form-check" style="margin-left:20px">
-
-
-                                        <input class="form-check-input" name="buyerType[]" id="buyerType"
-                                               type="checkbox" value="Exporter">
-                                        Exporter
-                                        <br>
-                                        <input class="form-check-input" name="buyerType[]" id="buyerType"
-                                               type="checkbox" value="Government">
-                                        Government
-                                        <br>
-                                        <input class="form-check-input" name="buyerType[]" id="buyerType"
-                                               type="checkbox" value="Collecting Agent">
-                                        Collecting Agent
-                                        <br>
-                                        <input class="form-check-input" name="buyerType[]" id="buyerType"
-                                               type="checkbox" value="Local Company">
-                                        Local Company
-
-                                    </div>
-
+                                        <label for="buyerType">Buyer Category</label>
+                                        <div class="form-check" style="margin-left:20px">
+                                            <label><input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                   type="checkbox" value="Exporter">
+                                            Exporter</label><br>
+                                            <label><input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                   type="checkbox" value="Government">
+                                            Government</label><br>
+                                            <label><input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                   type="checkbox" value="Collecting Agent">
+                                            Collecting Agent</label><br>
+                                            <label><input class="form-check-input" name="buyerType[]" id="buyerType"
+                                                   type="checkbox" value="Local Company">
+                                            Local Company</label>
+                                        </div>
+                                        <small class="text-muted">The category of buyers that you are willing to sell your waste.</small>
                                 </div>
 
 
                             @else
-                                <div class="form-group">
-                                    <label for="topic">No of Items</label>
-                                    <input id="noOfItems" class="form-control" type="text" name="noOfItems">
+                            <div class="form-group">
+                                    <label for="topic">Number of Items</label>
+                                    <input id="noOfItems" class="form-control" type="text" name="noOfItems" placeholder="Ex: 10">
+                                    <small class="text-muted">Amount of E-Waste that you have in pocession (in Kilograms). An approximate value is acceptable. </small>
                                 </div>
-
+        
                                 <div class="form-group">
                                     <label for="topic">Model Number</label>
-                                    <input id="modelNo" class="form-control" type="text" name="modelNo">
+                                    <input id="modelNo" class="form-control" type="text" name="modelNo" placeholder="Ex: AT-23UE">
+                                    <small class="text-muted">Model Number will help users in searching your post easily</small>
                                 </div>
                             @endif
-
-
-
-
-
                         @endif
                     @endif
 
@@ -140,12 +121,19 @@
                         <label for="description">Description</label>
                         <textarea id="description" class="form-control" name="description" rows="3"
                                   required></textarea>
+                        <small class="text-muted">Any detail that you want to provide about the waste</small>
                     </div>
                     <div class="form-group ">
-                        <label for="attachment">Attachment</label>
+                        {{-- <label for="attachment">Image</label> --}}
+                        {{-- if no errors for not using dropify delete this
                         <div class="dropify">
                             <input id="dropify" class="form-control " type="file" name="attachment">
+                        </div> --}}
+                        <div class="custom-file">
+                            <input id="dropify" class="custom-file-input " type="file" name="attachment">
+                            <label for="attachment" class="custom-file-label">Insert Image</label>
                         </div>
+                        <small class="text-muted">An image for buyers to get a clear idea</small>
                     </div>
 
                     <br>

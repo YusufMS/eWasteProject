@@ -21,9 +21,9 @@
             <hr class="my-4">
             <p class="lead font-weight-light">You are <span class="font-weight-bold">Logged In</span> as a <span>Buyer</span></p>
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">View Own Posts</a>
-                <a class="btn btn-primary btn-lg" href="#" role="button">View All Posts</a>
-                <a class="btn btn-success btn-lg" href="#" role="button">Create A Post</a>
+                <a class="btn btn-primary btn-lg" href="/showMyPosts/{{Auth::user()->id}}" role="button">Your Posts</a>
+                <a class="btn btn-info btn-lg" href="/posts" role="button">Portal</a>
+                <a class="btn btn-success btn-lg" href="/posts/create" role="button">Add New Post</a>
             </p>
         </div>
         <div class="card">
@@ -50,6 +50,61 @@
                       
             </div>
             <!--/.Panel-->
+
+           <hr>
+    <footer class="footer">
+            
+        <div class="container">
+                <h3 class="text-info">Site Information</h3>
+            <div class="row">
+                <div class="col">
+                    <h4 class="pt-2 text-dark">Info Topic</h4>
+                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                            $ git checkout Yusuf
+                            Switched to branch 'Yusuf'
+                            Your branch is up to date with 'origin/Yusuf'.</div>
+                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                    <br>
+                </div>
+                <div class="col">
+                        <h4 class="pt-2 text-dark">Info Topic</h4>
+                        <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                $ git checkout Yusuf
+                                Switched to branch 'Yusuf'
+                                Your branch is up to date with 'origin/Yusuf'.</div>
+                        <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                        <br>
+                    </div>
+                    <div class="col">
+                            <h4 class="pt-2 text-dark">Info Topic</h4>
+                            <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                    $ git checkout Yusuf
+                                    Switched to branch 'Yusuf'
+                                    Your branch is up to date with 'origin/Yusuf'.</div>
+                            <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                            <br>
+                        </div>
+                        <div class="col">
+                                <h4 class="pt-2 text-dark">Info Topic</h4>
+                                <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                        $ git checkout Yusuf
+                                        Switched to branch 'Yusuf'
+                                        Your branch is up to date with 'origin/Yusuf'.</div>
+                                <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                                <br>
+                            </div>
+                            <div class="col">
+                                    <h4 class="pt-2 text-dark">Info Topic</h4>
+                                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
+                                            $ git checkout Yusuf
+                                            Switched to branch 'Yusuf'
+                                            Your branch is up to date with 'origin/Yusuf'.</div>
+                                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                                    <br>
+                                </div>
             </div>
+            <br>
+        </div>
+    </footer>
         @endsection
                
