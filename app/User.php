@@ -55,7 +55,6 @@ class User extends Authenticatable
 
     public function post()
     {
-<<<<<<< HEAD
         return $this->hasMany('App\post');
 
         
@@ -63,9 +62,6 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany('App\Comment');
-=======
-        return $this->hasMany('App\Post');
->>>>>>> Ravihansa
     }
 
 
