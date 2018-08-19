@@ -57,27 +57,30 @@
                         <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
                         {!! Form::close() !!}
                         {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
-                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        <a type="a" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
                         @elseif(Session::has('user_role') && Session::get('user_role') == 'seller' && $post->has('seller_post'))
                         {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class'=>'delete' ]) !!}
                         {{Form::hidden('_method', 'DELETE')}}
                         <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
                         {!! Form::close() !!}
                         {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
-                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        <a type="a" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
                         @else
                         {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class'=>'delete' ]) !!}
                         {{Form::hidden('_method', 'DELETE')}}
-                        <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
+                        <a type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a>
                         {!! Form::close() !!}
                         {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
-                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
                         @endif
                     @else
                     <span data-toggle="modal" data-target="#myModal">
-                        <a type="button" href="#" class="btn btn-info" data-toggle="tooltip" title="Contact Details"><i class="fa fa-address-card"></i></a>
+                        <a href="#" class="btn btn-info mx-1" data-toggle="tooltip" title="Contact Details"><i class="fa fa-address-card"></i></a>
                     </span>
-                    <a type="button" href="#" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i class="fa fa-envelope"></i></a>
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i class="fa fa-envelope"></i></a>
+                    <span data-toggle="modal" data-target="#reportModal">
+                        <a href="#" class="btn btn-danger mx-1" data-toggle="tooltip" title="Report this Post"><i class="fa fa-comment-alt"></i></a>
+                    </span>
                     @endif
                 </div>
 
@@ -86,6 +89,38 @@
             <br>
 
         </div>
+
+        {{-- Modal for complain/report --}}
+        <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Report this post</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="{{route('complains.store')}}" method="POST">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                          <label for="content" class="col-form-label">Complain / Report Content</label>
+                          <textarea class="form-control" id="content" name="content"></textarea>
+                          <small class="text-muted">Include the details of your complains here. Please make it specific and concise.</small>
+                        </div>
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Report</button>
+                        </div>
+                      </form>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              {{--  --}}
+    
 
         {{--  --}}
         <div class="card my-4">
@@ -129,6 +164,7 @@
     </div>
 
 
+    
 
     <div class="modal" id="myModal">
         <div class="modal-dialog" role="document">

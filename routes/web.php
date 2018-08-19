@@ -68,6 +68,8 @@ Route::resource('/chat', 'chatsController')->middleware('auth');
 Route::resource('/posts', 'PostsController')->middleware('auth');
 Route::resource('/wastes', 'subCatController');
 Route::resource('/maincat', 'mainCatController');
+Route::resource('/complains', 'ComplainController');
+
 Auth ::routes();
 
 
