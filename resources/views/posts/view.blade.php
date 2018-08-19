@@ -10,6 +10,7 @@
         <div class="card mb-3">
 
             <div class="card-body">
+                @include('partials.messages')
 
                 <hr>
                 <div class="card-header"><h4>{{ $post->title }}</h4>
@@ -44,19 +45,40 @@
                     <br>
                     <br>
                 </div>
-                <div class="float-right">
+                <div class="row float-right">
                     {{--<a type="button" class="btn btn-info" href="/contactDetails/{{ $post->publisher_id }}"><i class="fa fa-address-book" style="font-size:30px;padding-right: 10px"></i>Contact Details</a>--}}
 
                     {{-- tooltip added buttons --}}
-                    <a href="{{url()->previous()}}" class="btn btn-primary" data-toggle="tooltip" title="Go Back"><i
-                                class="fa fa-arrow-left"></i></a>
+                    <a href="{{url()->previous()}}" class="btn btn-primary" data-toggle="tooltip" title="Go Back"><i class="fa fa-arrow-left"></i></a>
+                    @if(Auth::id() == $post->publisher_id)
+                        @if(Session::has('user_role') && Session::get('user_role') == 'buyer' && $post->has('buyer_post'))
+                        {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class'=>'delete' ]) !!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
+                        {!! Form::close() !!}
+                        {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
+                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        @elseif(Session::has('user_role') && Session::get('user_role') == 'seller' && $post->has('seller_post'))
+                        {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class'=>'delete' ]) !!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
+                        {!! Form::close() !!}
+                        {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
+                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        @else
+                        {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'class'=>'delete' ]) !!}
+                        {{Form::hidden('_method', 'DELETE')}}
+                        <button type="submit" class="btn btn-danger mx-1" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></button>
+                        {!! Form::close() !!}
+                        {{-- <a type="button" href="#" class="btn btn-danger" data-toggle="tooltip" title="Delete Post"><i class="fa fa-trash-alt"></i></a> --}}
+                        <a type="button" href="{{route('posts.edit', $post->id)}}" class="btn btn-success" data-toggle="tooltip" title="Edit Post"><i class="fa fa-edit"></i></a>
+                        @endif
+                    @else
                     <span data-toggle="modal" data-target="#myModal">
-                        <button type="button" class="btn btn-info" data-toggle="tooltip" title="Contact Details"><i
-                                    class="fa fa-address-card"></i></button>
+                        <a type="button" href="#" class="btn btn-info" data-toggle="tooltip" title="Contact Details"><i class="fa fa-address-card"></i></a>
                     </span>
-                    <button type="button" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i
-                                class="fa fa-envelope"></i></button>
-
+                    <a type="button" href="#" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i class="fa fa-envelope"></i></a>
+                    @endif
                 </div>
 
             </div>
@@ -177,6 +199,11 @@
             $(this).find('span').text($(this).data('last'));
         });
 
+    </script>
+    <script>
+        $(".delete").on("submit", function(){
+            return confirm("This will delete your post from the portal. Proceed to DELETE?");
+        });
     </script>
 
 

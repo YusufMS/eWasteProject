@@ -5,6 +5,7 @@
     <br>
     <br>
     <div class="container">
+            @include('partials.messages')
         <div class="row">
             <div class="col-sm-3">
 
@@ -47,15 +48,6 @@
             <div class="col-sm-9">
 
                 @if(count($posts) > 0)
-
-
-
-
-
-
-
-
-
 
                     @foreach($posts as $postDetails)
 
