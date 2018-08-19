@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add News</title>
+<title>Add Category</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/admin.css" />
 
@@ -70,6 +70,10 @@
               <a href="#addsub" data-toggle="tab">
               Add Sub E-waste Category</a>
             </li>
+            <li>
+              <a href="#delete" data-toggle="tab">
+              Delete E-waste Category</a>
+            </li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="addmain">
@@ -128,30 +132,52 @@
                               <div class="card">
                             <div class="card-body">
                                 @include('partials.messages')
-                                 {!! Form::open(['action' => ['AdminController@addMainCategory'], 'method' => 'POST']) !!}
+                                <!-- {!! Form::open(['action' => ['AdminController@addSubCategory'], 'method' => 'POST']) !!} -->
+                                 <form method="POST" action="{{ route('addsubcategory') }}">
+                                  @csrf
 
                             <div class="form-group">
-                                  {{ Form::label('select', 'Select Main E-waste Type :', ['class' => 'form-label'] )}}
-                                   {{Form::select('type', ['1' => 'Laptops', '0' => 'Tv'])}}
+
+                              {{ Form::label('select', 'Select Main E-waste Type :', ['class' => 'form-label'] )}}
+
+                              <select class="form-control" id="maincategoryselect" name ="maintype" >
+                                  <option value="">Select a Category</option>
+                                  @if(count($maincategories) > 0)
+                                  @foreach ($maincategories as $maincategory)
+                                  <option name = "maintypes" id = "maintypes" value= '{{ $maincategory->id }}'>{{ $maincategory->main_category }}</option>
+                                  @endforeach
+                                  @endif
+                              </select>
+
                             </div> 
       
 
 
                             <div class="form-group">
                                   {{ Form::label('Category', 'Sub Waste Type', ['class' => 'form-label'] )}}
-                                   {{ Form::text('subcategory', null , ['class' => 'form-control', 'placeholder' => 'Sub Waste Category', 'id' => 'subtype']) }}
+                                  <!--{{ Form::text('subcategory', null , ['class' => 'form-control', 'placeholder' => 'Sub Waste Category', 'id' => 'subtype']) }}-->
+                                   <input type="text" class="form-control" id="subcategory" name="subcategory" placeholder="Sub Waste Category">
+
+
                             </div>
 
                              <div class="form-group">
                                   {{ Form::label('body', 'Description ', ['class' => 'form-label'] )}}
-                                  {{ Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Give a Description', 'id' => 'body']) }}
+                                <!--  {{ Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Give a Description', 'id' => 'body']) }}-->
+                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                             </div> 
          
                             <div class="row" style="margin-left: -5px;">
                                 <div style="float: left;">
                         
-                                 {{ Form::submit('Add', ['class' => 'btn btn-primary btn-md']) }}
-                                  {!! Form::close() !!}
+                                <!-- {{ Form::submit('Add', ['class' => 'btn btn-primary btn-md']) }}
+                                  {!! Form::close() !!} -->
+                                  <button type="submit" class="btn btn-primary">Add</button>
+
+            </form>
+
+
+
                                 </div>
                             <a href="/admin" class="btn btn-secondary btn-md">Back</a>
                           </div> 
@@ -167,6 +193,13 @@
               </div>
 
             </div>
+
+              
+            <div class="tab-pane active" id="delete">
+              ///////////////
+            </div>
+       
+
 
 
           </div>

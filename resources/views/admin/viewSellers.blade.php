@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" >
-    <title>View Buyers</title>
+    <title>View Sellers</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/admin.css" />
 

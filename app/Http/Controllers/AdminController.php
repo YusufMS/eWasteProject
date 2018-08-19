@@ -8,6 +8,7 @@ use App\Buyer;
 use App\Seller;
 use App\Site_information;
 use App\Main_waste_category;
+use App\Sub_waste_category;
 
 class AdminController extends Controller
 {
@@ -35,9 +36,10 @@ public function addNews(){
 
 
 public function addCategory(){
-  
-	return view('admin.addCategory');
 
+	$maincategories = main_waste_category::all();
+
+	return view('admin.addCategory')->with('maincategories',$maincategories)->withTitle('MainCategories');
 
 }
 
@@ -121,7 +123,48 @@ public function addMainCategory(Request $request){
 	}
 
 
+public function addSubCategory(Request $request){
+
+		 // input validations
+        $this->validate($request, [
+            'subcategory' => 'required',
+            'description' => 'required',
+            'maintype' => 'required'
+            
+        ]);
 
 
+		$subcategory = new Sub_waste_category();
+
+
+		$subcategory->category = $request->input('subcategory');
+		$subcategory->description = $request->input('description');
+		$subcategory->main_category_id = $request->input('maintype');
+
+		$subcategory->save();
+
+        return redirect()->back()->with('success','Successfully added.');
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+/**
+public function viewMainCategories(){
+
+	 $maincategories = main_waste_category::all();
+  
+	 return view('admin.addCategory')->with('maincategories',$maincategories)->withTitle('MainCategories');
+
+}
+***/
 
 }

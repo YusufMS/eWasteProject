@@ -38,7 +38,7 @@ Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcateg
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
 Route::post('addmaincategory',['uses'=>'AdminController@addMainCategory', 'as'=>'addmaincategory']);
-
+Route::post('addsubcategory',['uses'=>'AdminController@addSubCategory', 'as'=>'addsubcategory']);
 
 
 
