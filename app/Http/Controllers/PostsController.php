@@ -84,7 +84,7 @@ class PostsController extends Controller
 
 //        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
 //
-        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' => 'Portal']);
 //
     }
 
@@ -385,7 +385,7 @@ class PostsController extends Controller
         //     ->orderby('post.created_at', 'desc')
         //     ->paginate(3);
 //
-        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' =>'Your Posts']);
     }
 
 
@@ -401,7 +401,7 @@ class PostsController extends Controller
             ->orderby('post.created_at', 'desc')
             ->paginate(3);
 //
-        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories]);
+        return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' =>'Portal', 'resultsForCat' => sub_waste_category::find($id)->category]);
     }
 
 

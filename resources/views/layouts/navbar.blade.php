@@ -15,6 +15,7 @@
 
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
+            {{-- should configure to change for the active page --}}
             <li class="nav-item active">
                 <a class="nav-link" href="/posts">Portal</a>
             </li>
