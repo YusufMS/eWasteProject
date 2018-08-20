@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use willvincent\Rateable\Rateable;
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use DB;
 use App\user;
 use App\Buyer;
 use App\Seller;
+
 
 
 
@@ -100,7 +98,7 @@ class userprofileController extends Controller
         if(auth()->user()->_usertype == "seller"){
             $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
                 ->where('user.id','!=',auth()->user()->id)
-                ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id')
+                ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
                 ->get();;
 
             return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
@@ -116,10 +114,15 @@ class userprofileController extends Controller
                 if (Session::get('user_role') == 'seller') {
                     $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
                         ->where('user.id','!=',auth()->user()->id)
-                        ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id')
-                        ->get();;
+                        ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
+                        ->get();
 
-                    return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
+//                    $rating = new willvincent\Rateable\Rating;
+//                    $rating->rating = $buyers->rating;
+
+//                    $calculatedRates = ($rates->rating)/($rates->no_of_raters);
+
+                    return view('viewUser')->with(['users'=> $buyers])->withTitle('Buyer Details');
 
                 }elseif(Session::get('user_role') == 'buyer'){
                     $sellers = user::all()

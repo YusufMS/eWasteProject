@@ -19,17 +19,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/posts">Portal</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Profiles</a>
+            <li class="nav-item active">
+                <a class="nav-link" href='/viewUsersByCategory'>Profiles <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
             </li>
             
 
-            <li class="nav-item active">
-                <a class="nav-link" href='/viewUsersByCategory'>View Users <span class="sr-only">(current)</span></a>
-            </li>
+
 
 
 
@@ -53,7 +51,7 @@
                             <a class="dropdown-item " href="/posts/create">{{ __('Add New Post') }}</a>
                             
                             <a class="dropdown-item"
-                                href="/showMyPosts/{{Auth::user()->id}}">{{ __('Your posts') }}</a>
+                                href="/showMyPosts">{{ __('Your posts') }}</a>
                                 <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/posts">{{ __('Portal') }}</a>
                         </div>
@@ -66,7 +64,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">Posts</a>
                         <div class="dropdown-menu shown dropdown-menu-right">
                             <a class="dropdown-item " href="/posts/create">{{ __('Add New Post') }}</a>
-                            <a class="dropdown-item" href="/showMyPosts/{{Auth::user()->id}}">{{ __('Your posts') }}</a>
+                            <a class="dropdown-item" href="/showMyPosts">{{ __('Your posts') }}</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/posts">{{ __('Portal') }}</a>
                         </div>

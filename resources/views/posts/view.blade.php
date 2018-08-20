@@ -393,7 +393,7 @@
                         @endif
                     @else
                     <span data-toggle="modal" data-target="#myModal">
-                        <a href="#" class="btn btn-info mx-1" data-toggle="tooltip" title="Contact Details"><i class="fa fa-address-card"></i></a>
+                        <a href="#" class="btn btn-info mx-1" data-toggle="tooltip" title="Contact Details" ><i class="fa fa-address-card"></i></a>
                     </span>
                     <a href="#" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i class="fa fa-envelope"></i></a>
                     <span data-toggle="modal" data-target="#reportModal">
@@ -401,8 +401,8 @@
                     </span>
                     @endif
                     {{--<span data-toggle="modal" data-target="#live-chat-form">--}}
-                    <a type="button" href="#"  id="addClass" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i
-                                class="fa fa-envelope"></i></a>
+                    {{--<a type="button" href="#"  id="addClass" class="btn btn-success" data-toggle="tooltip" title="Send Message"><i--}}
+                                {{--class="fa fa-envelope"></i></a>--}}
                                 {{--</span>--}}
 
 
@@ -692,7 +692,7 @@
 
 
     <script type="text/javascript">
-        $('#contactno').click(function () {
+        $('#contactno ').click(function () {
             $(this).find('span').text($(this).data('last'));
         });
 
@@ -723,9 +723,9 @@
                             console.log(data);
 
                         }
-                    error :function (data){
-                            console.log($data);
-                    }
+//                    error :function (data){
+//                            console.log($data);
+//                    }
                     });
                 });
             });
