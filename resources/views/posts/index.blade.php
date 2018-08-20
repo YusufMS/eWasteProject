@@ -48,15 +48,6 @@
 
                 @if(count($posts) > 0)
 
-
-
-
-
-
-
-
-
-
                     @foreach($posts as $postDetails)
 
 
@@ -92,9 +83,9 @@
                             @else
                                 <h3 class="text-center">No posts in Database</h3>
                             @endif
-                        </div>
+                        
 
-                        <div class="row">
+                        <div class="row mt-4">
                             <div class="col-sm-9"></div>
                             <div class="col-sm-3">
                                 {{ $posts->links() }}

@@ -20,7 +20,7 @@ Route::get('/buyerHome', 'HomeController@buyerIndex')->name('buyerHome')->middle
 Route::get('/sellerHome', 'HomeController@sellerIndex')->name('sellerHome')->middleware('auth');
 Route::get('/register',['uses'=>'userController@index']);
 Route::get('/login',['uses'=>'userController@login']);
-Route::get('/messages', 'ChatsController@fetchMessages');
+Route::get('/messages', 'ChatsController@index');
 Route::get('/contactDetails/{id}', 'PostsController@getPublisher')->middleware('auth');
 Route::get('regBuyer', ['uses'=>'buyerController@index', 'as'=>'regBuyer']);
 Route::get('admin', ['uses'=>'AdminController@index','as'=>'adminpage']);
@@ -35,22 +35,20 @@ Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profile
 
 
 Route::get('search-categories/{id}', 'PostsController@category');
-Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
+Route::get('/showMyPosts', 'PostsController@showMyPosts');
 Route::get('/postByCategory/{id}', 'PostsController@postByCategory');
 Route::resource('comments', 'CommentController')->middleware('auth');
 
-
-
+Route::post('/message/store', 'messageController@store');
+Route::post('/rateBuyers/{id}', 'userProfileController@rateBuyers');
 
 Route::post('/signup',['uses'=>'userController@create', 'as'=>'signup']);
-Route::post('/messages', 'ChatsController@sendMessage');
 Route::post('doLogin', ['uses' => 'userController@doLogin', 'as'=>'doLogin']);
 Route::post('createBuyer', ['uses'=>'buyerController@create','as'=>'createBuyer']);
+Route::get('/viewUsersByCategory ',['uses'=>'userprofileController@viewUsersByCategory']);
 
 
 
-
-Route::resource('/chat', 'chatsController')->middleware('auth');
 Route::resource('/posts', 'PostsController')->middleware('auth');
 Route::resource('/wastes', 'subCatController');
 Route::resource('/maincat', 'mainCatController');

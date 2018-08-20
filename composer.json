@@ -11,7 +11,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.6",
         "nesbot/carbon": "1.25.*",
-        "pusher/pusher-php-server": "^3.0"
+        "pusher/pusher-php-server": "^3.0",
+        "willvincent/laravel-rateable": "^1.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

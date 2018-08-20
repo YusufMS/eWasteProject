@@ -4,10 +4,16 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\user as Authenticatable;
+use willvincent\Rateable\Rateable;
+
+
+
 
 class user extends Authenticatable
 {
     use Notifiable;
+    use Rateable;
+
 
 
     public function getFullNameAttribute()
@@ -35,9 +41,9 @@ class user extends Authenticatable
 //    ];
 
 
-    public function seller()
+    public function buyer()
     {
-        return $this->belongsTo('App\seller');
+        return $this->belongsTo('App\Buyer');
     }
 
     public function messages()

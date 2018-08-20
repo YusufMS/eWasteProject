@@ -16,7 +16,8 @@ class CreateBuyerTable extends Migration
         Schema::create('buyer', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->integer('rating')->nullable();
+            $table->integer('rating')->default(0);
+            $table->float('no_of_raters')->default(0);
             $table->integer('subscribe')->nullable();
 
             $table->unsignedInteger('user_id');

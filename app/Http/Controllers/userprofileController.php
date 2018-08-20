@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use willvincent\Rateable\Rateable;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-
+use DB;
 use App\user;
 use App\Buyer;
 use App\Seller;
@@ -93,6 +94,70 @@ class userprofileController extends Controller
 
         return redirect()->to('/profile/' . $id)->with('success', 'Successfully updated profile information');
     }
+
+
+    public function viewUsersByCategory(){
+        if(auth()->user()->_usertype == "seller"){
+            $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
+                ->where('user.id','!=',auth()->user()->id)
+                ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id')
+                ->get();;
+
+            return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
+
+
+        }elseif (auth()->user()->_usertype == "buyer"){
+            $sellers = user::all();
+
+            return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
+
+        }else{
+            if(Session::has('user_role')) {
+                if (Session::get('user_role') == 'seller') {
+                    $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
+                        ->where('user.id','!=',auth()->user()->id)
+                        ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id')
+                        ->get();;
+
+                    return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
+
+                }elseif(Session::get('user_role') == 'buyer'){
+                    $sellers = user::all()
+                        ->where('id','!=',auth()->user()->id);
+
+                    return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
+
+                }
+                                }
+        }
+
+    }
+
+
+
+
+    public function rateBuyers(Request $request, $id)
+
+    {
+        $prev_ratings = DB::table('buyer')
+                            ->select('rating')
+                            ->where('id', $id)->first();
+        $prev_raters = DB::table('buyer')
+                        ->select('no_of_raters')
+                        ->where('id', $id)->first();
+        $new_rating = $prev_ratings->rating + $request->rating;
+        $new_raters = $prev_raters->no_of_raters + 1;
+//        $buyer->rating
+
+        DB::table('buyer')
+            ->where('id', $id)
+            ->update(['rating' => $new_rating , 'no_of_raters' => $new_raters]);
+
+        return redirect()->to('/viewUsersByCategory')->with('success','You have rated successfully.');
+
+    }
+
+
 }
 
 
