@@ -45,11 +45,14 @@ Route::get('deletebuyer/{id}', ['uses'=>'AdminController@deleteBuyer','as'=>'del
 
 
 Route::get('profile/{id}', 'userprofileController@profileInfo');
-Route::get('profile/{id}/edit', 'userprofileController@profileEdit');
-Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate');
+Route::get('profile/{id}/edit', 'userprofileController@profileEdit')->middleware('auth');
+Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profileUpdate')->middleware('auth');
+
 
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts/{id}', 'PostsController@showMyPosts');
+Route::get('/postByCategory/{id}', 'PostsController@postByCategory');
+Route::resource('comments', 'CommentController')->middleware('auth');
 
 
 
@@ -66,6 +69,8 @@ Route::resource('/chat', 'chatsController')->middleware('auth');
 Route::resource('/posts', 'PostsController')->middleware('auth');
 Route::resource('/wastes', 'subCatController');
 Route::resource('/maincat', 'mainCatController');
+Route::resource('/complains', 'ComplainController');
+
 Auth ::routes();
 
 

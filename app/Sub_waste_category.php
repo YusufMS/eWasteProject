@@ -21,5 +21,6 @@ class sub_waste_category extends Model
         return $this->belongsTo('App\Main_waste_category','main_category_id');
     }
 
+    
 
 }

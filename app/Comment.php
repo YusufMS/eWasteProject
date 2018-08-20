@@ -4,22 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use User;
-use Post;
-
-class Seller extends Model
+class Comment extends Model
 {
-    public $table = 'seller';
+    public $table = 'comment';
 
     public function post()
     {
-        return $this->hasMany('App\post');
+        return $this->belongsTo('App\Post');
     }
 
-
-    public function User()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
-
-}
+}   
+    

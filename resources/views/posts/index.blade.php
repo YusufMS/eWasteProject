@@ -5,27 +5,34 @@
     <br>
     <br>
     <div class="container">
+            @include('partials.messages')
+            <h2 class="text-center font-weight-bold">{{$view_title}}</h2>
+            <hr>
         <div class="row">
+            
             <div class="col-sm-3">
 
                 {{--category selection--}}
-                    <ul>
+                <ul>
                     @foreach($maincategories as $category)
                         @if($category->has('sub_waste_category'))
                             <br>
-                                <div class="btn-group dropright">
+                            <div class="btn-group dropright">
 
-                            <button type="button" class="btn btn-secondary dropdown-toggle my-1 px-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ $category->main_category }}
-                            </button>
+                                <button type="button" class="btn btn-secondary dropdown-toggle my-1 px-5"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ $category->main_category }}
+                                </button>
 
-                            <div class="dropdown-menu">
-                                <!-- Dropdown menu links -->
-                                @foreach($category->sub_waste_category as $subcategory)
-                                    <li><a href="#">{{$subcategory->category}}</a></li>
-                                @endforeach
-                            </div>
+                                <div class="dropdown-menu">
+                                    <!-- Dropdown menu links -->
+                                    @foreach($category->sub_waste_category as $subcategory)
+                                        <li>
+                                            <a href="/postByCategory/{{ $subcategory->id }}">{{$subcategory->category}}</a>
+                                        </li>
+                                    @endforeach
                                 </div>
+                            </div>
                         @else
                             <button type="button" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">
                                 {{ $category->main_category }}
@@ -34,78 +41,64 @@
                         @endif
 
                     @endforeach
-                    </ul>
+                </ul>
 
-{{--/category selection--}}
-
+                {{--/category selection--}}
 
 
             </div>
+
             <div class="col-sm-9">
-
-
+                @if(isset($resultsForCat))
+                <div class="text-muted text py-2"><em>Showing results for <strong>{{$resultsForCat}}</strong></em></div>
+                @endif
                 @if(count($posts) > 0)
 
                     @foreach($posts as $postDetails)
-
-                        <div class="card mb-3">
-
-                            <div class="card-body">
-
-
-
-
-                                {{--<h4 class="card-header">{{ $post->title }}</h4>--}}
-                                <br>
-                                <div class="row">
-                                    <div class="col-sm-4"><img class="img-fluid"
-                                                               src="/storage/attachment/{{ $postDetails->attachment }}"
-                                                               style="max-height: 100px">
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <p class="card-text">
-                                        <h4 style="color: blue">{{ $postDetails->title }}</h4>
-{{--                                        {{category add krnna oni}}--}}
-{{--                                        {{ $posts->sub_waste_category->category }}--}}
-                                        </p>
-
-
-                                        <a href="/posts/{{ $postDetails->id }}"
-                                           class="btn btn-info btn-sm float-right">View</a>
-
-                                        {{--{{ dd($postDetails)}}--}}
-                                    </div>
-                                    <br>
-
-
-                                </div>
-                                <br>
-                                <br>
-                                {{--<a href="/posts/{{ $post->id }}" style="margin-left: 630px;" class="btn btn-info btn-sm">View</a>--}}
-
-
+                    <div class="card mb-4" >
+                        
+                        <div class="row">
+                            <div class="col-sm-4 pr-0">
+                                <img class="img-fluid"
+                                     src="/storage/attachment/{{ $postDetails->attachment }}"
+                                     style="min-height: 70px; min-width: 80px">
                             </div>
+                            <div class="col-sm-8 p-0">
+                                <div class="card-header">
+                                    <h4 class="card-title d-inline">{{$postDetails->title}}</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-text"><strong>Post Category : </strong>{{  $postDetails->category }}</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="card-text text-muted">Posted <strong>{{ Carbon::createFromTimestampUTC(strtotime($postDetails->created_at))->diffForHumans() }}</strong> by <strong>{{App\User::where('id',$postDetails->publisher_id)->first()->full_name}}</strong></span>
+                            <a href="/posts/{{ $postDetails->id }}" class="btn btn-info btn-sm float-right">View</a>
                         </div>
 
 
+                    </div>
                     @endforeach
-
                 @else
                     <h3 class="text-center">No posts in Database</h3>
                 @endif
+            </div>
 
+            <div class="row">
+                <div class="col-sm-9"></div>
+                <div class="col-sm-3">
+                    {{ $posts->links() }}
 
-                <div class="row">
-                    <div class="col-sm-9"></div>
-                    <div class="col-sm-3">
-                        {{ $posts->links() }}
-
-                    </div>
                 </div>
             </div>
 
+
         </div>
-    </div>
+
+            </div>
+        </div>
 @endsection
 
 

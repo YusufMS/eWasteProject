@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-use App\user;
+use App\User;
 use App\Buyer;
 use App\Seller;
 
@@ -17,54 +17,81 @@ class userprofileController extends Controller
 {
     public function profileInfo($id)
     {
-        $userlog = user::find($id);
-        if ($userlog->_usertype == 'buyer'){
-            $user = Buyer::where('user_id', $userlog->id)->first();
-        }elseif ($userlog->_usertype == 'seller'){
-            $user = Seller::where('user_id', $userlog->id)->first();
+        $common_user_info = User::find($id);
+        if ($common_user_info->_usertype == 'buyer'){
+            $specific_user_info = Buyer::where('user_id', $common_user_info->id)->first();
+        }elseif ($common_user_info->_usertype == 'seller'){
+            $specific_user_info = Seller::where('user_id', $common_user_info->id)->first();
+        }elseif ($common_user_info->_usertype == 'buyer/seller'){
+            if (Session::has('user_role')){
+                if (Session::get('user_role') == 'buyer'){
+                    $specific_user_info = Buyer::where('user_id', $common_user_info->id)->first();
+                } elseif (Session::get('user_role') == 'seller'){
+                    $specific_user_info = Seller::where('user_id', $common_user_info->id)->first();
+                }
+            }
         }
-        return view('profile.info', ['user' => $user, 'userlog'=>$userlog]);
+        return view('profile.info', ['specific_user_info' => $specific_user_info, 'common_user_info'=>$common_user_info]);
     }
 
     public function profileEdit($id){
-        $userlog = user::find($id);
-        if ($userlog->_usertype == 'buyer'){
-            $user = Buyer::where('user_id', $userlog->id)->first();
-            return $user;
-        }elseif ($userlog->_usertype == 'seller'){
-            $user = Seller::where('user_id', $userlog->id)->first();
+        $common_user_info = User::find($id);
+        if ($common_user_info->_usertype == 'buyer'){
+            $specific_user_info = Buyer::where('user_id', $common_user_info->id)->first();
+        }elseif ($common_user_info->_usertype == 'seller'){
+            $specific_user_info = Seller::where('user_id', $common_user_info->id)->first();
         }
-        return view('profile.edit', ['user' => $user, 'userlog'=>$userlog]);
+        elseif ($common_user_info->_usertype == 'buyer/seller'){
+            $specific_user_info = Buyer::where('user_id', $common_user_info->id)->first();
+        }
+        return view('profile.edit', ['specific_user_info' => $specific_user_info, 'common_user_info'=>$common_user_info]);
     }
 
     public function profileUpdate(Request $request, $id){
-            $table = user::find($id);
+    // validation has to be done
+        $request->validate([
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'profileType' => 'required',
+            'address' => 'required',
+            'telephone' => 'digits:10',
+            'description' => 'nullable',
+        ]);
 
-            if ($table->_usertype == 'seller'){
-                $userId = Seller::select('id')->where('user_id', $id)->first();
-                $user = Seller::find($userId->id);
-                
-            } elseif ($table->_usertype == 'buyer') {
-                $userId = Buyer::select('id')->where('user_id', $id)->first();
-                $user = Buyer::find($userId);
-            }
+        $table = User::find($id);
+        
+        // No seller table. So no need of if statement
+        // if ($table->_usertype == 'seller'){
+        //     // $userId = Seller::select('id')->where('user_id', $id)->first();
+            
+        //     $user = User::find($id);
+            
+        // } elseif ($table->_usertype == 'buyer') {
+        //     // $userId = Buyer::select('id')->where('user_id', $id)->first();
+        //     $user = User::find($id);
+        // }
 
-            // $table->email = $request->input('email');
-            // $table->password = bcrypt($request->input('password'));
+        $user = User::find($id);
 
-            // should be added after fixing login
-            // $table->_usertype = $request->input('profileType');
-            // $table->save();
 
-            // $user = user::find($userId);
-            $user->name = $request->input('name');
-            $user->address = $request->input('address');
-            $user->phone = $request->input('telephone');
-            $user->description = $request->input('description');
+        // $table->email = $request->input('email');
+        // $table->password = bcrypt($request->input('password'));
 
-            $user->save();
+        // should be added after fixing login
+        // $table->_usertype = $request->input('profileType');
+        // $table->save();
 
-            return redirect()->to('/profile/' . $id)->with('success', 'Successfully updated profile information');
+        // $user = user::find($userId);
+        $user->first_name = $request->input('firstName');
+        $user->last_name = $request->input('lastName');
+        $user->_usertype = $request->input('profileType');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('telephone');
+        $user->description = $request->input('description');
+
+        $user->save();
+
+        return redirect()->to('/profile/' . $id)->with('success', 'Successfully updated profile information');
     }
 }
 

@@ -27,4 +27,16 @@ class post extends Model
         return $this->belongsTo('App\sub_waste_category','sub_waste_category_id');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function buyer_post(){
+        return $this->hasOne('App\Buyer_Post');
+    }
+
+    public function seller_post(){
+        return $this->hasOne('App\Seller_Post');
+    }
+
 }

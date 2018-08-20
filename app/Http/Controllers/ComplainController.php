@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Complain;
 use Illuminate\Http\Request;
-use App\Main_waste_category;
-use DB;
+use App\Http\Controllers\Controller;
+use Auth;
 
-class mainCatController extends Controller
+class ComplainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +26,7 @@ class mainCatController extends Controller
      */
     public function create()
     {
-       return view('admin.addMainCategory');
+        //
     }
 
     /**
@@ -36,21 +37,27 @@ class mainCatController extends Controller
      */
     public function store(Request $request)
     {
-       $main = new main_waste_category();
-       $main->main_category = $request->input('category');
-       $main->save();
-       return redirect()->back()->with('success','Successfully added.');
+        $request->validate([
+            'content' => 'required',
+        ]);
+        $complain = new Complain;
+        $complain->content = $request->content;
+        $complain->post_id = $request->post_id;
+        $complain->reporter_id = Auth::id();
+        $complain->status = 'unresolved';
 
-       
+        $complain->save();
+
+        return redirect(url()->previous())->with('success', 'Post reported successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Complain  $complain
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Complain $complain)
     {
         //
     }
@@ -58,10 +65,10 @@ class mainCatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Complain  $complain
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Complain $complain)
     {
         //
     }
@@ -70,10 +77,10 @@ class mainCatController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Complain  $complain
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Complain $complain)
     {
         //
     }
@@ -81,10 +88,10 @@ class mainCatController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Complain  $complain
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Complain $complain)
     {
         //
     }
