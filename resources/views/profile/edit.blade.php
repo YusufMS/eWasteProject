@@ -20,11 +20,11 @@
                 {{form::hidden('_method', 'PUT')}}
 
                 <div class="form-group">
-                    <label for="name">First Name</label>
+                    <label for="name">First Name<span class="text-danger"> *</span></label>
                     <input id="name" class="form-control" type="text" value="{{$common_user_info->first_name}}" name="firstName" required>
                 </div>
                 <div class="form-group">
-                        <label for="name">Last Name</label>
+                        <label for="name">Last Name<span class="text-danger"> *</span></label>
                         <input id="name" class="form-control" type="text" value="{{$common_user_info->last_name}}" name="lastName" required>
                     </div>
 
@@ -35,7 +35,7 @@
                 </div> --}}
 
                 <div class="form-group">
-                    <label for="profileType">Profile Type</label>
+                    <label for="profileType">Profile Type<span class="text-danger"> *</span></label>
                     <select class="form-control" name="profileType" required>
                         @if($common_user_info->_usertype == 'seller')
                             <option value="buyer" name="category">Buyer</option>
@@ -55,22 +55,22 @@
 
                 
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label for="address">Address<span class="text-danger"> *</span></label>
                     @if (isset($common_user_info->address))
                     <input id="address" class="form-control" type="text" value="{{$common_user_info->address}}" name="address" required>
                     @else
-                    <input id="address" class="form-control" type="text" value="" name="address" required>
+                    <input id="address" class="form-control" type="text" value="" name="address">
                     @endif
                 </div>
                 
 
                 
                 <div class="form-group">
-                    <label for="telephone">Contact Number</label>
+                    <label for="telephone">Contact Number<span class="text-danger"> *</span></label>
                     @if (isset($common_user_info->phone))
-                    <input id="telephone" class="form-control" type="text" value="{{$common_user_info->phone}}" name="telephone" required>
+                    <input id="telephone" class="form-control" type="text" value="{{$common_user_info->phone}}" name="telephone">
                     @else
-                    <input id="telephone" class="form-control" type="text" value="" name="telephone" required>
+                    <input id="telephone" class="form-control" type="text" value="" name="telephone">
                     @endif
                 </div>
                 

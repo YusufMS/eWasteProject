@@ -49,11 +49,11 @@ class userprofileController extends Controller
     public function profileUpdate(Request $request, $id){
     // validation has to be done
         $request->validate([
-            'firstName' => 'required|max:255',
-            'lastName' => 'required|max:255',
+            'firstName' => 'required|max:20',
+            'lastName' => 'required|max:20',
             'profileType' => 'required',
             'address' => 'required',
-            'telephone' => 'digits:10',
+            'telephone' => 'required|digits:10',
             'description' => 'nullable',
         ]);
 

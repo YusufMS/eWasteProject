@@ -23,13 +23,13 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label for="topic">Post Title</label>
-                        <input id="title" class="form-control" type="text" name="title" required placeholder="Ex: Mother Boards of Dell Computers in Bulk">
-                        <small class="text-muted">* Providing a clear title can make your post stand out and easy to understand.</small>
+                        <label for="topic">Post Title<span class="text-danger"> *</span></label>
+                        <input id="title" class="form-control" type="text" name="title" placeholder="Ex: Mother Boards of Dell Computers in Bulk">
+                        <small class="text-muted">Providing a clear title can make your post stand out and easy to understand. Provide within 100 charecters</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="category">E waste Category</label>
+                        <label for="category">E waste Category<span class="text-danger"> *</span></label>
                         <select class="form-control" name="category">
                             <option placeholder="Select" disabled selected>Select Category</option>
 
@@ -38,12 +38,12 @@
                                         name="category">{{ $category->category }}</option>
                             @endforeach
                         </select>
-                        <small class="text-muted">* Select a suitable category from the options. Your post will be found by users using Categories</small>
+                        <small class="text-muted">Select a suitable category from the options. Your post will be found by users using Categories</small>
                     </div>
 
-                    @if(Auth::user()->_usertype === "seller")
+                    @if(Auth::user()->_usertype === "seller" || Session::get('user_role') == 'seller')
                         <div class="form-group">
-                            <label for="buyerType">Buyer Category</label>
+                            <label for="buyerType">Buyer Category<span class="text-danger"> *</span></label>
                             <div class="form-check" style="margin-left:20px">
                                 <label><input class="form-check-input" name="buyerType[]" id="buyerType"
                                        type="checkbox" value="Exporter">
@@ -58,13 +58,13 @@
                                        type="checkbox" value="Local Company">
                                 Local Company</label>
                             </div>
-                            <small class="text-muted">The category of buyers that you are willing to sell your waste.</small>
+                            <small class="text-muted">The category of buyers that you are willing to sell your waste. Select atleast one.</small>
                             
                             
 
                         </div>
 
-                    @elseif( Auth::user()->_usertype === "buyer")
+                    @elseif( Auth::user()->_usertype === "buyer" || Session::get('user_role') == 'buyer')
 
                         <div class="form-group">
                             <label for="topic">Number of Items</label>
@@ -77,8 +77,8 @@
                             <input id="modelNo" class="form-control" type="text" name="modelNo" placeholder="Ex: AT-23UE">
                             <small class="text-muted">Model Number will help users in searching your post easily</small>
                         </div>
-
-                    @else
+                        {{-- remove if parent if works with no problem --}}
+                    {{-- @else
                         @if (Session::has('user_role'))
                             @if (Session::get('user_role') == 'seller')
                                 <div class="form-group">
@@ -114,13 +114,12 @@
                                     <small class="text-muted">Model Number will help users in searching your post easily</small>
                                 </div>
                             @endif
-                        @endif
+                        @endif --}}
                     @endif
 
                     <div class="form-group ">
-                        <label for="description">Description</label>
-                        <textarea id="description" class="form-control" name="description" rows="3"
-                                  required></textarea>
+                        <label for="description">Post Content<span class="text-danger"> *</span></label>
+                        <textarea id="description" class="form-control" name="description" rows="3"></textarea>
                         <small class="text-muted">Any detail that you want to provide about the waste</small>
                     </div>
                     <div class="form-group ">

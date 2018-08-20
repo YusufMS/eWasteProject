@@ -119,6 +119,27 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        // validation
+        if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'buyerType' => 'required',
+            ]);
+        } elseif(auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'noOfItems' => 'required',
+                'modelNo' => 'string|max:12|nullable',
+            ]);
+        } else { return "Unauthorized User"; }
+        
+
         if ($request->hasFile('attachment')) {
             $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
             $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
@@ -157,6 +178,9 @@ class PostsController extends Controller
 
 
         if (auth()->user()->_usertype === "seller") {
+            $request->validate([
+                'buyerType' => 'required',
+            ]);
             $buyerType = $request->input('buyerType');
             $buyerType = implode(',', $buyerType);
 
@@ -164,6 +188,10 @@ class PostsController extends Controller
                 ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
         } elseif (auth()->user()->_usertype === "buyer") {
+            $request->validate([
+                'noOfItems' => 'nullable',
+                'modelNo' => 'string|max:12|nullable',
+            ]);
             $noOfItems = $request->input('noOfItems');
             $modelNo = $request->input('modelNo');
 
@@ -228,12 +256,31 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'buyerType' => 'required',
+            ]);
+        } elseif(auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'noOfItems' => 'required',
+                'modelNo' => 'string|max:12|nullable',
+            ]);
+        } else { return "Unauthorized User"; }
+
+        
         $post = Post::find($id);
-        if ($post->user->_usertype == 'seller'){
-            return ($post);
+        if ($post->user->_usertype == 'seller' || Session::get('user_role') == 'seller'){
             $buyer_category = explode(',' ,$post->seller_post->buyer_category);
         }
-        $post->buyer_post->no_of_items;
+        // $post->buyer_post->no_of_items;
         // $buyer_category = explode(',' ,$post->seller_post->buyer_category);
         $cat = DB::table('sub_waste_category')->select('category')->distinct()->get();
 

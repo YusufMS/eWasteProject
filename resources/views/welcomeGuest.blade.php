@@ -45,51 +45,36 @@
         <div class="container">
                 <h3 class="text-info">Site Information</h3>
             <div class="row">
-                <div class="col">
-                    <h4 class="pt-2 text-dark">Info Topic</h4>
-                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
-                            $ git checkout Yusuf
-                            Switched to branch 'Yusuf'
-                            Your branch is up to date with 'origin/Yusuf'.</div>
-                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
-                    <br>
-                </div>
-                <div class="col">
-                        <h4 class="pt-2 text-dark">Info Topic</h4>
-                        <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
-                                $ git checkout Yusuf
-                                Switched to branch 'Yusuf'
-                                Your branch is up to date with 'origin/Yusuf'.</div>
+                    @foreach($site_info as $info)
+                    <div class="col">
+                        <h4 class="pt-2 text-dark d-inline">{{$info->title}}</h4>
+                        {!!$info->type == 0 ? '<kbd class="float-right bg-success">Exclusive</kbd>' : ''!!}
+                        <div class="text-muted text-center py-3" style="overflow:hidden; height:120px">{{$info->description}}</div>
+                        <span data-toggle="modal" data-target="#infoModal{{$info->id}}">
                         <a href="#" class="btn btn-info float-right mt-2">Read More</a>
+                        </span>
                         <br>
                     </div>
-                    <div class="col">
-                            <h4 class="pt-2 text-dark">Info Topic</h4>
-                            <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
-                                    $ git checkout Yusuf
-                                    Switched to branch 'Yusuf'
-                                    Your branch is up to date with 'origin/Yusuf'.</div>
-                            <a href="#" class="btn btn-info float-right mt-2">Read More</a>
-                            <br>
+                    {{-- Modal for complain/report --}}
+                <div class="modal fade" id="infoModal{{$info->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Site Information / Site News</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
-                        <div class="col">
-                                <h4 class="pt-2 text-dark">Info Topic</h4>
-                                <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
-                                        $ git checkout Yusuf
-                                        Switched to branch 'Yusuf'
-                                        Your branch is up to date with 'origin/Yusuf'.</div>
-                                <a href="#" class="btn btn-info float-right mt-2">Read More</a>
-                                <br>
-                            </div>
-                            <div class="col">
-                                    <h4 class="pt-2 text-dark">Info Topic</h4>
-                                    <div class="text-muted text-center pb-2">Yusuf@Yusuf-HP MINGW64 /c/wamp64/www/eWasteProject (Ravihansa)
-                                            $ git checkout Yusuf
-                                            Switched to branch 'Yusuf'
-                                            Your branch is up to date with 'origin/Yusuf'.</div>
-                                    <a href="#" class="btn btn-info float-right mt-2">Read More</a>
-                                    <br>
-                                </div>
+                        <div class="modal-body">
+                        <h3 class="text-center">{{$info->title}}</h3>
+                        <p>{{$info->description}}</p>
+                        </div>
+                        
+                    </div>
+                    </div>
+                </div>
+              {{--  --}}
+                @endforeach
             </div>
             <br>
         </div>
