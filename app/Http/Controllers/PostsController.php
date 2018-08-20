@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\seller;
+use App\Seller;
 use DB;
 use View;
-use App\main_waste_category;
-use App\user;
-use App\sub_waste_category;
+use App\Main_waste_category;
+use App\User;
+use App\Sub_waste_category;
 use App\post;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;

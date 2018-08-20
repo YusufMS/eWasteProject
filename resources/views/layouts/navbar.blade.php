@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="{{ route('home') }}">Online E-waste Management System
-         @if(Auth::user()->_usertype == 'seller' || Session::get('user_role') == 'seller')
+         @if(Auth::check() && Auth::user()->_usertype == 'seller' || Session::get('user_role') == 'seller')
         <span class="text-muted"> : Seller Portal</span>
-        @elseif(Auth::user()->_usertype == 'buyer' || Session::get('user_role') == 'buyer')
+        @elseif(Auth::check() && Auth::user()->_usertype == 'buyer' || Session::get('user_role') == 'buyer')
         <span class="text-muted"> : Buyer Portal</span>
         @endif
     

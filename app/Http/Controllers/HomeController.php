@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\main_waste_category;
+use App\Main_waste_category;
 use Session;
 
 class HomeController extends Controller
@@ -45,7 +45,8 @@ class HomeController extends Controller
     public function guestIndex()
     {
         
-        $main_categories = main_waste_category::take(6)->get();
+        $main_categories = Main_waste_category::take(6)->get();
+        // return $main_categories;
         return view('welcomeGuest', compact(['main_categories']));
     }
 }

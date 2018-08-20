@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\user;
-use App\buyer;
+use App\User;
+use App\Buyer;
 use App\post;
-use App\subWasteCategory;
-use App\main_waste_category;
+use App\SubWasteCategory;
+use App\Main_waste_category;
 use Session;
 
 use Illuminate\Support\Facades\Storage;

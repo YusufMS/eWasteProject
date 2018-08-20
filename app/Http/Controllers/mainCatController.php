@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\main_waste_category;
+use App\Main_waste_category;
 use DB;
 
 class mainCatController extends Controller

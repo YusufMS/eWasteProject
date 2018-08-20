@@ -26,17 +26,7 @@
     <div class="card">
         <div class="card-header"><h4 class="m-0">Browse our Categories</h4></div>
         <div class="card-group">
-            @foreach($main_categories as $main_category)
-                <div class="card">
-                    <img class="card-img-top" src="{{URL::asset('/storage/category_icon_images/laptops.png')}}">
-                    <div class="card-body py-1">
-                        {{-- query to take posts for categories should be added to the link --}}
-                        <a style="text-decoration:none;" class="" href="#">
-                            <h5 class="card-title text-center">{{$main_category->main_category}}</h5>
-                        </a>
-                    </div>
-                </div>
-            @endforeach
+            
         </div>
     </div>
     <br>
