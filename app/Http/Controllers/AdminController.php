@@ -150,8 +150,25 @@ public function addSubCategory(Request $request){
 
 
 
+public function deleteSeller($id){
+
+		$seller = user::find($id);
+		$seller->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
 
 
+	}
+
+public function deleteBuyer($id){
+
+		$buyer = buyer::find($id);
+		$buyer->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
+
+
+	}
 
 
 

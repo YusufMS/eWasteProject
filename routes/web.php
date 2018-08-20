@@ -39,7 +39,8 @@ Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'co
 Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
 Route::post('addmaincategory',['uses'=>'AdminController@addMainCategory', 'as'=>'addmaincategory']);
 Route::post('addsubcategory',['uses'=>'AdminController@addSubCategory', 'as'=>'addsubcategory']);
-
+Route::get('deleteseller/{id}', ['uses'=>'AdminController@deleteSeller','as'=>'deleteseller']);
+Route::get('deletebuyer/{id}', ['uses'=>'AdminController@deleteBuyer','as'=>'deletebuyer']);
 
 
 

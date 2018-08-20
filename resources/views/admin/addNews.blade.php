@@ -69,12 +69,12 @@
               Add Info </a>
             </li>
             <li>
-              <a href="#deleteinfo" data-toggle="tab">
-              Delete Info </a>
+              <a href="#updateinfo" data-toggle="tab">
+              Update Info </a>             
             </li>
             <li>
-              <a href="#updateinfo" data-toggle="tab">
-              Update Info </a>
+               <a href="#deleteinfo" data-toggle="tab">
+              Delete Info </a>              
             </li>
           </ul>
           <div class="tab-content">
@@ -112,13 +112,20 @@
 
             </div>
 
+            <div class="tab-pane" id="updateinfo">
+
+              
+
+            </div>
+
+
+
             <div class="tab-pane" id="deleteinfo">
               
             </div>
 
-            <div class="tab-pane" id="updateinfo">
-              
-            </div>
+
+
           </div>
         </div>
       </div>

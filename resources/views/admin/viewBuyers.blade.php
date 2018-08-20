@@ -104,8 +104,8 @@
                         <td>{{ $user->type }}</td>
                         <td>{{ $user->rating }}</td>
                         <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($user->created_at) )}}</td>
-                        <td><a href="#">
-                        <button type='submit' class='btn btn-danger' onclick="">Delete</button></a></td>
+                        <td><a href='deletebuyer/{{ $user->id }}'>
+                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this buyer?');">Delete</button></a></td>
                         <td><a href="#">
                         <button type='submit' class='btn btn-primary' onclick="">Message</button></a></td>
 

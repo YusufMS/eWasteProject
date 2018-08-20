@@ -209,38 +209,57 @@
 
               <br>
 
+              <div class="col-lg-12">
+                    <div class="row">
+                       <div class="col-lg-3"></div>
+                          <div class="col-lg-6">
 
+                            <br>
+                           
+                            <div class="card">
+                            <div class="card-body">
+                                @include('partials.messages')
+                                 {!! Form::open(['action' => ['AdminController@addMainCategory'], 'method' => 'POST']) !!}
 
-              <!-- Inline Bar -->
-              <form class="form-inline" role="form">
-                  <div class="form-group">
-                     {{ Form::label('delMainCat', 'Delete Main E-waste Category : ', ['class' => 'form-label'] )}}
-                     <select class="form-control" id="maincategoryselect" name ="maintype" >
+                                
+      
+
+                           <div class="form-inline" role="form">       
+                            <div class="form-group">
+                                  {{ Form::label('Category', 'Delete Main Waste Type', ['class' => 'form-label'] )}}
+                                  <select class="form-control" id="maincategoryselect" name ="maintype" >
                                   <option value="">Select a Category</option>
                                   @if(count($maincategories) > 0)
                                   @foreach ($maincategories as $maincategory)
                                   <option name = "maintypes" id = "maintypes" value= '{{ $maincategory->id }}'>{{ $maincategory->main_category }}</option>
                                   @endforeach
                                   @endif
-                    </select>
-                  </div>
-                      <button type="submit" class="btn btn-danger submit">Delete</button>
-              </form>
+                                   </select>
 
-              <br>
+                                   <button type="submit" class="btn btn-danger submit" onclick="return confirm('Are you sure you want to delete this main category?');">Delete</button>
+                            </div>
+         
+                            <div class="row" style="margin-left: -5px;">
+                                <div style="float: left;">
+                        
+                                  {!! Form::close() !!}
+                                </div>
+                          
+                          </div> 
+                        </div>  
+                     </div>
+                   </div>
 
+                   <hr>
+                   <br>
 
-
-                  <hr>
-                  <br>
-
-                  
-
-                  <label style="font-size: 16px;">Delete Sub E-waste Category : </label>
+                   <label style="font-size: 15px;">Delete Sub E-waste Category : </label>
 
 <div class="container">
+   
                               <div class="row">
-                                 <div class="col-lg-12">
+
+                                 <div class="col-lg-6">
                                       <div class="table-responsive table-bordered ">
                                           <table class="table" style="font-size: 16px;">
 
@@ -254,7 +273,7 @@
                                                     <td></td>
                                                     <td></td>
                                                     <td><a href="#">
-                                                     <button type='submit' class='btn btn-danger' onclick="">Delete</button>
+                                                     <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this sub category?');">Delete</button>
                                                      </a></td>
                                                 </tr>
 
@@ -265,7 +284,20 @@
 
                                       </div>
                                    </div>
+
 </div>
+
+
+
+                   </div>  
+                 </div>
+              </div>
+
+
+
+
+
+ 
 
               
             </div>

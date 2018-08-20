@@ -91,6 +91,7 @@
                         <th>Remove</th>
                         <th>Message</th>
                     </tr>
+                    @csrf
 
                     @if(count($users) > 0)
 
@@ -104,8 +105,8 @@
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($user->created_at) )}}</td>
-                                <td><a href="#">
-                                        <button type='submit' class='btn btn-danger' onclick="">Delete</button></a></td>
+                                <td><a href='deleteseller/{{ $user->id }}'>
+                                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this seller?');">Delete</button></a></td>
                                 <td><a href="#">
                                         <button type='submit' class='btn btn-primary' onclick="">Message</button></a></td>
 
