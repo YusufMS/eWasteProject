@@ -21,6 +21,10 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
     );
 
     public static $prefixLengthsPsr4 = array (
+        'w' => 
+        array (
+            'willvincent\\Rateable\\' => 21,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -115,6 +119,10 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
     );
 
     public static $prefixDirsPsr4 = array (
+        'willvincent\\Rateable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willvincent/laravel-rateable/src/Rateable',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -352,6 +360,7 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
         'App\\Http\\Controllers\\PostsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostsController.php',
         'App\\Http\\Controllers\\buyerController' => __DIR__ . '/../..' . '/app/Http/Controllers/buyerController.php',
         'App\\Http\\Controllers\\mainCatController' => __DIR__ . '/../..' . '/app/Http/Controllers/mainCatController.php',
+        'App\\Http\\Controllers\\messageController' => __DIR__ . '/../..' . '/app/Http/Controllers/messageController.php',
         'App\\Http\\Controllers\\subCatController' => __DIR__ . '/../..' . '/app/Http/Controllers/subCatController.php',
         'App\\Http\\Controllers\\userController' => __DIR__ . '/../..' . '/app/Http/Controllers/userController.php',
         'App\\Http\\Controllers\\userprofileController' => __DIR__ . '/../..' . '/app/Http/Controllers/userprofileController.php',
@@ -374,6 +383,7 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\post' => __DIR__ . '/../..' . '/app/Post.php',
         'App\\sub_waste_category' => __DIR__ . '/../..' . '/app/Sub_waste_category.php',
+        'App\\buyer' => __DIR__ . '/../..' . '/app/Buyer.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -3749,6 +3759,10 @@ class ComposerStaticInit2b6ac62d7f612112dbfe700ed8076a7f
         'phpDocumentor\\Reflection\\Types\\String_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/String_.php',
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
+        'willvincent\\Rateable\\MigrationCommand' => __DIR__ . '/..' . '/willvincent/laravel-rateable/src/commands/MigrationCommand.php',
+        'willvincent\\Rateable\\Rateable' => __DIR__ . '/..' . '/willvincent/laravel-rateable/src/Rateable/Rateable.php',
+        'willvincent\\Rateable\\RateableServiceProvider' => __DIR__ . '/..' . '/willvincent/laravel-rateable/src/Rateable/RateableServiceProvider.php',
+        'willvincent\\Rateable\\Rating' => __DIR__ . '/..' . '/willvincent/laravel-rateable/src/Rateable/Rating.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

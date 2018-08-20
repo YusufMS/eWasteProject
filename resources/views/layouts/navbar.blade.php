@@ -27,6 +27,12 @@
             </li>
             
 
+            <li class="nav-item active">
+                <a class="nav-link" href='/viewUsersByCategory'>View Users <span class="sr-only">(current)</span></a>
+            </li>
+
+
+
         </ul>
 
 

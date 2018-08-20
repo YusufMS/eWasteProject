@@ -3,7 +3,11 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\user as Authenticatable;
+use willvincent\Rateable\Rateable;
+
+
+
 
 use Buyer;
 use Seller;
@@ -11,6 +15,8 @@ use Seller;
 class User extends Authenticatable
 {
     use Notifiable;
+    use Rateable;
+
 
     protected $table = 'user';
 
@@ -38,12 +44,7 @@ class User extends Authenticatable
 //    ];
 
 
-    public function seller()
-    {
-        return $this->belongsTo('App\Seller');
-    }
-
-     public function buyer()
+    public function buyer()
     {
         return $this->belongsTo('App\Buyer');
     }

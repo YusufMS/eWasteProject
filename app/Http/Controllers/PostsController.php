@@ -345,7 +345,7 @@ class PostsController extends Controller
     }
 
 
-    public function showMyPosts($id)
+    public function showMyPosts()
     {
         $maincategories = main_waste_category::with(['sub_waste_category'])->get();
 
@@ -374,7 +374,7 @@ class PostsController extends Controller
             $posts = DB::table('post')
             ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
             ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
-            ->where('publisher_id', $id)
+            ->where('publisher_id', Auth::id())
             ->orderby('post.created_at', 'desc')
             ->paginate(3);
         }
