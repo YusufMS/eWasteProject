@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use user;
 use seller;
 use sub_waste_category;
-
+use Complain;
 class post extends Model
 {
     public $table = "post";
 
     public function user()
     {
-        return $this->belongsTo('App\user','publisher_id');
+        return $this->belongsTo('App\User','publisher_id');
     }
 
     public function seller()
     {
-        return $this->belongsTo('App\seller');
+        return $this->belongsTo('App\Seller');
     }
 
 
@@ -37,6 +37,11 @@ class post extends Model
 
     public function seller_post(){
         return $this->hasOne('App\Seller_Post');
+    }
+
+    public function complains()
+    {
+        return $this->hasMany('App\Complain');
     }
 
 }

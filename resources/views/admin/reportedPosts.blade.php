@@ -62,12 +62,14 @@
   <br>
   <br>
   <br>
+  <h3>Reported Posts!</h3>
   <br>
-  <br>
+  
 
 
  <div class="row">
             <div class="col-lg-12">
+
               <div class="table-responsive table-bordered">
                 <table class="table">
 
@@ -84,12 +86,12 @@
                   @foreach($complains as $complain)
 
                     <tr>
-                        <td>{{ $complain->id}}</td>
+                        <td>{{ $complain->User->first_name}}</td>
                         <td>{{ $complain->content}}</td>
-                        <td>{{ $complain->post_id}}</td>
-                        <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>
-                        <td><a href='deletebuyer/{{ $user->id }}'>
-                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this buyer?');">View</button></a></td>
+                        <td>{{ $complain->Post->title}}</td>
+                        <td>{{ date('h: i a', strtotime($complain->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>
+                        <td><a href=''>
+                        <button type='submit' class='btn btn-primary' onclick="">View</button></a></td>
                         
                     </tr>
                    

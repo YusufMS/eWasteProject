@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Buyer;
 use Seller;
+use Complain;
 
 class User extends Authenticatable
 {
@@ -62,6 +63,13 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany('App\Comment');
+    }
+
+    public function complains()
+    {
+        return $this->hasMany('App\Complain');
+
+        
     }
 
 

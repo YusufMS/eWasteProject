@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 //use Illuminate\Foundation\Auth\AuthenticatesUsers;
 //use DB;
 use App\Seller;
-use App\User;
+use App\user;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;

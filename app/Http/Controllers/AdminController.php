@@ -76,6 +76,7 @@ public function viewUsers(){
 public function viewReportedPosts(){
 
     $complains = Complain::all();
+    //dd($complains);
 
     return view('admin.reportedPosts')->with('complains',$complains)->withTitle('Complains');
 
