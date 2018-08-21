@@ -97,15 +97,18 @@ class userprofileController extends Controller
     public function viewUsersByCategory(){
         if(auth()->user()->_usertype == "seller"){
             $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
-                ->where('user.id','!=',auth()->user()->id)
-                ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
-                ->get();;
+                        ->where('user.id','!=',auth()->user()->id)
+                        ->where('user._usertype','!=',"seller")
+                        ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
+                        ->get();
 
             return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
 
 
         }elseif (auth()->user()->_usertype == "buyer"){
-            $sellers = user::all();
+            $sellers = user::all()
+                        ->where('id','!=',auth()->user()->id)
+                        ->where('_usertype','!=',"buyer");
 
             return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
 
@@ -114,6 +117,7 @@ class userprofileController extends Controller
                 if (Session::get('user_role') == 'seller') {
                     $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
                         ->where('user.id','!=',auth()->user()->id)
+                        ->where('user._usertype','!=',"seller")
                         ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
                         ->get();
 
@@ -126,7 +130,8 @@ class userprofileController extends Controller
 
                 }elseif(Session::get('user_role') == 'buyer'){
                     $sellers = user::all()
-                        ->where('id','!=',auth()->user()->id);
+                        ->where('id','!=',auth()->user()->id)
+                        ->where('_usertype','!=',"buyer");
 
                     return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
 

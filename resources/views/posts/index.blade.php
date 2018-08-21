@@ -12,36 +12,57 @@
 
             <div class="col-sm-3">
 
+                    {{-- <aside class="col-12 col-md-2 p-0 bg-dark">
+            <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start">
+                <div class="collapse navbar-collapse">
+                    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                        <li class="nav-item">
+                            <a class="nav-link pl-0" href="#">Link</a>
+                        </li>
+                        ..
+                    </ul>
+                </div>
+            </nav>
+        </aside> --}}
+            
+
                 {{--category selection--}}
-                <ul>
-                    @foreach($maincategories as $category)
-                        @if($category->has('sub_waste_category'))
-                            <br>
-                            <div class="btn-group dropright">
+                <nav class="navbar navbar-expand navbar-dark bg-dark p-0">
+                    <div class="collapse navbar-collapse">
+                        <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                            <div class="lead text-white text-center py-2 bg-primary">CATEGORIES</div>
+                            @foreach($maincategories as $category)
+                                @if($category->has('sub_waste_category'))
+                                    <br>
+                                    <div class="btn-group dropright">
+                                        
+                                        <button type="button" class="btn btn-secondary w-100  py-2 dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{ $category->main_category }}
+                                        </button>
+                                        
+                                        <div class="dropdown-menu p-0 bg-dark">
+                                            <!-- Dropdown menu links -->
+                                            {{-- <ul> --}}
+                                            @foreach($category->sub_waste_category as $subcategory)
+                                                <li class="nav-link w-100 text-center p-0">
+                                                    <a class="btn btn-dark py-1 rounded-0 w-100" href="/postByCategory/{{ $subcategory->id }}">{{$subcategory->category}}</a>
+                                                </li>
+                                            @endforeach
+                                        {{-- </ul> --}}
+                                        </div>
+                                    </div>
+                                @else
+                                    <button type="button" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">
+                                        {{ $category->main_category }}
+                                    </button>
 
-                                <button type="button" class="btn btn-secondary dropdown-toggle my-1 px-5"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ $category->main_category }}
-                                </button>
+                                @endif
 
-                                <div class="dropdown-menu">
-                                    <!-- Dropdown menu links -->
-                                    @foreach($category->sub_waste_category as $subcategory)
-                                        <li>
-                                            <a href="/postByCategory/{{ $subcategory->id }}">{{$subcategory->category}}</a>
-                                        </li>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @else
-                            <button type="button" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">
-                                {{ $category->main_category }}
-                            </button>
-
-                        @endif
-
-                    @endforeach
-                </ul>
+                            @endforeach
+                        </ul>
+                    </div>
+                </nav>
 
                 {{--/category selection--}}
 
@@ -62,7 +83,7 @@
                                 <div class="col-sm-4 pr-0">
                                     <img class="img-fluid"
                                          src="/storage/attachment/{{ $postDetails->attachment }}"
-                                         style="min-height: 70px; min-width: 80px; max-width: 200px; max-height: 220px">
+                                         style="min-height: 90px; min-width: 80px; max-width: 200px; max-height: 220px">
                                 </div>
                                 <div class="col-sm-8 p-0">
                                     <div class="card-header">
@@ -77,7 +98,7 @@
                             </div>
                             <div class="card-footer">
                                 <span class="card-text text-muted">Posted <strong>{{ Carbon::createFromTimestampUTC(strtotime($postDetails->created_at))->diffForHumans() }}</strong> by <strong>{{App\User::where('id',$postDetails->publisher_id)->first()->full_name}}</strong></span>
-                                <a href="/posts/{{ $postDetails->id }}" class="btn btn-info btn-sm float-right">View</a>
+                                <a href="/posts/{{ $postDetails->id }}" class="btn btn-info btn-sm pb-0 float-right" data-toggle="tooltip" title="View Post"><i class="fa fa-eye"></i></a>
                             </div>
 
 

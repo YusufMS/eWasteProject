@@ -21,11 +21,11 @@
 
                 <div class="form-group">
                     <label for="name">First Name<span class="text-danger"> *</span></label>
-                    <input id="name" class="form-control" type="text" value="{{$common_user_info->first_name}}" name="firstName" required>
+                    <input id="name" class="form-control" type="text" value="{{$common_user_info->first_name}}" name="firstName">
                 </div>
                 <div class="form-group">
                         <label for="name">Last Name<span class="text-danger"> *</span></label>
-                        <input id="name" class="form-control" type="text" value="{{$common_user_info->last_name}}" name="lastName" required>
+                        <input id="name" class="form-control" type="text" value="{{$common_user_info->last_name}}" name="lastName">
                     </div>
 
                 {{-- Should Enable after fixing the login --}}
@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="profileType">Profile Type<span class="text-danger"> *</span></label>
-                    <select class="form-control" name="profileType" required>
+                    <select class="form-control" name="profileType">
                         @if($common_user_info->_usertype == 'seller')
                             <option value="buyer" name="category">Buyer</option>
                             <option value="seller" name="category" selected>Seller</option>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label for="address">Address<span class="text-danger"> *</span></label>
                     @if (isset($common_user_info->address))
-                    <input id="address" class="form-control" type="text" value="{{$common_user_info->address}}" name="address" required>
+                    <input id="address" class="form-control" type="text" value="{{$common_user_info->address}}" name="address">
                     @else
                     <input id="address" class="form-control" type="text" value="" name="address">
                     @endif

@@ -256,25 +256,6 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
-            $request->validate([
-                'title' => 'required|string|max:100',
-                'category' => 'required',
-                'description' => 'required',
-                'attachment' => 'nullable',
-                'buyerType' => 'required',
-            ]);
-        } elseif(auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer'){
-            $request->validate([
-                'title' => 'required|string|max:100',
-                'category' => 'required',
-                'description' => 'required',
-                'attachment' => 'nullable',
-                'noOfItems' => 'required',
-                'modelNo' => 'string|max:12|nullable',
-            ]);
-        } else { return "Unauthorized User"; }
-
         
         $post = Post::find($id);
         if ($post->user->_usertype == 'seller' || Session::get('user_role') == 'seller'){
@@ -296,6 +277,25 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'buyerType' => 'required',
+            ]);
+        } elseif(auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer'){
+            $request->validate([
+                'title' => 'required|string|max:100',
+                'category' => 'required',
+                'description' => 'required',
+                'attachment' => 'nullable',
+                'noOfItems' => 'required',
+                'modelNo' => 'string|max:12|nullable',
+            ]);
+        } else { return "Unauthorized User"; }
+
         if ($request->hasFile('attachment')) {
             $fileNameWithExt = $request->file('attachment')->getClientOriginalName();
             $filename = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
@@ -350,12 +350,13 @@ class PostsController extends Controller
             $buyer_post->model = $request->input('modelNo');
             $buyer_post->save();
 
-            return redirect()->to('/posts/' . $post->id)->with('success', 'Post updated successfully.');
+            
 
             // DB::table('buyer_post')->insert(
             //     ['no_of_items' => $noOfItems, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             // );
         } 
+        return redirect()->to('/posts/' . $post->id)->with('success', 'Post updated successfully.');
 
     }
 
@@ -381,7 +382,7 @@ class PostsController extends Controller
 
         $post->delete();
         $user_post->delete();
-        return redirect('showMyPosts/'. Auth::id())->with('success', 'Post deleted successfully');
+        return redirect('showMyPosts')->with('success', 'Post deleted successfully');
         
     }
 

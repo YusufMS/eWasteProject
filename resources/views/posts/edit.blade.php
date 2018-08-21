@@ -136,16 +136,15 @@
 
                     <div class="form-group ">
                         <label for="description">Description</label>
-                        <textarea id="description" class="form-control" name="description" rows="3"
-                    required>{{$post->content}}</textarea>
+                        <textarea id="description" class="form-control" name="description" rows="3">{{$post->content}}</textarea>
                     </div>
-                    <div class="form-group ">
-                        <label for="attachment">Attachment</label>
-                        <div class="dropify">
-                            {{-- adding images default value not done --}}
-                            <input id="dropify" class="form-control " type="file" name="attachment">
+                    
+
+                    <div class="custom-file">
+                            <input id="dropify" class="custom-file-input " type="file" name="attachment">
+                            <label for="attachment" class="custom-file-label">Insert Image</label>
                         </div>
-                    </div>
+                        <small class="text-muted">An image for buyers to get a clear idea</small>
                     <br>
 
                     <div class="form-group float-right">

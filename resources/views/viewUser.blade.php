@@ -85,41 +85,25 @@
 
                 {{--<div class="row">--}}
                 {{--<i class="fas fa-star"></i>--}}
-
-
+                <h2 class="text-center font-weight-bold">Profiles</h2>
+                <hr>
                 <div class="table-responsive table-bordered">
                     <table class="table">
                         {{--<tbody>--}}
                         <tr>
 
                             <th>Full Name</th>
+                            <th>Email</th>
                             <th>Address</th>
                             <th>Phone Number</th>
+                            <th>Joined On</th>
 
-                            @if(auth()->user()->_usertype == "seller")
+                            @if(auth()->user()->_usertype == "seller" || Session::get('user_role') == 'seller')
                                 <th>Buyer Category</th>
                                 <th> Web Site URL</th>
                                 <th>Ratings</th>
-                                <th>Joined On</th>
                                 <th>Rate</th>
-
-                            @elseif(auth()->user()->_usertype == "buyer/seller")
-
-                                @if(Session::has('user_role'))
-
-                                    @if(Session::get('user_role') == 'seller')
-                                        <th>Buyer Category</th>
-                                        <th>Web Site URL</th>
-                                        <th>Ratings</th>
-                                        <th>Joined On</th>
-                                        <th>Rate</th>
-
-                                    @elseif(Session::get('user_role') == 'buyer')
-                                        <th>Joined On</th>
-
-                                    @endif
-
-                                @endif
+                                
                             @endif
 
 
@@ -133,12 +117,15 @@
                                 {{--                                {{ dd($users) }}--}}
 
                                 <tr>
-                                    <td>{{ $usr->first_name . $usr->last_name }}</td>
+                                    <td>{{ $usr->first_name .' ' .$usr->last_name }}</td>
+                                    <td>{{ $usr->email }}</td>
                                     <td>{{ $usr->address }}</td>
                                     <td>{{ $usr->phone }}</td>
+                                    <td>{{ date('h: i a', strtotime($usr->created_at) )}}
+                                                    on {{ date('F j, Y', strtotime($usr->created_at) )}}</td>
 
 
-                                    @if(auth()->user()->_usertype == "seller")
+                                    @if(auth()->user()->_usertype == "seller" || Session::get('user_role') == 'seller')
 
                                         <td>{{ $usr->type }}</td>
                                         <td> {{ $usr->website }}</td>
@@ -173,9 +160,6 @@
                                             {{--end display ratings--}}
 
                                         </td>
-
-                                        <td>{{ date('h: i a', strtotime($usr->created_at) )}}
-                                            on {{ date('F j, Y', strtotime($usr->created_at) )}}</td>
                                         <td>
 {{--                                         <span data-toggle="modal" data-target="#myModal{{ $usr->buyer_id }}">--}}
                                         <button type='submit' class='btn btn-primary' id="ratebtn{{ $usr->buyer_id }}" class='btn btn-primary' data-toggle="modal"
@@ -185,86 +169,13 @@
                                         </td>
 
 
-                                    @elseif(auth()->user()->_usertype == "buyer/seller")
-
-                                        @if(Session::has('user_role'))
-
-                                            @if(Session::get('user_role') == 'seller')
-
-                                                <td>{{ $usr->type }}</td>
-                                                <td> {{ $usr->website }}</td>
-
-                                                <td style="width: 120px">
-
-                                                    {{--display ratings--}}
-                                                    @if($usr->no_of_raters != 0)
-
-
-                                                        @php $rating = $usr->rating /$usr->no_of_raters; @endphp
-                                                        @foreach(range(1,5) as $i)
-                                                            <span class="fa-stack" style="width:1em">
-                                                        <i class="far fa-star fa-stack-1x"></i>
-
-                                                                @if($rating >0)
-                                                                    @if($rating >0.5)
-                                                                        <i class="fas fa-star fa-stack-1x"></i>
-                                                                    @else
-                                                                        <i class="fas fa-star-half fa-stack-1x"></i>
-                                                                    @endif
-                                                                @endif
-                                                                @php $rating--; @endphp
-                                                        </span>
-                                                        @endforeach
-
-<br>
-                                                        ( {{number_format($usr->rating /$usr->no_of_raters, 2, '.', ',')}} )
-
-                                                    @else
-                                                        Still Not Rated.
-                                                    @endif
-                                                    {{--end display ratings--}}
-
-                                                </td>
-
-
-
-
-
-
-                                                {{--                                                <td> {{ $usr->rating }}</td>--}}
-
-                                                <td>{{ date('h: i a', strtotime($usr->created_at) )}}
-                                                    on {{ date('F j, Y', strtotime($usr->created_at) )}}</td>
-                                                <td>
-
-
-                                                    <button type='submit' class='btn btn-primary rateIt' data-toggle="modal"
-                                                                data-target="#myModal{{ $usr->buyer_id }}" name="rate" id="ratebtn{{ $usr->buyer_id }}" value="ratebtn{{ $usr->buyer_id }}">Rate
-                                                    </button>
-
-                                                    @include('rate')
-                                                </td>
-
-
-                                            @else
-                                                <td>{{ date('h: i a', strtotime($usr->created_at) )}}
-                                                    on {{ date('F j, Y', strtotime($usr->created_at) )}}</td>
-
-
-                                            @endif
-
-
-                                        @endif
+                                    @elseif(auth()->user()->_usertype == "buyer" || Session::get('user_role')=='buyer')
 
 
                                     @endif
 
 
                                 </tr>
-
-
-
-
                             @endforeach
                         @endif
                         {{--</tbody>--}}
@@ -286,18 +197,18 @@
 
     <script>
 
-        $(function() {
+        // // $(function() {
 
-            $(document).ready(function () {
-                $("form").submit(function () {
-                    $("submitBtn<?php $usr->buyer_id; ?>").attr("disabled", true);
-                    alert("<?php $usr->buyer_id; ?>");
-                    return true;
-                });
-            });
+        // //     $(document).ready(function () {
+        // //         $("form").submit(function () {
+        // //             $("submitBtn<?php $usr->buyer_id; ?>").attr("disabled", true);
+        // //             alert("<?php $usr->buyer_id; ?>");
+        // //             return true;
+        // //         });
+        // //     });
 
 
-        })
+        // })
     </script>
 
 
