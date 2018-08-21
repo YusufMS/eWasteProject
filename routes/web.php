@@ -45,6 +45,8 @@ Route::post('addsubcategory',['uses'=>'AdminController@addSubCategory', 'as'=>'a
 Route::get('deleteseller/{id}', ['uses'=>'AdminController@deleteSeller','as'=>'deleteseller']);
 Route::get('deletebuyer/{id}', ['uses'=>'AdminController@deleteBuyer','as'=>'deletebuyer']);
 Route::get('deletenews/{id}', ['uses'=>'AdminController@deleteNews','as'=>'deletenews']);
+Route::get('deletemaincategory/{id}', ['uses'=>'AdminController@deleteMainWasteCategory','as'=>'deletemaincategory']);
+Route::get('deletesubcategory/{id}', ['uses'=>'AdminController@deleteSubWasteCategory','as'=>'deletesubcategory']);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

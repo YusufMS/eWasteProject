@@ -204,6 +204,25 @@ public function deleteNews($id){
 
 	}
 
+public function deleteMainWasteCategory($id){
+
+		$delmain = Main_waste_category::find($id);
+		$delmain->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
+
+
+	}
+public function deleteSubWasteCategory($id){
+
+		$delsub = Sub_waste_category::find($id);
+		$delsub->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
+
+
+	}	
+
 
 
 

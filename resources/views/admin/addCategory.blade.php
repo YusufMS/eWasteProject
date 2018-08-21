@@ -218,14 +218,13 @@
                            
                             <div class="card">
                             <div class="card-body">
-                                @include('partials.messages')
-                                 {!! Form::open(['action' => ['AdminController@addMainCategory'], 'method' => 'POST']) !!}
-
-                                
+                                @include('partials.messages')                               
       
 
                            <div class="form-inline" role="form">       
                             <div class="form-group">
+
+
                                   {{ Form::label('Category', 'Delete Main Waste Type', ['class' => 'form-label'] )}}
                                   <select class="form-control" id="maincategoryselect" name ="maintype" >
                                   <option value="">Select a Category</option>
@@ -236,13 +235,16 @@
                                   @endif
                                    </select>
 
-                                   <button type="submit" class="btn btn-danger submit" onclick="return confirm('Are you sure you want to delete this main category?');">Delete</button>
+                                  @if(count($maincategories) > 0)
+                                 <a href='deletemaincategory/{{ $maincategory->id }}' class="btn btn-sm  btn-danger" onclick="return confirm('Are you sure you want to delete this main category?');" >Delete</a>  
+                                 @endif                              
+          
+                                
                             </div>
          
                             <div class="row" style="margin-left: -5px;">
                                 <div style="float: left;">
-                        
-                                  {!! Form::close() !!}
+                      
                                 </div>
                           
                           </div> 
