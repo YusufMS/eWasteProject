@@ -20,20 +20,26 @@
                 @include('partials.messages')
 
                 <hr>
-                <div class="card-header"><h4>{{ $post->title }}</h4>
-                    <br>
-                    <h6 class="card-subtitle mb-2 text-muted">
+                <div class="card-header">
+                    <h4 class="d-inline">{{ $post->title }}</h4>
+                    <span class="float-right"><kbd class="bg-info">{{$post->sub_waste_category->category}} Category</kbd></span>
+                    <h6 class="card-subtitle my-2 text-muted">
                         <div class="row">
                             <div class="col-sm-7">
                                 Published by : {{ $post->user->full_name }}
+                                
                             </div>
                             <div class="col-sm-5">
-                                Created on: {{ date('F d, Y', strtotime($post->created_at)) }}
+                                    
+                                <span class="float-right">
+                                
+                                Created On: {{ date('F d, Y', strtotime($post->created_at)) }}
                                 at {{ Carbon\Carbon::parse($post->created_at)->format('g:i A') }}
                                 ( {{ Carbon::createFromTimestampUTC(strtotime($post->created_at))->diffForHumans() }})
-
+                                </span>
                             </div>
                         </div>
+                        <div class="row mt-2"><div class="col"><span class="text-dark">{{$post->view_count}} Views</span></div></div>
                     </h6>
                 </div>
 

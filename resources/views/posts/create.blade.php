@@ -68,7 +68,13 @@
 
                         <div class="form-group">
                             <label for="topic">Number of Items</label>
-                            <input id="noOfItems" class="form-control" type="text" name="noOfItems" placeholder="Ex: 10">
+                            <div class="row m-0">
+                            <input id="noOfItems" class="col-10 form-control" type="text" name="noOfItems" placeholder="Ex: 10">
+                            <select class="col-2 form-control" id="" name="item_unit">
+                                <option name="item_unit" value="Pieces">Pieces</option>
+                                <option name="item_unit" value="Kilograms">Kilograms</option>
+                            </select>
+                            </div>
                             <small class="text-muted">Amount of E-Waste that you have in pocession (in Kilograms). An approximate value is acceptable. </small>
                         </div>
 

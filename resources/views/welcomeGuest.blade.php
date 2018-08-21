@@ -26,7 +26,18 @@
     <div class="card">
         <div class="card-header"><h4 class="m-0">Browse our Categories</h4></div>
         <div class="card-group">
-            
+                @foreach($sub_waste_categories as $sub_waste_category)
+                <div class="card">
+                    {{-- <img class="card-img-top" src="{{URL::asset('/storage/category_icon_images/laptops.png')}}"> --}}
+                    <div class="card-body py-1">
+                        {{-- query to take posts for categories should be added to the link --}}
+                        <a style="text-decoration:none;" class="btn btn-light w-100" href="#">
+                            <h5 class="card-title text-center mb-0">{{$sub_waste_category->category}}</h5>
+                            <small class="text-muted">{{$sub_waste_category->description}}</small>
+                        </a>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
     <br>

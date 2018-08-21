@@ -119,6 +119,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+
         // validation
         if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
             $request->validate([
@@ -134,7 +135,8 @@ class PostsController extends Controller
                 'category' => 'required',
                 'description' => 'required',
                 'attachment' => 'nullable',
-                'noOfItems' => 'required',
+                'noOfItems' => 'required|integer',
+                'item_unit' => 'nullable',
                 'modelNo' => 'string|max:12|nullable',
             ]);
         } else { return "Unauthorized User"; }
@@ -178,9 +180,7 @@ class PostsController extends Controller
 
 
         if (auth()->user()->_usertype === "seller") {
-            $request->validate([
-                'buyerType' => 'required',
-            ]);
+            
             $buyerType = $request->input('buyerType');
             $buyerType = implode(',', $buyerType);
 
@@ -188,15 +188,13 @@ class PostsController extends Controller
                 ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
         } elseif (auth()->user()->_usertype === "buyer") {
-            $request->validate([
-                'noOfItems' => 'nullable',
-                'modelNo' => 'string|max:12|nullable',
-            ]);
+            
             $noOfItems = $request->input('noOfItems');
+            $itemUnit = $request->input('item_unit');
             $modelNo = $request->input('modelNo');
 
             DB::table('buyer_post')->insert(
-                ['no_of_items' => $noOfItems, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
+                ['no_of_items' => $noOfItems, 'item_unit' => $itemUnit, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
         } else {
             if (Session::has('user_role')) {
@@ -211,10 +209,11 @@ class PostsController extends Controller
                 } elseif (Session::get('user_role') == 'buyer') {
 
                     $noOfItems = $request->input('noOfItems');
+                    $itemUnit = $request->input('item_unit');
                     $modelNo = $request->input('modelNo');
 
                     DB::table('buyer_post')->insert(
-                        ['no_of_items' => $noOfItems, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
+                        ['no_of_items' => $noOfItems, 'item_unit' => $itemUnit, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
                     );
                 }
 
@@ -292,6 +291,7 @@ class PostsController extends Controller
                 'description' => 'required',
                 'attachment' => 'nullable',
                 'noOfItems' => 'required',
+                'item_unit' => 'nullable',
                 'modelNo' => 'string|max:12|nullable',
             ]);
         } else { return "Unauthorized User"; }
@@ -347,6 +347,7 @@ class PostsController extends Controller
 
             $buyer_post = Buyer_Post::where('post_id', $post->id)->first();
             $buyer_post->no_of_items = $request->input('noOfItems');
+            $buyer_post->item_unit = $request->input('item_unit');
             $buyer_post->model = $request->input('modelNo');
             $buyer_post->save();
 
