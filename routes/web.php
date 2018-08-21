@@ -30,18 +30,22 @@ Route::get('regBuyer', ['uses'=>'buyerController@index', 'as'=>'regBuyer']);
 
 Route::get('admin', ['uses'=>'AdminController@index','as'=>'adminpage']);
 Route::get('adminProfile', ['uses'=>'AdminController@adminProfile','as'=>'adminProfile']);
-Route::get('addnews', ['uses'=>'AdminController@addNews','as'=>'addnews']);
+Route::get('viewnews', ['uses'=>'AdminController@viewNews','as'=>'viewnews']);
 Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers']);
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
+Route::get('viewreportedposts', ['uses'=>'AdminController@viewReportedPosts','as'=>'viewreportedposts']);
+
 Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcategory']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
+Route::post('updatesiteinfo',['uses'=>'AdminController@updateSiteInformations', 'as'=>'updatesiteinfo']);
 Route::post('addmaincategory',['uses'=>'AdminController@addMainCategory', 'as'=>'addmaincategory']);
 Route::post('addsubcategory',['uses'=>'AdminController@addSubCategory', 'as'=>'addsubcategory']);
 Route::get('deleteseller/{id}', ['uses'=>'AdminController@deleteSeller','as'=>'deleteseller']);
 Route::get('deletebuyer/{id}', ['uses'=>'AdminController@deleteBuyer','as'=>'deletebuyer']);
-
+Route::get('deletenews/{id}', ['uses'=>'AdminController@deleteNews','as'=>'deletenews']);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 Route::get('profile/{id}', 'userprofileController@profileInfo');

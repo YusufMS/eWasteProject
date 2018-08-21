@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin Dashboard</title>
+<meta name="viewport" >
+<title>View Buyers</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/admin.css" />
 
         <style>
-          main{
+          table {
             font-size: 16px;
           }
         </style>
@@ -23,12 +23,10 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
           <ul class="nav navbar-nav">
-           <li class="active"><a href="{{route('adminpage')}}">Home</a></li>
+           <li class="active"><a href="{{route('viewbuyers')}}">Reported Posts</a></li>
           </ul>
 
-
           <ul class="nav navbar-nav navbar-right">
-      
            <li><a href="{{route('adminProfile')}}">Profile</a></li>
            <li><a class="dropdown-item" href="{{ route('logout') }}"
                   onclick="event.preventDefault();
@@ -47,18 +45,15 @@
   <div id="" style="">
     <img src="img/logo.png" class="logo" style="width: 180px; height: 180px; top: 10px" >
   </div>
-  <br>
-  <br>
 
+  <br>
+  <br>
     <a href="{{route('adminpage')}}">Home</a>
     <a href="{{route('viewnews')}}">Informations</a>
-    <a href="{{route('addcategory')}}">Categories</a>
-    <a href="{{route('viewusers')}}">System Users</a>
-    <a href="{{route('viewreportedposts')}}">Reported Posts</a>
+     <a href="{{route('addcategory')}}">Categories</a>
+     <a href="{{route('viewusers')}}">System Users</a>
+     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
-    
-    
-
 </div>
 
 
@@ -66,11 +61,54 @@
 
   <br>
   <br>
+  <br>
+  <br>
+  <br>
 
- 
+
+ <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive table-bordered">
+                <table class="table">
+
+                <tr>
+                    <th>User Name</th>
+                    <th>Complain</th>
+                    <th>Post Title</th>
+                    <th>Reported On</th>
+                    <th>View Post</th>
+                </tr>
+
+                @if(count($complains) > 0)
+
+                  @foreach($complains as $complain)
+
+                    <tr>
+                        <td>{{ $complain->id}}</td>
+                        <td>{{ $complain->content}}</td>
+                        <td>{{ $complain->post_id}}</td>
+                        <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>
+                        <td><a href='deletebuyer/{{ $user->id }}'>
+                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this buyer?');">View</button></a></td>
+                        
+                    </tr>
+                   
+                  @endforeach
+                @endif
+                      
+            </table>
+            </div>
+            <br>
+         
+          </div>
+        </div>
+      </div>
+
 
 
 </div>    
+
+
 
 <footer class="footer font-small blue pt-4 mt-4">
  <!-- Copyright -->

@@ -42,7 +42,7 @@ body {
 
 
 
-/* bellow css for cads ---------------------------------*/
+/* bellow css for news views cads ---------------------------------*/
 .bs-calltoaction{
     position: relative;
     width:auto;
@@ -50,6 +50,8 @@ body {
     border: 1px solid black;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 40px;
     border-radius: 5px;
 }
 
@@ -84,7 +86,7 @@ body {
                 }
 
             .cta-button{
-                padding-top: 10px;
+                padding-top: 20px;
                 padding-bottom: 10px;
             }
 
@@ -109,11 +111,6 @@ body {
 
 
 
-.bs-calltoaction.bs-calltoaction-default{
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
 
 .bs-calltoaction.bs-calltoaction-primary{
     color: #333;
@@ -121,36 +118,8 @@ body {
     border-color: #ccc;
 }
 
-.bs-calltoaction.bs-calltoaction-info{
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
 
-.bs-calltoaction.bs-calltoaction-success{
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
-
-.bs-calltoaction.bs-calltoaction-warning{
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
-
-.bs-calltoaction.bs-calltoaction-danger{
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
-
-.bs-calltoaction.bs-calltoaction-default .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-info .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-success .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-warning .cta-button .btn,
-.bs-calltoaction.bs-calltoaction-danger .cta-button .btn{
+.bs-calltoaction.bs-calltoaction-primary .cta-button .btn,{
     border-color:#fff;
     background-color: #3335;
 }

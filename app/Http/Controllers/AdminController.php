@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Buyer;
 use App\Seller;
+use App\Complain;
 use App\Site_information;
 use App\Main_waste_category;
 use App\Sub_waste_category;
@@ -26,13 +27,13 @@ public function adminProfile(){
 
 }
 
-
+/*
 public function addNews(){
   
 	return view('admin.addNews');
 
 
-}
+}  */
 
 
 public function addCategory(){
@@ -61,6 +62,35 @@ public function viewSellers(){
 
 }
 
+public function viewUsers(){
+
+	$users = user::all();
+	$buyers = buyer::all();
+	$sellers = user::all()->where('_usertype',"seller");
+  
+	return view('admin.viewUsers')->with('sellers',$sellers)->with('buyers',$buyers)->withTitle('User Details');
+
+}
+
+
+public function viewReportedPosts(){
+
+    $complains = Complain::all();
+
+    return view('admin.reportedPosts')->with('complains',$complains)->withTitle('Complains');
+
+
+}
+
+public function viewNews(){
+
+    $news = Site_information::all();
+
+    return view('admin.addNews')->with('news',$news)->withTitle('Site Informations');
+
+
+}
+
 
 
 public function configurations(){
@@ -70,13 +100,6 @@ public function configurations(){
 
 }
 
-public function viewUsers(){
-
-	$users = user::all();
-  
-	return view('admin.viewUsers')->with('users',$users)->withTitle('User Details');
-
-}
 
 
 public function addSiteInformations(Request $request){
@@ -169,6 +192,42 @@ public function deleteBuyer($id){
 
 
 	}
+
+
+public function deleteNews($id){
+
+		$delnews = Site_information::find($id);
+		$delnews->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
+
+
+	}
+
+
+
+
+public function updateSiteInformations(Request $request, $id){
+
+ 		// input validations
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+
+
+        $upinfo = Site_information::find($id);
+
+        $upinfo->title = $request->input('title');
+        $upinfo->description = $request->input('description');
+        $upinfo->type = $request->input('type');
+        $upinfo->save();
+
+       return redirect()->back()->with('success','Successfully updated.');
+
+       
+    }
 
 
 

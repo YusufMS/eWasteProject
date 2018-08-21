@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add News</title>
+<title>Informations</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/admin.css" />
 
@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
           <ul class="nav navbar-nav">
-           <li class="active"><a href="{{route('addnews')}}">Site Informations</a></li>
+           <li class="active"><a href="{{route('viewnews')}}">Site Informations</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -42,10 +42,10 @@
   <br>
   <br>
     <a href="{{route('adminpage')}}">Home</a>
-    <a href="{{route('addnews')}}">Add News</a>
-    <a href="{{route('viewbuyers')}}">View Buyers</a>
-    <a href="{{route('viewsellers')}}">View Sellers</a>
-    <a href="{{route('addcategory')}}">Add Category</a>
+    <a href="{{route('viewnews')}}">Informations</a>
+    <a href="{{route('addcategory')}}">Categories</a>
+    <a href="{{route('viewusers')}}">System Users</a>
+    <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
 </div>
 
@@ -72,10 +72,10 @@
               <a href="#updateinfo" data-toggle="tab">
               Update Info </a>             
             </li>
-            <li>
+     <!--  <li>
                <a href="#deleteinfo" data-toggle="tab">
               Delete Info </a>              
-            </li>
+            </li> -->
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="addinfo">
@@ -113,16 +113,94 @@
             </div>
 
             <div class="tab-pane" id="updateinfo">
+              <br>
 
-              
+              @if(count($news) > 0)
+                @foreach($news as $newnews)
+
+                <div class="bs-calltoaction bs-calltoaction-primary">
+                    <div class="row">
+                        <div class="col-md-10 cta-contents">
+                            <h1 class="cta-title">{{ $newnews->title }}</h1>
+                            <div class="cta-desc">
+                                <p>{{ $newnews->description }}</p>
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-1 button">
+                            <a href="#" class="btn btn-sm btn-block btn-primary" data-toggle="modal" data-target="#editModal1{{$newnews->id}}" >Edit</a>
+                            <a href='deletenews/{{ $newnews->id }}' class="btn btn-sm btn-block btn-danger" onclick="return confirm('Are you sure you want to delete this news?');" >Delete</a>
+                        </div>
+                     </div>
+                </div>
+
+
+
+
+<div class="modal fade" id="editModal1{{$newnews->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @include('partials.messages')
+        {!! Form::open(['action' => ['AdminController@updateSiteInformations',$newnews->id], 'method' => 'POST','enctype' => 'multipart/form-data']) !!}
+
+        
+          <div class="form-group">
+            {{ Form::label('title', 'Edit Title', ['class' => 'form-label'] )}}
+            {{ Form::text('title', $newnews->title , ['class' => 'form-control', 'id' => 'title']) }}
+
+
+          </div>
+          <div class="form-group">
+            {{ Form::label('body', 'Edit Description ', ['class' => 'form-label'] )}}
+            {{ Form::textarea('description', $newnews->description , ['class' => 'form-control', 'id' => 'body']) }}
+
+          </div>
+
+          <div class="form-group">
+       
+          {{ Form::label('select', 'select guest or author ', ['class' => 'form-label'] )}}
+          {{Form::select('type', ['1' => 'guest', '0' => 'author'])}}
+
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        {{ Form::hidden('_method', 'PUT')}}
+        {{ Form::submit('Post', ['class' => 'btn btn-primary']) }}
+        {!! Form::close() !!}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+                 @endforeach
+                @endif
+
+               
 
             </div>
 
 
 
-            <div class="tab-pane" id="deleteinfo">
+
+         <!--   <div class="tab-pane" id="deleteinfo">
               
-            </div>
+            </div>   -->
 
 
 

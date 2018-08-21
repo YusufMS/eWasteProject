@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Complain extends Model
 {
-    //
+    public $table = "complains";
+
 }

@@ -45,10 +45,10 @@
     <br>
     <br>
     <a href="{{route('adminpage')}}">Home</a>
-    <a href="{{route('addnews')}}">Add News</a>
-    <a href="{{route('viewbuyers')}}">View Buyers</a>
-    <a href="{{route('viewsellers')}}">View Sellers</a>
-    <a href="{{route('addcategory')}}">Add Category</a>
+    <a href="{{route('viewnews')}}">Informations</a>
+    <a href="{{route('addcategory')}}">Categories</a>
+    <a href="{{route('viewusers')}}">System Users</a>
+    <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
 </div>
 
