@@ -67,8 +67,11 @@
   <br>
   <br>
 
- 
 
+{!! $chart->html() !!}
+ 
+{!! Charts::scripts() !!}
+{!! $chart->script() !!}
 
 </div>    
 

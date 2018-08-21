@@ -91,8 +91,7 @@
 
   <br>
   <br>
-  <br>
-
+  
                    <!-- Inline Search  -->
 <form class="form-inline" role="form">
   <div class="form-group">
@@ -108,7 +107,7 @@
 <hr>
 
       <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-11">
               <div class="table-responsive table-bordered">
                 <table class="table">
 
@@ -147,6 +146,10 @@
             </div>
           </div>
         </div>
+
+
+<br>
+<br>
       </div>
     
 
@@ -158,7 +161,6 @@
             <div class="tab-pane" id="sellers">
 
 <div class="container"> 
-<br>
 <br>
 <br>
 <!-- Inline Search  -->
@@ -176,7 +178,7 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-11">
             <div class="table-responsive table-bordered">
                 <table class="table">
 
@@ -219,6 +221,12 @@
 
         </div>
     </div>
+
+<br>
+<br>
+
+
+
 </div>
 
 

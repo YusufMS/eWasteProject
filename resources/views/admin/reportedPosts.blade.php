@@ -86,7 +86,7 @@
                   @foreach($complains as $complain)
 
                     <tr>
-                        <td></td>
+                        <td>{{ $complain->User->first_name}}</td>
                         <td>{{ $complain->content}}</td>
                         <td>{{ $complain->Post->title}}</td>
                         <td>{{ date('h: i a', strtotime($complain->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>

@@ -10,6 +10,8 @@ use App\Complain;
 use App\Site_information;
 use App\Main_waste_category;
 use App\Sub_waste_category;
+use Charts;
+use DB;
 
 class AdminController extends Controller
 {
@@ -17,6 +19,10 @@ class AdminController extends Controller
 public function index(){
  
 	return view('admin.adminPage');
+
+
+
+
 }
 
 
@@ -96,7 +102,7 @@ public function viewNews(){
 
 public function configurations(){
   
-	return view('admin.addCategory');
+	return view('admin.configurations');
 
 
 }
@@ -248,6 +254,30 @@ public function updateSiteInformations(Request $request, $id){
 
        
     }
+
+
+public function chartUsers(){
+
+	$users = User::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
+    				->get();
+        $chart = Charts::database($users, 'bar', 'highcharts')
+			      ->title("Monthly new Register Users")
+			      ->elementLabel("Total Users")
+			      ->dimensions(1000, 500)
+			      ->responsive(false)
+			      ->groupByMonth(date('Y'), true);
+
+
+		return view('admin.adminPage',compact('chart'));
+
+       // return view('admin.adminPage', ['chart' => $chart]);
+
+
+	}
+
+
+
+
 
 
 

@@ -164,6 +164,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
 
 
     ],
@@ -220,6 +222,8 @@ return [
        'form' => Collective\Html\formFacade::class,
        'Html' => Collective\Html\HtmlFacade::class,
         'Carbon' => 'Carbon\Carbon',
+
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 

@@ -28,13 +28,14 @@ Route::get('regBuyer', ['uses'=>'buyerController@index', 'as'=>'regBuyer']);
 
 //admin's routes,
 
-Route::get('admin', ['uses'=>'AdminController@index','as'=>'adminpage']);
+Route::get('admin', ['uses'=>'AdminController@chartUsers','as'=>'adminpage']);
 Route::get('adminProfile', ['uses'=>'AdminController@adminProfile','as'=>'adminProfile']);
 Route::get('viewnews', ['uses'=>'AdminController@viewNews','as'=>'viewnews']);
 Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers']);
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('viewreportedposts', ['uses'=>'AdminController@viewReportedPosts','as'=>'viewreportedposts']);
+Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 
 Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcategory']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);

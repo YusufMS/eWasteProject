@@ -1,0 +1,34 @@
+{
+    "name": "consoletvs/charts",
+    "description": "Create charts for laravel using different charts libraries",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Erik Campobadal",
+            "email": "soc@erik.cat"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "illuminate/support": "5.*",
+        "jlawrence/eos": "3.*",
+        "jenssegers/date": "v3.*",
+        "consoletvs/support": "^2.1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ConsoleTVs\\Charts\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ConsoleTVs\\Charts\\ChartsServiceProvider"
+            ],
+            "aliases": {
+                "Charts": "ConsoleTVs\\Charts\\Facades\\Charts"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
