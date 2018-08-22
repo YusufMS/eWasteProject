@@ -87,10 +87,10 @@
                 {{--<i class="fas fa-star"></i>--}}
                 <h2 class="text-center font-weight-bold">Profiles</h2>
                 <hr>
-                <div class="table-responsive table-bordered">
+                <div class="table-responsive table-striped">
                     <table class="table">
                         {{--<tbody>--}}
-                        <tr>
+                        <thead class="thead-dark">
 
                             <th>Full Name</th>
                             <th>Email</th>
@@ -107,7 +107,7 @@
                             @endif
 
 
-                        </tr>
+                        </thead>
 
                         @if(count($users) > 0)
 
@@ -128,7 +128,7 @@
                                     @if(auth()->user()->_usertype == "seller" || Session::get('user_role') == 'seller')
 
                                         <td>{{ $usr->type }}</td>
-                                        <td> {{ $usr->website }}</td>
+                                        <td>{!!!is_null($usr->website) ? $usr->website : '<em class="text-muted">Not Provided</em>' !!}</td>
                                         <td style="width: 120px">
 
                                             {{--display ratings--}}
@@ -155,7 +155,7 @@
 
 
                                             @else
-                                                Still Not Rated.
+                                               <em class="text-muted">Still Not Rated.</em>
                                             @endif
                                             {{--end display ratings--}}
 

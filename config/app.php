@@ -150,6 +150,7 @@ return [
 
 
         Collective\Html\HtmlServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -165,6 +166,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         willvincent\Rateable\RateableServiceProvider::class,
 
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
 
     ],
@@ -221,6 +223,7 @@ return [
        'form' => Collective\Html\formFacade::class,
        'Html' => Collective\Html\HtmlFacade::class,
         'Carbon' => 'Carbon\Carbon',
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 
     ],
 

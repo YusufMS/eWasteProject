@@ -29,6 +29,7 @@ class PostsController extends Controller
 
     public function index()
     {
+        Session::put('active_nav', 'portal');
         $maincategories = main_waste_category::with(['sub_waste_category'])->get();
 
         if (auth()->user()->_usertype === "buyer") {
@@ -39,7 +40,7 @@ class PostsController extends Controller
                 ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                 ->where('user._usertype', "seller")
                 ->orderby('post.created_at', 'desc')
-                ->paginate(3);
+                ->paginate(10);
 //return $posts;
 
 
@@ -51,7 +52,7 @@ class PostsController extends Controller
                 ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                 ->where('user._usertype', "buyer")
                 ->orderby('post.created_at', 'desc')
-                ->paginate(3);
+                ->paginate(10);
 //            dd($posts);
 
         } else {
@@ -63,7 +64,7 @@ class PostsController extends Controller
                         ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                         ->where('user._usertype', "buyer")
                         ->orderby('post.created_at', 'desc')
-                        ->paginate(3);
+                        ->paginate(10);
 //                    return $posts;
 
                 } elseif (Session::get('user_role') == 'buyer') {
@@ -73,7 +74,7 @@ class PostsController extends Controller
                         ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                         ->where('user._usertype', "seller")
                         ->orderby('post.created_at', 'desc')
-                        ->paginate(3);
+                        ->paginate(10);
 // dd($posts[0]->category);
 
 //                    return $posts;
@@ -82,7 +83,7 @@ class PostsController extends Controller
             }
         }
 
-//        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(3);
+//        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(10);
 //
         return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' => 'Portal']);
 //
@@ -406,7 +407,7 @@ class PostsController extends Controller
                     ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                     ->where('publisher_id', Auth::id())
                     ->orderby('post.created_at', 'desc')
-                    ->paginate(3);
+                    ->paginate(10);
                 // }
             }elseif (Session::get('user_role') == 'buyer'){
                 // if (Post::has('buyer_post')){
@@ -415,7 +416,7 @@ class PostsController extends Controller
                     ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                     ->where('publisher_id', Auth::id())
                     ->orderby('post.created_at', 'desc')
-                    ->paginate(3);
+                    ->paginate(10);
                 // }
             }
         }
@@ -425,14 +426,14 @@ class PostsController extends Controller
             ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
             ->where('publisher_id', Auth::id())
             ->orderby('post.created_at', 'desc')
-            ->paginate(3);
+            ->paginate(10);
         }
         // $posts = DB::table('post')
         //     ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
         //     ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
         //     ->where('publisher_id', $id)
         //     ->orderby('post.created_at', 'desc')
-        //     ->paginate(3);
+        //     ->paginate(10);
 //
         return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' =>'Your Posts']);
     }
@@ -448,7 +449,7 @@ class PostsController extends Controller
             ->where('sub_waste_category_id', '=', $id)
             ->where('publisher_id', '!=', auth()->user()->id)
             ->orderby('post.created_at', 'desc')
-            ->paginate(3);
+            ->paginate(10);
 //
         return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' =>'Portal', 'resultsForCat' => sub_waste_category::find($id)->category]);
     }

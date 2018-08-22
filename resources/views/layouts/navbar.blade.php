@@ -16,14 +16,14 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             {{-- should configure to change for the active page --}}
-            <li class="nav-item active">
+            <li class="nav-item {{Session::get('active_nav') == 'portal' ? 'active' : ''}}">
                 <a class="nav-link" href="/posts">Portal</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href='/viewUsersByCategory'>Profiles <span class="sr-only">(current)</span></a>
+            <li class="nav-item {{Session::get('active_nav') == 'profiles' ? 'active' : ''}}">
+                <a class="nav-link" href='/viewUsersByCategory'>Profiles</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+            <li class="nav-item" {{Session::get('active_nav') == 'about' ? 'active' : ''}}>
+                <a class="nav-link" href="">About</a>
             </li>
             
 

@@ -95,6 +95,7 @@ class userprofileController extends Controller
 
 
     public function viewUsersByCategory(){
+        Session::put('active_nav', 'profiles');
         if(auth()->user()->_usertype == "seller"){
             $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
                         ->where('user.id','!=',auth()->user()->id)
