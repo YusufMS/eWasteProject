@@ -35,12 +35,13 @@ Route::get('viewusers', ['uses'=>'AdminController@viewUsers','as'=>'viewusers'])
 Route::get('viewbuyers', ['uses'=>'AdminController@viewBuyers','as'=>'viewbuyers']);
 Route::get('viewsellers', ['uses'=>'AdminController@viewSellers','as'=>'viewsellers']);
 Route::get('viewreportedposts', ['uses'=>'AdminController@viewReportedPosts','as'=>'viewreportedposts']);
+Route::get('viewadminposts', ['uses'=>'AdminController@viewPosts','as'=>'viewadminposts']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 
 Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcategory']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
-Route::post('updatesiteinfo',['uses'=>'AdminController@updateSiteInformations', 'as'=>'updatesiteinfo']);
+Route::put('updatesiteinfo{id}',['uses'=>'AdminController@updateSiteInformations', 'as'=>'updatesiteinfo']);
 Route::post('addmaincategory',['uses'=>'AdminController@addMainCategory', 'as'=>'addmaincategory']);
 Route::post('addsubcategory',['uses'=>'AdminController@addSubCategory', 'as'=>'addsubcategory']);
 Route::get('deleteseller/{id}', ['uses'=>'AdminController@deleteSeller','as'=>'deleteseller']);

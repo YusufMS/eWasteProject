@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
           <ul class="nav navbar-nav">
-           <li class="active"><a href="{{route('adminpage')}}">Home</a></li>
+           <li class="active"><a href="{{route('adminpage')}}">Configurations</a></li>
           </ul>
 
 
@@ -56,6 +56,7 @@
     <a href="{{route('viewusers')}}">System Users</a>
     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
+    <a href="{{route('viewadminposts')}}">All Posts</a>
     
     
 

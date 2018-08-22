@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">E-Waste Management</a>
         </div>
           <ul class="nav navbar-nav">
-           <li class="active"><a href="{{route('adminpage')}}">Home</a></li>
+           <li class="active"><a href="{{route('adminpage')}}">All Posts</a></li>
           </ul>
 
 
@@ -69,10 +69,16 @@
   <br>
 
 
-{!! $chart->html() !!}
- 
-{!! Charts::scripts() !!}
-{!! $chart->script() !!}
+
+
+
+
+
+
+
+
+
+
 
 </div>    
 

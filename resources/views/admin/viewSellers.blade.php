@@ -54,6 +54,7 @@
     <a href="{{route('viewsellers')}}">View Sellers</a>
     <a href="{{route('addcategory')}}">Categories</a>
     <a href="{{route('configurations')}}">Configurations</a>
+    <a href="{{route('viewadminposts')}}">All Posts</a>
 </div>
 
 

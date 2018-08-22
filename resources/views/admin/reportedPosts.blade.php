@@ -50,10 +50,11 @@
   <br>
     <a href="{{route('adminpage')}}">Home</a>
     <a href="{{route('viewnews')}}">Informations</a>
-     <a href="{{route('addcategory')}}">Categories</a>
-     <a href="{{route('viewusers')}}">System Users</a>
-     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
+    <a href="{{route('addcategory')}}">Categories</a>
+    <a href="{{route('viewusers')}}">System Users</a>
+    <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
+    <a href="{{route('viewadminposts')}}">All Posts</a>
 </div>
 
 
@@ -86,9 +87,9 @@
                   @foreach($complains as $complain)
 
                     <tr>
-                        <td>{{ $complain->User->first_name}}</td>
+                        <td>{{ $complain->user->first_name}}</td>
                         <td>{{ $complain->content}}</td>
-                        <td>{{ $complain->Post->title}}</td>
+                        <td>{{ $complain->post->title}}</td>
                         <td>{{ date('h: i a', strtotime($complain->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>
                         <td><a href=''>
                         <button type='submit' class='btn btn-primary' onclick="">View</button></a></td>

@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function complains()
     {
-        return $this->hasMany('App\Complain');
+        return $this->hasMany('App\Complain', 'reporter_id');
 
         
     }

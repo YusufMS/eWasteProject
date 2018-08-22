@@ -89,6 +89,15 @@ public function viewReportedPosts(){
 
 }
 
+public function viewPosts(){
+
+  
+    return view('admin.viewPosts');
+
+
+}
+
+
 public function viewNews(){
 
     $news = Site_information::all();
