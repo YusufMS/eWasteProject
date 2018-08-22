@@ -42,6 +42,22 @@
         @else
             <ul class="navbar-nav navbar-right">
 
+                <li class="nav-item dropdown shown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"><span class="fa fa-bell" data-toggle="tooltip" title="Notification"></span> <span class=" fa fa-badge"> ({{ count(auth()->user()->unreadNotifications()->get()) }})</span> </a>
+                    <div class="dropdown-menu shown dropdown-menu-right">
+
+                        {{--( auth()->user()->unreadNotifications()->take(10)->get())--}}
+                        @foreach( auth()->user()->unreadNotifications()->take(10)->get() as  $notification)
+
+                          {{--                            {!! var_dump($notification->data['user']) !!}--}}
+
+                            @include('partials.notification.'.snake_case(class_basename($notification->type)))
+
+                        @endforeach
+                            {{--@endif--}}
+                    </div>
+                </li>
+
                 @if(Auth::user()->_usertype == 'seller' || Session::get('user_role') == 'seller')
 
                     <li class="nav-item dropdown shown">

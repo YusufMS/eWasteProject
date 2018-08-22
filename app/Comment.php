@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Notifications\Notify;
 
 class Comment extends Model
 {
+//    use notify;
     public $table = 'comment';
 
     public function post()

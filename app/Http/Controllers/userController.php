@@ -115,7 +115,6 @@ class userController extends Controller
             }
         } else {
 
-
             return redirect('login')->with('error', 'login failed');
 
         }
