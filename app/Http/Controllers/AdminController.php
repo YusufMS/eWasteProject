@@ -299,8 +299,8 @@ public function chartUsers(){
 	$users = User::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
     				->get();
         $chart1 = Charts::database($users, 'bar', 'highcharts')
-			      ->title("Monthly new Register Users")
-			      ->elementLabel("Total of Users")
+			      ->title("Monthly new Registered Users")
+			      ->elementLabel("Total Number of Users")
 			      ->dimensions(100, 400)
 			      ->responsive(true)
 			      ->groupByMonth(date('Y'), true);
@@ -318,10 +318,47 @@ public function chartUsers(){
 
 
 
-		//return view('admin.adminPage',compact('chart'));
 
-       return view('admin.adminPage', ['chart1' => $chart1],['chart2' => $chart2]);
+	
+	$sellers = user::all()->where('_usertype',"seller");
+	$sellercount = $sellers->count();	
 
+	$buyers = user::all()->where('_usertype',"buyer");
+	$buyercount = $buyers->count();
+
+	$buyersellers = user::all()->where('_usertype',"buyer/seller");
+	$buyersellercount = $buyersellers->count();
+
+
+	$chart3  = Charts::create('pie', 'highcharts')
+    			->title('All System Users')
+    			->labels(['Sellers', 'Buyers', 'Both Buyers/Sellers'])
+   				->values([$sellercount,$buyercount,$buyersellercount])
+    			->dimensions(1000,500)
+    			->responsive(true);
+
+
+
+    $data = [
+    'chart1'  => $chart1,
+    'chart2'   => $chart2,
+    'chart3' => $chart3
+
+	];
+
+
+
+
+
+
+
+
+
+
+
+	//return view('admin.adminPage',compact('chart'));
+    //return view('admin.adminPage', ['chart1' => $chart1],['chart2' => $chart2]);
+	return view('admin.adminPage', $data);
 
 	}
 

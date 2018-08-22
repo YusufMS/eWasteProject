@@ -72,19 +72,28 @@
 
   <span class="border">
     {!! $chart1->html() !!}
+    {!! Charts::scripts() !!}
+    {!! $chart1->script() !!}
 <hr>
 <br>
 
     {!! $chart2->html() !!}
+    {!! Charts::scripts() !!}
+    {!! $chart2->script() !!}
+<hr>
+<br>
+<br>
+    
+    {!! $chart3->html() !!}
+    {!! Charts::scripts() !!}
+    {!! $chart3->script() !!}
+    
 
   </span>
 
 
 
- 
-{!! Charts::scripts() !!}
-{!! $chart1->script() !!}
-{!! $chart2->script() !!}
+
 </div>    
 
 <footer class="footer font-small blue pt-4 mt-4">
