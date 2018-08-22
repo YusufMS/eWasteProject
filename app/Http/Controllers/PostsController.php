@@ -339,7 +339,7 @@ class PostsController extends Controller
         
     }
 
-    }
+    
 
 
     //get all the post details published by the logged user

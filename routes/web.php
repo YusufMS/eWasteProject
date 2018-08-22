@@ -52,7 +52,7 @@ Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profile
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts', 'PostsController@showMyPosts');
 Route::get('/postByCategory/{id}', 'PostsController@postByCategory');
-Route::post('comments', 'commentController@store')->middleware('auth');
+Route::post('comments', 'CommentController@store')->middleware('auth');
 
 Route::post('/message/store', 'messageController@store');
 Route::post('/rateBuyers/{id}', 'userProfileController@rateBuyers');
