@@ -109,16 +109,15 @@
                 @endif
             </div>
 
-            <div class="row">
-                <div class="col-sm-9"></div>
-                <div class="col-sm-3 ">
-                    {{ $posts->links() }}
-
-                </div>
-            </div>
+            
 
 
         </div>
+
+                <div class="d-flex justify-content-center">
+                    {{ $posts->links() }}
+                </div>
+
 
     </div>
 

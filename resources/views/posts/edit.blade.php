@@ -83,11 +83,12 @@
                         <div class="form-group">
                             <label for="topic">No of Items</label>
                             <div class="row m-0">
-                            <input id="noOfItems" value="{{$post->buyer_post->no_of_items}}" class="col-10 form-control" type="text" name="noOfItems">
-                            <select class="col-2 form-control" id="" name="item_unit">
-                                <option name="item_unit" value="Pieces">Pieces</option>
-                                <option name="item_unit" value="Kilograms">Kilograms</option>
-                            </select>
+                                <input id="noOfItems" value="{{$post->buyer_post->no_of_items}}" class="col-10 form-control" type="text" name="noOfItems">
+                                <select class="col-2 form-control" id="" name="item_unit">
+                                    <option name="item_unit" value="Pieces" {{$post->buyer_post->item_unit == 'Pieces'? 'selected' : ''}}>Pieces</option>
+                                    <option name="item_unit" value="Kilograms" {{$post->buyer_post->item_unit == 'Kilograms'? 'selected' : ''}}>Kilograms</option>
+                                </select>
+                            </div>
                             </div>
                         </div>
 
@@ -129,7 +130,13 @@
                             @else
                                 <div class="form-group">
                                     <label for="topic">No of Items</label>
-                                    <input id="noOfItems" value="{{$post->buyer_post->no_of_items}}" class="form-control" type="text" name="noOfItems">
+                                    <div class="row m-0">
+                                        <input id="noOfItems" value="{{$post->buyer_post->no_of_items}}" class="col-10 form-control" type="text" name="noOfItems">
+                                        <select class="col-2 form-control" id="" name="item_unit">
+                                            <option name="item_unit" value="Pieces" {{$post->buyer_post->item_unit == 'Pieces'? 'selected' : ''}}>Pieces</option>
+                                            <option name="item_unit" value="Kilograms" {{$post->buyer_post->item_unit == 'Kilograms'? 'selected' : ''}}>Kilograms</option>
+                                        </select>
+                                    </div>
                                 </div>
         
                                 <div class="form-group">

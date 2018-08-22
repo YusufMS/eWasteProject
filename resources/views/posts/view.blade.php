@@ -25,11 +25,11 @@
                     <span class="float-right"><kbd class="bg-info">{{$post->sub_waste_category->category}} Category</kbd></span>
                     <h6 class="card-subtitle my-2 text-muted">
                         <div class="row">
-                            <div class="col-sm-7">
+                            <div class="col-sm-5">
                                 Published by : {{ $post->user->full_name }}
                                 
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-7">
                                     
                                 <span class="float-right">
                                 
@@ -52,7 +52,22 @@
                                  style="max-height: 400px; width:450px">
                         </div>
                         <div class="col-sm-6">
-                            <p class="card-text">{{ $post->content }}</p>
+                            @if(!is_null($post->buyer_post))
+                                <p><strong>Quantity : </strong>{{$post->buyer_post->no_of_items . ' ' . $post->buyer_post->item_unit}}</p>
+                                @if(!is_null($post->buyer_post->model))    
+                                <p><strong>Model Number : </strong>{{$post->buyer_post->model}}</p>
+                                @endif
+                            @elseif(!is_null($post->seller_post))
+                                <div>
+                                    <strong>Preferred Buyer Categories</strong>
+                                    <ul>
+                                    @foreach(explode(',', $post->seller_post->buyer_category) as $buyer_type)
+                                    <li>{{$buyer_type}}</li>
+                                    @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <p class="card-text"><strong>Description :</strong><br>{{ $post->content }}</p>
                         </div>
                     </div>
                     <br>

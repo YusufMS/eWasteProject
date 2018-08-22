@@ -67,7 +67,7 @@
                     @elseif( Auth::user()->_usertype === "buyer" || Session::get('user_role') == 'buyer')
 
                         <div class="form-group">
-                            <label for="topic">Number of Items</label>
+                            <label for="topic">Number of Items<span class="text-danger"> *</span></label>
                             <div class="row m-0">
                             <input id="noOfItems" class="col-10 form-control" type="text" name="noOfItems" placeholder="Ex: 10">
                             <select class="col-2 form-control" id="" name="item_unit">
