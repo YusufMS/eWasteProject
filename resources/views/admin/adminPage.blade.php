@@ -56,7 +56,7 @@
     <a href="{{route('viewusers')}}">System Users</a>
     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
-    <a href="{{route('viewadminposts')}}">All Posts</a>
+    
     
     
 
@@ -71,7 +71,11 @@
   <h2>Admin Dashboard</h2>
 
   <span class="border">
-    {!! $chart->html() !!}
+    {!! $chart1->html() !!}
+<hr>
+<br>
+
+    {!! $chart2->html() !!}
 
   </span>
 
@@ -79,8 +83,8 @@
 
  
 {!! Charts::scripts() !!}
-{!! $chart->script() !!}
-
+{!! $chart1->script() !!}
+{!! $chart2->script() !!}
 </div>    
 
 <footer class="footer font-small blue pt-4 mt-4">

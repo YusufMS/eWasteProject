@@ -54,7 +54,7 @@
     <a href="{{route('viewusers')}}">System Users</a>
     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
-    <a href="{{route('viewadminposts')}}">All Posts</a>
+    
 </div>
 
 
@@ -80,21 +80,21 @@
               <a href="#sellers" data-toggle="tab">
               Sellers </a>             
             </li>
-            <li>
+            <!-- <li>
                <a href="#all" data-toggle="tab">
               All </a>              
-            </li>
+            </li> -->
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="buyers">
 
 <div class="container">            
 
-  <br>
+ 
   <br>
   
                    <!-- Inline Search  -->
-<form class="form-inline" role="form">
+<!-- <form class="form-inline" role="form">
   <div class="form-group">
      <label class="sr-only" for="exampleInputEmail2">UserName</label>
     <input type="text" class="form-control" id="username" placeholder="Type a name">
@@ -103,7 +103,7 @@
   <button type="submit" class="btn btn-info">Refresh</button>
 </form>
 
-</form>
+</form> -->
 
 <hr>
 
@@ -135,7 +135,7 @@
                         <td>{{ $user->rating }}</td>
                         <td>{{ date('h: i a', strtotime($user->created_at) )}} on {{ date('F j, Y', strtotime($user->created_at) )}}</td>
                         <td><a href='deletebuyer/{{ $user->id }}'>
-                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this buyer?');">Delete</button></a></td>
+                        <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this buyer?');" data-toggle="tooltip">Delete</button></a></td>
                         <td><a href="#">
                         <button type='submit' class='btn btn-primary' onclick="">Message</button></a></td>
                     </tr>
@@ -163,9 +163,9 @@
 
 <div class="container"> 
 <br>
-<br>
+
 <!-- Inline Search  -->
-    <form class="form-inline" role="form">
+<!--     <form class="form-inline" role="form">
         <div class="form-group">
             <label class="sr-only" for="exampleInputEmail2">UserName</label>
             <input type="text" class="form-control" id="username" placeholder="Type a name">
@@ -174,7 +174,7 @@
         <button type="submit" class="btn btn-info">Refresh</button>
     </form>
 
-    </form>
+    </form> -->
 
     <hr>
 
@@ -238,11 +238,11 @@
 
 
 
-           <div class="tab-pane" id="all">
+<!--            <div class="tab-pane" id="all">
 
-            ////
-              
-            </div>
+ ////
+   
+ </div> -->
 
 
 

@@ -47,7 +47,7 @@
     <a href="{{route('viewusers')}}">System Users</a>
     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
-    <a href="{{route('viewadminposts')}}">All Posts</a>
+   
 </div>
 
 

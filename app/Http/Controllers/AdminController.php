@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\Buyer;
 use App\Seller;
@@ -10,6 +11,10 @@ use App\Complain;
 use App\Site_information;
 use App\Main_waste_category;
 use App\Sub_waste_category;
+use App\post;
+use App\Buyer_Post;
+use App\Seller_Post;
+use Auth;
 use Charts;
 use DB;
 
@@ -83,19 +88,33 @@ public function viewReportedPosts(){
 
     $complains = Complain::all();
     //dd($complains);
-
-    return view('admin.reportedPosts')->with('complains',$complains)->withTitle('Complains');
+    $users = User::all();
+    return view('admin.reportedPosts')->with(['complains'=>$complains, 'users' => $users])->withTitle('Complains');
 
 
 }
 
-public function viewPosts(){
+// public function viewPosts(){
 
   
-    return view('admin.viewPosts');
+//     return view('admin.viewPosts');
 
 
-}
+// }
+
+
+    public function viewPosts($id)
+    {
+        $post = post::findOrFail($id);
+        $seller = user::findOrFail($post->publisher_id);
+
+        
+        if ($post->publisher_id != auth()->user()->id) {
+            $post->increment('view_count');
+        }
+
+        return view('admin.reportedPosts', ['post' => $post, 'seller' => $seller]);
+    }
 
 
 public function viewNews(){
@@ -239,6 +258,16 @@ public function deleteSubWasteCategory($id){
 
 	}	
 
+public function deletePost($id){
+
+		$deletepost = Sub_waste_category::find($id);
+		$deletepost->delete();
+
+		return redirect()->back()->with('success','Successfully deleted.');
+
+
+	}	
+
 
 
 
@@ -269,7 +298,7 @@ public function chartUsers(){
 
 	$users = User::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
     				->get();
-        $chart = Charts::database($users, 'bar', 'highcharts')
+        $chart1 = Charts::database($users, 'bar', 'highcharts')
 			      ->title("Monthly new Register Users")
 			      ->elementLabel("Total of Users")
 			      ->dimensions(100, 400)
@@ -277,9 +306,21 @@ public function chartUsers(){
 			      ->groupByMonth(date('Y'), true);
 
 
-		return view('admin.adminPage',compact('chart'));
 
-       // return view('admin.adminPage', ['chart' => $chart]);
+	$posts = Post::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
+    				->get();
+        $chart2 = Charts::database($posts, 'bar', 'highcharts')
+			      ->title("User Posts Evaluation")
+			      ->elementLabel("Total Number of Posts")
+			      ->dimensions(100, 400)
+			      ->responsive(true)
+			      ->groupByMonth(date('Y'), true);
+
+
+
+		//return view('admin.adminPage',compact('chart'));
+
+       return view('admin.adminPage', ['chart1' => $chart1],['chart2' => $chart2]);
 
 
 	}

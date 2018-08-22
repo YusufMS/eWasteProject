@@ -54,7 +54,7 @@
     <a href="{{route('viewusers')}}">System Users</a>
     <a href="{{route('viewreportedposts')}}">Reported Posts</a>
     <a href="{{route('configurations')}}">Configurations</a>
-    <a href="{{route('viewadminposts')}}">All Posts</a>
+    
 </div>
 
 
@@ -91,25 +91,85 @@
                         <td>{{ $complain->content}}</td>
                         <td>{{ $complain->post->title}}</td>
                         <td>{{ date('h: i a', strtotime($complain->created_at) )}} on {{ date('F j, Y', strtotime($complain->created_at) )}}</td>
-                        <td><a href=''>
-                        <button type='submit' class='btn btn-primary' onclick="">View</button></a></td>
                         
+                        <td>
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#reportModal2{{$complain->post->id}}" >View</a>
+                        </td>
+
                     </tr>
-                   
+
+
+<div class="modal fade" id="reportModal2{{$complain->post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ $complain->post->title}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @include('partials.messages')
+        
+
+        
+          <div class="form-group">
+            {{ Form::label('title', $complain->post->content, ['class' => 'form-label'] )}}
+            
+          </div>
+
+          <div class="form-group">
+          
+             <img id="image-gallery-image" class="img-responsive" src="/storage/attachment/{{$complain->post->attachment}}">
+            
+          </div>
+
+           <div class="form-group">
+            {{ Form::label('title', 'Posted by' , ['class' => 'form-label'] )}}
+           {{ Form::label('title', ($users->find($complain->post->publisher_id)->first_name), ['class' => 'form-label'] )}}
+                    
+
+          </div>
+
+          <div class="form-group inline">
+            {{ Form::label('title', 'Posted at' , ['class' => 'form-label'] )}}
+           {{ Form::label('title', $complain->post->created_at, ['class' => 'form-label'] )}}
+               
+         
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href='' class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this post?');" >Delete</a>
+    
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+                  
+
                   @endforeach
                 @endif
                       
             </table>
+
+
+
             </div>
             <br>
          
           </div>
         </div>
-      </div>
+     
 
 
 
-</div>    
+
+</div> 
 
 
 
