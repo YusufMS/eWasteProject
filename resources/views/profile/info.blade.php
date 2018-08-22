@@ -15,13 +15,6 @@
         </div>
         <div class="card-body">
             <table class="table">
-                {{-- <thead>
-                  <tr>
-                    <th scope="col">Type</th>
-                    <th scope="col">Column heading</th>
-
-                  </tr>
-                </thead> --}}
                 <tbody>
                     <tr>
                         <th scope="row">Name</th>

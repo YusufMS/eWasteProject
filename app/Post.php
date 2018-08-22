@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use user;
 use seller;
 use sub_waste_category;
 
@@ -16,9 +15,9 @@ class post extends Model
         return $this->belongsTo('App\user','publisher_id');
     }
 
-    public function seller()
+    public function buyer()
     {
-        return $this->belongsTo('App\seller');
+        return $this->belongsTo('App\buyer');
     }
 
 
@@ -28,7 +27,7 @@ class post extends Model
     }
 
     public function comments(){
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\comment');
     }
 
     public function buyer_post(){

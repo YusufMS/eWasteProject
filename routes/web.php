@@ -52,7 +52,7 @@ Route::put('profile/{id}', 'userprofileController@profileUpdate')->name('profile
 Route::get('search-categories/{id}', 'PostsController@category');
 Route::get('/showMyPosts', 'PostsController@showMyPosts');
 Route::get('/postByCategory/{id}', 'PostsController@postByCategory');
-Route::resource('comments', 'CommentController')->middleware('auth');
+Route::post('comments', 'commentController@store')->middleware('auth');
 
 Route::post('/message/store', 'messageController@store');
 Route::post('/rateBuyers/{id}', 'userProfileController@rateBuyers');
@@ -61,7 +61,13 @@ Route::post('/signup',['uses'=>'userController@create', 'as'=>'signup']);
 Route::post('doLogin', ['uses' => 'userController@doLogin', 'as'=>'doLogin']);
 Route::post('createBuyer', ['uses'=>'buyerController@create','as'=>'createBuyer']);
 Route::get('/viewUsersByCategory ',['uses'=>'userprofileController@viewUsersByCategory']);
-
+Route::get('/test',function (){
+    $notifications = User::find(11)->unreadNotifications;
+    foreach ($notifications as $notification) {
+        dd($notification);
+    }
+//    @endforeach
+});
 
 
 Route::resource('/posts', 'PostsController')->middleware('auth');

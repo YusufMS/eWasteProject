@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Seller;
 use DB;
 use View;
 use App\Main_waste_category;
@@ -17,23 +16,18 @@ use App\Seller_Post;
 use Auth;
 
 
-
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
 
     public function index()
     {
         Session::put('active_nav', 'portal');
         $maincategories = main_waste_category::with(['sub_waste_category'])->get();
 
-        if (auth()->user()->_usertype === "buyer") {
+        //check the user logged to change the portal
+        if (auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer') {
 
+            // join post,user,sub_waste_category tables and retrieve all the details in the post table and sub_waste_category details
             $posts = DB::table('post')
                 ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                 ->join('user', 'user.id', '=', 'post.publisher_id')
@@ -43,8 +37,10 @@ class PostsController extends Controller
                 ->paginate(10);
 //return $posts;
 
+            //check the user logged to change the portal and check the portal buyer/seller type user is visiting
+        } elseif (auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller') {
 
-        } elseif (auth()->user()->_usertype === "seller") {
+            // join post,user,sub_waste_category tables and retrieve all the details in the post table and sub_waste_category details
 
             $posts = DB::table('post')
                 ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
@@ -86,25 +82,24 @@ class PostsController extends Controller
 //        $posts = DB::table('post')->orderby('updated_at', 'desc')->paginate(10);
 //
         return view('posts.index', ['posts' => $posts, 'maincategories' => $maincategories, 'view_title' => 'Portal']);
-//
+
     }
 
 
     public function category($id)
     {
+        //retrieve all the main waste categories in the database
         $maincategories = main_waste_category::find($id);
+        //retrieve sub categories belongs to each of the main waste category in the database
         $subcategories = waste::where('main_category_id', $id)->get();
+
         return view('buyer.index')->with($maincategories)->with($subcategories);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        // $subWasteCategory = new Waste();
+
+        //select all the sub categories which should be displayed in the drop down menu in add post page to select
         $cat = DB::table('sub_waste_category')->select('category')->distinct()->get();
 
         return view('posts.create', compact('cat'));
@@ -112,12 +107,6 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -156,23 +145,28 @@ class PostsController extends Controller
             $fileNameToStore = 'noimage.jpg';
 
         }
+
         $category = $request->input('category');
+        //select the sub category id which is selected by the user in the add post form
         $wasteid = DB::table('sub_waste_category')->select('id')->where('category', $category)->get();
 
         $post = new post;
 
-
+        //get the user inputs that should insert to the post table
         $post->title = $request->input('title');
         $post->content = $request->input('description');
         $post->attachment = $fileNameToStore;
+
         foreach ($wasteid as $id)
 
             $post->sub_waste_category_id = $id->id;
+
         $post->publisher_id = auth()->user()->id;
 
+        //insert data in to the post table
         $post->save();
 
-
+        //get the id of the post submited
         $postid = DB::table('post')->select('id')->where('title', $request->input('title'))->get();
 
         foreach ($postid as $pid)
@@ -180,45 +174,24 @@ class PostsController extends Controller
             $post_id = $pid->id;
 
 
-        if (auth()->user()->_usertype === "seller") {
-            
+        if (auth()->user()->_usertype === "seller" && Session::get('user_role') == 'seller') {
             $buyerType = $request->input('buyerType');
             $buyerType = implode(',', $buyerType);
 
+            //insert post details of the posts which are published by the sellers
             DB::table('seller_post')->insert(
                 ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
-        } elseif (auth()->user()->_usertype === "buyer") {
-            
+
+        } elseif (auth()->user()->_usertype === "buyer" && Session::get('user_role') == 'buyer') {
             $noOfItems = $request->input('noOfItems');
             $itemUnit = $request->input('item_unit');
             $modelNo = $request->input('modelNo');
 
+            //insert post details of the posts which are published by the buyers
             DB::table('buyer_post')->insert(
                 ['no_of_items' => $noOfItems, 'item_unit' => $itemUnit, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
             );
-        } else {
-            if (Session::has('user_role')) {
-                if (Session::get('user_role') == 'seller') {
-                    $buyerType = $request->input('buyerType');
-                    $buyerType = implode(',', $buyerType);
-
-                    DB::table('seller_post')->insert(
-                        ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
-                    );
-
-                } elseif (Session::get('user_role') == 'buyer') {
-
-                    $noOfItems = $request->input('noOfItems');
-                    $itemUnit = $request->input('item_unit');
-                    $modelNo = $request->input('modelNo');
-
-                    DB::table('buyer_post')->insert(
-                        ['no_of_items' => $noOfItems, 'item_unit' => $itemUnit, 'model' => $modelNo, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
-                    );
-                }
-
-            }
         }
 
 
@@ -227,14 +200,9 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
+        //get the all the details of the posts published by any
         $post = post::findOrFail($id);
         $seller = user::findOrFail($post->publisher_id);
 
@@ -248,12 +216,7 @@ class PostsController extends Controller
         return view('posts.view', ['post' => $post, 'seller' => $seller, 'comments' => $comments, 'commentors' => $commentors]);
     }
 
-    /**
-     * Show the form for editing newt_textbox_set_height(textbox, height)e specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         
@@ -268,13 +231,7 @@ class PostsController extends Controller
         return view('posts.edit', compact('post', 'buyer_category', 'cat'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         if(auth()->user()->_usertype === "seller" || Session::get('user_role') == 'seller'){
@@ -306,7 +263,7 @@ class PostsController extends Controller
             $fileNameToStore = $filename . '_' . time() . '.' . $extension;
             // upload
             $path = $request->file('attachment')->storeAs('public/attachment', $fileNameToStore);
-        } 
+        }
 
         $category = $request->input('category');
         $wasteid = DB::table('sub_waste_category')->select('id')->where('category', $category)->get();
@@ -314,12 +271,12 @@ class PostsController extends Controller
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->content = $request->input('description');
-        if(isset($fileNameToStore)){
+        if (isset($fileNameToStore)) {
             $post->attachment = $fileNameToStore;
         }
 
         foreach ($wasteid as $id)
-        $post->sub_waste_category_id = $id->id;
+            $post->sub_waste_category_id = $id->id;
 
         $post->save();
 
@@ -335,17 +292,15 @@ class PostsController extends Controller
             $buyerType = $request->input('buyerType');
             $buyerType = implode(',', $buyerType);
 
+            //insert data to the seller_post table
             $seller_post = Seller_Post::where('post_id', $post->id)->first();
             $seller_post->buyer_category = $buyerType;
             $seller_post->save();
 
-            // DB::table('seller_post')->insert(
-            //     ['buyer_category' => $buyerType, 'user_id' => auth()->user()->id, 'post_id' => $post_id]
-            // );
-        } elseif (auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer') {
-            // $noOfItems = $request->input('noOfItems');
-            // $modelNo = $request->input('modelNo');
 
+        } elseif (auth()->user()->_usertype === "buyer" || Session::get('user_role') == 'buyer') {
+
+            //insert data to the buyer_post table
             $buyer_post = Buyer_Post::where('post_id', $post->id)->first();
             $buyer_post->no_of_items = $request->input('noOfItems');
             $buyer_post->item_unit = $request->input('item_unit');
@@ -362,23 +317,19 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
+        //delete selected post
         $post = Post::find($id);
-        if ($post->buyer_post()->exists()){
+        if ($post->buyer_post()->exists()) {
             $user_post = Buyer_Post::where('post_id', $id)->first();
-        }elseif ($post->seller_post()->exists()){
+        } elseif ($post->seller_post()->exists()) {
             $user_post = Seller_Post::where('post_id', $id)->first();
         }
 
-        
-        if ($post->attachment != "noimage.jpg"){
+
+        if ($post->attachment != "noimage.jpg") {
             Storage::delete('public/images/' . $post->attachment);
         }
 
@@ -388,21 +339,17 @@ class PostsController extends Controller
         
     }
 
-    public function getPublisher($id)
-    {
-        $seller = Seller::findOrFail($id);
-        return view('posts.sellerContactDetails', ['seller' => $seller]);
     }
 
 
+    //get all the post details published by the logged user
     public function showMyPosts()
     {
         $maincategories = main_waste_category::with(['sub_waste_category'])->get();
+        if (Session::has('user_role')) {
+            if (Session::get('user_role') == 'seller') {
 
-        if (Session::has('user_role')){
-            if (Session::get('user_role') == 'seller'){
-                // if (Post::has('seller_post')){
-                    $posts = Post::has('seller_post')
+                $posts = Post::has('seller_post')
                     ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
                     ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
                     ->where('publisher_id', Auth::id())
@@ -419,8 +366,7 @@ class PostsController extends Controller
                     ->paginate(10);
                 // }
             }
-        }
-        else{
+        } else {
             $posts = DB::table('post')
             ->rightjoin('sub_waste_category', 'sub_waste_category.id', "=", "post.sub_waste_category_id")
             ->select('post.id as id', 'post.title as title', 'post.content', 'post.attachment', 'sub_waste_category.category as category', 'post.updated_at as updated_at', 'post.created_at as created_at', 'post.deleted_at as deleted_at', 'post.view_count as view_count', 'post.publisher_id as publisher_id', 'post.like_dislike as like_dislike')
@@ -439,6 +385,7 @@ class PostsController extends Controller
     }
 
 
+    //get the user details according the logged user(if logged portal is buyer this shows the details of the seller)
     public function postByCategory($id)
     {
         $maincategories = main_waste_category::with(['sub_waste_category'])->get();

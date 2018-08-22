@@ -174,14 +174,5 @@ public function deleteBuyer($id){
 
 
 
-/**
-public function viewMainCategories(){
-
-	 $maincategories = main_waste_category::all();
-  
-	 return view('admin.addCategory')->with('maincategories',$maincategories)->withTitle('MainCategories');
-
-}
-***/
 
 }
