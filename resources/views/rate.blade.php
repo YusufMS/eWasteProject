@@ -38,6 +38,8 @@
                                     star</label>
                             </ul>
                         </div>
+                        <input type="hidden" value="{{$usr->buyer_id}}" name="buyer_id" id="">
+                        <input type="hidden" value="{{Auth::id()}}" name="rater_id" id="">
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary float-right submitBtn" name="submitBtn{{$usr->buyer_id}}" value="{{ $usr->buyer_id }}" id="submitBtn{{$usr->buyer_id}}"  >Submit</button>

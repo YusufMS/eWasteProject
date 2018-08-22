@@ -8,6 +8,7 @@ use DB;
 use App\user;
 use App\Buyer;
 use App\Seller;
+use App\Rating_info;
 
 
 
@@ -96,6 +97,7 @@ class userprofileController extends Controller
 
     public function viewUsersByCategory(){
         Session::put('active_nav', 'profiles');
+        $rating_info = Rating_info::all();
         if(auth()->user()->_usertype == "seller"){
             $buyers =  DB::table('buyer')->join('user','user.id', '=', 'buyer.user_id')
                         ->where('user.id','!=',auth()->user()->id)
@@ -103,7 +105,7 @@ class userprofileController extends Controller
                         ->select('user.first_name as first_name','user.last_name as last_name','user.email as email','user.phone as phone' ,'user.address as address' , 'buyer.type as type' , 'buyer.website as website', 'buyer.rating as rating', 'user.created_at as created_at','buyer.user_id as user_id','user.id as id','buyer.id as buyer_id','buyer.no_of_raters as no_of_raters')
                         ->get();
 
-            return view('viewUser')->with('users',$buyers)->withTitle('Buyer Details');
+            return view('viewUser')->with(['users'=> $buyers, 'rating_info' => $rating_info])->withTitle('Buyer Details');
 
 
         }elseif (auth()->user()->_usertype == "buyer"){
@@ -111,7 +113,7 @@ class userprofileController extends Controller
                         ->where('id','!=',auth()->user()->id)
                         ->where('_usertype','!=',"buyer");
 
-            return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
+            return view('viewUser')->with(['users'=> $sellers, 'rating_info' => $rating_info])->withTitle('Seller Details');
 
         }else{
             if(Session::has('user_role')) {
@@ -127,14 +129,14 @@ class userprofileController extends Controller
 
 //                    $calculatedRates = ($rates->rating)/($rates->no_of_raters);
 
-                    return view('viewUser')->with(['users'=> $buyers])->withTitle('Buyer Details');
+                    return view('viewUser')->with(['users'=> $buyers, 'rating_info' => $rating_info])->withTitle('Buyer Details');
 
                 }elseif(Session::get('user_role') == 'buyer'){
                     $sellers = user::all()
                         ->where('id','!=',auth()->user()->id)
                         ->where('_usertype','!=',"buyer");
 
-                    return view('viewUser')->with('users',$sellers)->withTitle('Seller Details');
+                    return view('viewUser')->with(['users' => $sellers, 'rating_info' => $rating_info])->withTitle('Seller Details');
 
                 }
                                 }
@@ -147,7 +149,9 @@ class userprofileController extends Controller
 
     public function rateBuyers(Request $request, $id)
 
-    {
+    {   
+        // return $request->rater_id;
+        
         $prev_ratings = DB::table('buyer')
                             ->select('rating')
                             ->where('id', $id)->first();
@@ -161,7 +165,12 @@ class userprofileController extends Controller
         DB::table('buyer')
             ->where('id', $id)
             ->update(['rating' => $new_rating , 'no_of_raters' => $new_raters]);
-
+        
+        $rating_log = new Rating_info;
+        $rating_log->rater_id = $request->rater_id;
+        $rating_log->buyer_id = $request->buyer_id;
+        $rating_log->save();
+            
         return redirect()->to('/viewUsersByCategory')->with('success','You have rated successfully.');
 
     }

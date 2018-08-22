@@ -162,9 +162,14 @@
                                         </td>
                                         <td>
 {{--                                         <span data-toggle="modal" data-target="#myModal{{ $usr->buyer_id }}">--}}
+                                        {{-- @if($rating_info->where('rater_id', Auth::id())->where('user_id', $usr->buyer_id)) --}}
                                         <button type='submit' class='btn btn-primary' id="ratebtn{{ $usr->buyer_id }}" class='btn btn-primary' data-toggle="modal"
-                                                data-target="#myModal{{ $usr->buyer_id }}" name="rate"  >Rate</button>
+                                                data-target="#myModal{{ $usr->buyer_id }}" name="rate" disabled>Rated</button>
+                                                @else
+                                                <button type='submit' class='btn btn-primary' id="ratebtn{{ $usr->buyer_id }}" class='btn btn-primary' data-toggle="modal"
+                                                        data-target="#myModal{{ $usr->buyer_id }}" name="rate">Rate</button>
                                          {{--</span>--}}
+                                         {{-- @endif --}}
                                             @include('rate')
                                         </td>
 
