@@ -68,8 +68,15 @@
   <br>
   <br>
 
+  <h2>Admin Dashboard</h2>
 
-{!! $chart->html() !!}
+  <span class="border">
+    {!! $chart->html() !!}
+
+  </span>
+
+
+
  
 {!! Charts::scripts() !!}
 {!! $chart->script() !!}

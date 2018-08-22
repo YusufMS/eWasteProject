@@ -271,9 +271,9 @@ public function chartUsers(){
     				->get();
         $chart = Charts::database($users, 'bar', 'highcharts')
 			      ->title("Monthly new Register Users")
-			      ->elementLabel("Total Users")
-			      ->dimensions(1000, 500)
-			      ->responsive(false)
+			      ->elementLabel("Total of Users")
+			      ->dimensions(100, 400)
+			      ->responsive(true)
 			      ->groupByMonth(date('Y'), true);
 
 
