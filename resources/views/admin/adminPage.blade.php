@@ -87,6 +87,14 @@
     {!! $chart3->html() !!}
     {!! Charts::scripts() !!}
     {!! $chart3->script() !!}
+
+<hr>
+<br>
+<br>
+    
+    {!! $chart4->html() !!}
+    {!! Charts::scripts() !!}
+    {!! $chart4->script() !!}    
     
 
   </span>

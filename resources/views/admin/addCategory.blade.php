@@ -272,6 +272,9 @@
                                                     <th>Delete</th>
                         
                                                 </tr>
+
+
+                                              
                                                 <tr>
                                                     <td></td>
                                                     <td></td>
@@ -279,6 +282,7 @@
                                                      <button type='submit' class='btn btn-danger' onclick="return confirm('Are you sure you want to delete this sub category?');">Delete</button>
                                                      </a></td>
                                                 </tr>
+
 
 
                                           </table>

@@ -50,10 +50,21 @@ public function addNews(){
 public function addCategory(){
 
 	$maincategories = main_waste_category::all();
+	$subcategories = sub_waste_category::all();
 
-	return view('admin.addCategory')->with('maincategories',$maincategories)->withTitle('MainCategories');
+	return view('admin.addCategory')->with('maincategories',$maincategories)->with('subcategories',$subcategories)->withTitle('MainCategories');
 
 }
+
+public function viewSubCategoryToDelete($id){
+
+	$subcategories = sub_waste_category::all();
+
+	return view('admin.addCategory')->with('subcategories',$subcategories)->withTitle('SubCategories');
+
+}
+
+
 
 public function viewBuyers(){
 
@@ -339,22 +350,29 @@ public function chartUsers(){
 
 
 
+
+    $complains = Complain::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
+    				->get();
+        $chart4 = Charts::database($complains, 'bar', 'highcharts')
+			      ->title("User Complains")
+			      ->elementLabel("Total Number of Complains")
+			      ->dimensions(100, 400)
+			      ->responsive(true)
+			      ->groupByMonth(date('Y'), true);
+    
+
+
+
+
+
+
     $data = [
     'chart1'  => $chart1,
     'chart2'   => $chart2,
-    'chart3' => $chart3
+    'chart3' => $chart3,
+    'chart4' => $chart4
 
 	];
-
-
-
-
-
-
-
-
-
-
 
 	//return view('admin.adminPage',compact('chart'));
     //return view('admin.adminPage', ['chart1' => $chart1],['chart2' => $chart2]);

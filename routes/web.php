@@ -38,6 +38,8 @@ Route::get('viewreportedposts', ['uses'=>'AdminController@viewReportedPosts','as
 Route::get('viewadminposts', ['uses'=>'AdminController@viewPosts','as'=>'viewadminposts']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 
+
+Route::post('subcategorydelete/{id}', ['uses'=>'AdminController@viewSubCategoryToDelete','as'=>'subcategorydelete']);
 Route::get('addcategory', ['uses'=>'AdminController@addCategory','as'=>'addcategory']);
 Route::get('configurations', ['uses'=>'AdminController@configurations','as'=>'configurations']);
 Route::post('addsiteinfo',['uses'=>'AdminController@addSiteInformations', 'as'=>'addsiteinfo']);
